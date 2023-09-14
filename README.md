@@ -1,6 +1,6 @@
 # GreenIQ - An E-learning Platform for Rural Areas
 ### PROJECT FOR SMART INDIA HACKATHON 2023
-### developed by Team Cyber Elites
+### Developed by Team Cyber Elites
 To start the project do the following:
  - Clone this repository.
  - Open terminal in **MS Visual Studio Code** and run.
