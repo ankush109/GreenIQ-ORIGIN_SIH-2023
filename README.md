@@ -1,5 +1,6 @@
-# GREENIQ BY TEAM CYBER ELITES
+# GreenIQ - An E-learning Platform for Rural Areas
 ### PROJECT FOR SMART INDIA HACKATHON 2023
+### developed by Team Cyber Elites
 To start the project do the following:
  - Clone this repository.
  - Open terminal in **MS Visual Studio Code** and run.
@@ -9,7 +10,7 @@ To start the project do the following:
  - Install **Postgress** as we will be using it locally.
  - The database will migrated later on to **MongoDB Atlas**.
 #### PRIMS Commands:
-Only if you are working on Back-end and have made some changes to the `schema.prisma` file.
+Only if you are working on Back-End and have made some changes to the `schema.prisma` file.
 
     npx prisma migrate dev
 For the Back-End:
