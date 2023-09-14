@@ -29,10 +29,7 @@ const loginController = {
 
       // generating jwt tokens for the logged in user
 
-      const accessToken = jwt.sign(
-        user.id,
-        process.env.USER_ACCESS_SECRET,
-      );
+      const accessToken = jwt.sign(user.id, process.env.USER_ACCESS_SECRET);
 
       res.cookie("accessToken", accessToken, {
         maxAge: ms("30m"),
@@ -65,10 +62,9 @@ const loginController = {
 
   async register(req, res, next) {
     try {
+      // name , password , phonenumber , email -> for register
 
-      // name , password , phonenumber , email -> for register 
-      
-      const resp = await (req.body);
+      const resp = await req.body;
       delete resp.confirmPassword;
       const user = await prisma.user.findUnique({
         where: {
