@@ -1,26 +1,24 @@
-CYBER ELITES -> SMART INDIA HACKATHON 2023
+# GREENIQ BY TEAM CYBER ELITES
+### PROJECT FOR SMART INDIA HACKATHON 2023
+To start the project do the following:
+ - Clone this repository.
+ - Open terminal in **MS Visual Studio Code** and run.
+ - Make sure you are in the file where you can see both Front-end and Back-end.
+#### REQUIREMENTS:
+ - Make sure **node.js** is installed.
+ - Install **Postgress** as we will be using it locally.
+ - The database will migrated later on to **MongoDB Atlas**.
+#### PRIMS Commands:
+Only if you are working on Back-end and have made some changes to the `schema.prisma` file.
 
----------------
-GreenIQ
----------------
+    npx prisma migrate dev
+For the Back-End:
 
-To start the project : (after cloning this repo )
+    cd backend
+    npm install
+    npm run dev
+For the Front-End: 
 
-open the terminal in vs code and run the following 
-
-make sure you are in the file where you can see both backend and frontend 
-
-# make Sure node js is installed 
-# install postgress as locally we will use postgress
-# later on will migrate our database to mongodb altas 
-
-Prims commands -> only if you are working on backend and made some changes in the schema.prisma file
-
-1. npx prisma migrate dev
-
-
-----------------------------------------------------------------
-
-1. cd backend -> npm install -> npm run dev 
-
-2. cd frontend -> npm install -> npm run dev
+    cd frontend
+    npm install
+    npm run dev
