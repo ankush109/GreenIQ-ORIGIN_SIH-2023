@@ -39,13 +39,9 @@ const loginController = {
       res.json(customResponse(200, { accessToken }));
     } catch (err) {
       console.log(err);
-      if (err instanceof ZodError) {
-        return next({
-          status: createError.InternalServerError().status,
-          message: err.issues,
-        });
-      }
-      return next(createError.InternalServerError());
+      res.status(400).json({
+        message: err,
+      });
     }
   },
 
@@ -93,6 +89,7 @@ const loginController = {
       });
     } catch (err) {
       console.log(err);
+      res.json(customResponse(400, err));
     }
   },
 };

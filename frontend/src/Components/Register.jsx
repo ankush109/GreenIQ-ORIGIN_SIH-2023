@@ -55,7 +55,7 @@ function Register() {
       <div className=" hidden lg:block w-1/2 h-screen bg-blue-400">
         <img
           className="object-cover h-full w-full"
-          src="https://wallpaperaccess.com/full/2593043.jpg"
+          src="https://newlookschool.com/wp-content/uploads/2021/08/Knolage-and-Learning.jpg"
         />
       </div>
       <div className="flex lg:w-1/2  sm:w-full h-screen justify-center p-20">

@@ -16,6 +16,7 @@ import { useNavigate } from "react-router";
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const [apiError, setApiError] = useState(null);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const {
     reset,
@@ -47,12 +48,15 @@ function Login() {
         navigate("/");
       }
       reset();
+      setApiError(null);
+
       // As reset will fallback to defaultValues
       // so they have to be cleared explicitly
       setValue("email", "");
       setShowPassword(false);
     } catch (err) {
-      toast.error(err.response.data.message, { id: err.response.data.message });
+      setApiError("please verify your credentials");
+      toast.error("Invalid Credentials");
     }
     reset();
     // As reset will fallback to defaultValues
@@ -76,6 +80,7 @@ function Login() {
             <div className="flex flex-col gap-5 my-10">
               <div className="">
                 <TextField
+                  required
                   id="outlined-basic"
                   label="Email"
                   variant="outlined"
@@ -86,6 +91,7 @@ function Login() {
               <div className="relative">
                 {/* p-2 mt-3 rounded-2xl border w-full */}
                 <TextField
+                  required
                   id="outlined-basic"
                   label="Password"
                   variant="outlined"
@@ -106,11 +112,6 @@ function Login() {
                     <AiFillEyeInvisible size={20} />
                   )}
                 </div>
-                {errors.password && (
-                  <p className="text-red-500 text-sm italic">
-                    {errors.password.message}
-                  </p>
-                )}
               </div>
             </div>
             <div className="flex mx-10 p-5">

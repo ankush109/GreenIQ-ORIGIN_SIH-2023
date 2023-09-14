@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { GetUserQuery } from "../api/user";
 
 function Navbar() {
-  const { data, isLoading } = GetUserQuery();
+  const data = GetUserQuery();
   const [user, setuser] = useState();
   useEffect(() => {
     console.log(data.data, "data");
