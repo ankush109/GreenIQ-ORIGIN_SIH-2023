@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-
+import {
+  Link
+} from "react-router-dom";
 import { useNavigate } from "react-router";
 import { GetUserQuery } from "../api/user";
 
@@ -24,7 +26,13 @@ function Navbar() {
           <div>
             <ul className="flex space-x-4 text-white">
               {/* <li className="font-bold">Hi, {userQuery.data?.message.email}</li> */}
-              <h1>hello {user?.name}  </h1>
+             {
+              user ? (
+                <h1>hello {user?.name}  </h1>
+              ):(
+                <Link to="/login">Login</Link>
+              )
+             }
          
               <li
                 onClick={() => {
