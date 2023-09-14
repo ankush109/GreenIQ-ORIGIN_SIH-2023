@@ -1,0 +1,26 @@
+CYBER ELITES -> SMART INDIA HACKATHON 2023
+
+---------------
+GreenIQ
+---------------
+
+To start the project : (after cloning this repo )
+
+open the terminal in vs code and run the following 
+
+make sure you are in the file where you can see both backend and frontend 
+
+# make Sure node js is installed 
+# install postgress as locally we will use postgress
+# later on will migrate our database to mongodb altas 
+
+Prims commands -> only if you are working on backend and made some changes in the schema.prisma file
+
+1. npx prisma migrate dev
+
+
+----------------------------------------------------------------
+
+1. cd backend -> npm install -> npm run dev 
+
+2. cd frontend -> npm install -> npm run dev
