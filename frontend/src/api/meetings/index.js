@@ -22,6 +22,14 @@ const AuthAPI = () => {
     });
   }
 };
+const updateMeetingMentor = async (meetingId) => {
+  await AuthAPI().post("/user/confirm-meeting", { meetingId });
+};
+
+const getMeetingsMentor = async () => {
+  const { data } = await AuthAPI().get("/user/get-meetings");
+  return data;
+};
 const bookMeeting = async (meetinginfo) => {
   const { data } = await AuthAPI().post("/user/book-meeting", meetinginfo);
   return data;
@@ -53,5 +61,19 @@ const myRequestedMeetingsQuery = () =>
       return res;
     },
   });
-
-export { getMentorsQuery, bookMeeting, myRequestedMeetingsQuery };
+const getMentorMeetingsQuery = () =>
+  useQuery({
+    queryKey: ["mentor-meetings"],
+    queryFn: () => getMeetingsMentor(),
+    select: (data) => {
+      const res = data.message;
+      return res;
+    },
+  });
+export {
+  getMentorsQuery,
+  bookMeeting,
+  myRequestedMeetingsQuery,
+  getMentorMeetingsQuery,
+  updateMeetingMentor,
+};

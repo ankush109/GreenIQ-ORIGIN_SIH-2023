@@ -8,6 +8,7 @@ import Login from "./Components/Login";
 import Meeting from "./Components/Meeting";
 import Navbar from "./Components/Navbar";
 import ConfirmBooking from "./Components/ConfirmBooking";
+import Meetings from "./Components/mentor-page/Meetings";
 function App() {
   function isJWTValid() {
     const token = localStorage.getItem("token");
@@ -52,6 +53,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/confirm-booking/:id" element={<ConfirmBooking />} />
+          <Route path="/Meetings" element={<Meetings />} />
         </Routes>
       </BrowserRouter>
     </div>

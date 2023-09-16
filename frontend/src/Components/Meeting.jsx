@@ -15,21 +15,22 @@ function Meeting() {
     console.log();
   }, [myrequestedmeetings]);
   return (
-    <div className="max-w-screen max-h-screen flex overflow-hidden">
-      <div className="w-1/4 h-screen">
+    <div className="flex ">
+      <div className="w-1/4 h-screen ">
         <Sidebar />
       </div>
-      <div className="bg-gray-200 w-full  justify-center">
+
+      <div className="bg-gray-200 w-full  justify-center ">
         <div className="flex flex-col justify-center items-center">
           <h1 className="text-center font-semibold text-4xl my-10">
             Doubt Sessions
           </h1>
-          <div className="bg-red-400 w-56 rounded-lg flex justify-center h-10 items-center">
+          <div className="bg-red-400 w-56 rounded-lg flex justify-center h-10 items-center text-white font-bold">
             Book a 1:1 call
           </div>
         </div>
+        <div className="text-2xl font-bold px-10">Available Mentors</div>
         <div className="flex flex-wrap">
-          <div className="text-2xl font-bold px-10">Available Mentors</div>
           {meetings?.length > 0 ? (
             meetings?.map((meet) => (
               <MentorCard
@@ -51,6 +52,7 @@ function Meeting() {
                 dates={meeting.dates}
                 status={meeting.status}
                 name={meeting.guest.name}
+                notes={meeting.notes}
               />
             ))
           ) : (

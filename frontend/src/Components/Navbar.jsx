@@ -28,7 +28,12 @@ function Navbar() {
               ) : (
                 <Link to="/login">Login</Link>
               )}
-              <Link to="/book-meeting">book a call</Link>
+              {user?.role === "mentor" ? (
+                <Link to="/Meetings">Meetings</Link>
+              ) : (
+                <Link to="/book-meeting">book a call</Link>
+              )}
+
               <li
                 onClick={() => {
                   localStorage.removeItem("token");
