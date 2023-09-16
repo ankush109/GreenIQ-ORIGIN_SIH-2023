@@ -13,8 +13,9 @@ const meetController = {
   // student to book their meeting with the mentor he wants
   async bookMeeting(req, res, next) {
     try {
-      const { guestId, dateTime, status } = req.body;
+      const { guestId } = req.body;
       const hostId = req.user.id;
+      const dates = req.body.dates;
 
       const host = await prisma.user.findFirst({
         where: {
@@ -26,7 +27,7 @@ const meetController = {
         return res.json(customResponse(400, "Host user not found"));
       }
 
-      if (host.role != "student") {
+      if (host.role !== "student") {
         return res.json(customResponse(403, "Permission denied"));
       }
 
@@ -34,15 +35,23 @@ const meetController = {
         data: {
           hostId: hostId,
           guestId: guestId,
-          dateTime: dateTime,
-          status: status,
+          status: "requested",
+          dates: {
+            create: dates.map((date) => ({
+              date: date,
+            })),
+          },
         },
       });
-
-      res.json(customResponse(200, meeting));
+      res.json({
+        success: true,
+        message: meeting,
+      });
     } catch (err) {
-      console.error(err);
-      res.json(customResponse(500, err));
+      console.log(err);
+      res.json({
+        message: err,
+      });
     }
   },
 
@@ -122,13 +131,25 @@ const meetController = {
         },
       });
       if (user) {
-        const meeting = await prisma.meeting.findFirst({
+        const meeting = await prisma.meeting.findMany({
           where: {
             hostId: userId,
           },
+          include: {
+            dates: true,
+            guest: {
+              select: {
+                name: true,
+                email: true,
+              },
+            },
+          },
         });
         if (meeting) {
-          res.json(meeting);
+          res.json({
+            success: true,
+            message: meeting,
+          });
         } else {
           res.json({ message: "no bookings yet" });
         }

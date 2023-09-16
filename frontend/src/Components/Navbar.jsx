@@ -13,7 +13,7 @@ function Navbar() {
   const navigate = useNavigate();
   return (
     <div className="sticky top-0 z-50">
-      <div className=" bg-green-500   p-4 ">
+      <div className=" bg-zinc-700   p-4 ">
         <div className="flex justify-between ">
           <div>
             <a href="/">
@@ -28,7 +28,7 @@ function Navbar() {
               ) : (
                 <Link to="/login">Login</Link>
               )}
-
+              <Link to="/book-meeting">book a call</Link>
               <li
                 onClick={() => {
                   localStorage.removeItem("token");
