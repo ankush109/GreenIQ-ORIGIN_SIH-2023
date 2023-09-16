@@ -8,4 +8,6 @@ router.get("/user-details", authMiddleware, userController.userDetails);
 router.post("/book-meeting", authMiddleware, meetController.bookMeeting);
 router.get("/get-meetings", authMiddleware, meetController.getMeetings);
 router.get("/my-meetings", authMiddleware, meetController.showbookedMeetings);
+router.get("/mentors", authMiddleware, meetController.getmentorsinfo);
+router.post("/confirm-meeting", authMiddleware, meetController.confirmMeeting);
 export default router;

@@ -1,5 +1,14 @@
--- AlterTable
-ALTER TABLE "User" ADD COLUMN     "role" TEXT NOT NULL DEFAULT 'student';
+-- CreateTable
+CREATE TABLE "User" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+    "phonenumber" TEXT NOT NULL,
+    "role" TEXT NOT NULL DEFAULT 'student',
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
 
 -- CreateTable
 CREATE TABLE "Meeting" (
@@ -26,6 +35,12 @@ CREATE TABLE "Course" (
 
     CONSTRAINT "Course_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_phonenumber_key" ON "User"("phonenumber");
 
 -- AddForeignKey
 ALTER TABLE "Meeting" ADD CONSTRAINT "Meeting_hostId_fkey" FOREIGN KEY ("hostId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

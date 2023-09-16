@@ -51,6 +51,40 @@ const meetController = {
   // guest -> mentor
   // host -> student
 
+  async confirmMeeting(req, res, next) {
+    try {
+      const { meetingId } = req.body;
+      const mentorId = req.user.id;
+      const meeting = await prisma.meeting.findFirst({
+        where: {
+          id: meetingId,
+          guestId: mentorId,
+        },
+      });
+      console.log(meeting);
+      if (!meeting) {
+        return res
+          .status(404)
+          .json({ error: "Meeting not found or not pending." });
+      }
+
+      // Update the meeting status to "confirmed"
+      const updatedMeeting = await prisma.meeting.update({
+        where: {
+          id: meetingId,
+        },
+        data: {
+          status: "confirmed",
+        },
+      });
+
+      res.json(updatedMeeting);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  },
+
   async getMeetings(req, res, next) {
     try {
       const userId = req.user.id;
@@ -64,6 +98,9 @@ const meetController = {
           where: {
             guestId: userId,
           },
+          include: {
+            host: true,
+          },
         });
         res.json(meetings);
       } else {
@@ -71,7 +108,7 @@ const meetController = {
       }
     } catch (err) {
       console.error(err);
-      res.status(500).json({ error: "Internal server error" });
+      res.status(500).json({ error: err });
     }
   },
   // for the student to see the booked meeting only one at a time with only a single mentor
@@ -96,7 +133,23 @@ const meetController = {
           res.json({ message: "no bookings yet" });
         }
       }
-    } catch (err) {}
+    } catch (err) {
+      res.status(500).json({ error: err });
+    }
+  },
+  // get all the mentors
+  async getmentorsinfo(req, res, next) {
+    try {
+      const mentors = await prisma.user.findMany({
+        where: {
+          role: "mentor",
+        },
+      });
+      console.log(mentors);
+      res.json({ message: mentors });
+    } catch (err) {
+      res.status(500).json({ error: err });
+    }
   },
 };
 export default meetController;
