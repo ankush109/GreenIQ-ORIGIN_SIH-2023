@@ -6,6 +6,9 @@ import { useEffect } from "react";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
 import Test from "./Components/Test";
+import Meeting from "./Components/Meeting";
+import Navbar from "./Components/Navbar";
+import ConfirmBooking from "./Components/ConfirmBooking";
 function App() {
   function isJWTValid() {
     const token = localStorage.getItem("token");
@@ -43,11 +46,14 @@ function App() {
         toastOptions={{ duration: 5000 }}
       />
       <BrowserRouter>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/book-meeting" element={<Meeting />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
            <Route path="/test" element={<Test />} />
+          <Route path="/confirm-booking/:id" element={<ConfirmBooking />} />
         </Routes>
       </BrowserRouter>
     </div>
