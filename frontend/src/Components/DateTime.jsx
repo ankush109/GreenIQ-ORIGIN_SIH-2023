@@ -21,6 +21,9 @@ function DateTime({ onData }) {
   const deleteDate = (date) => {
     const updatedlist = selectedDates.filter((x) => x !== date);
     setSelectedDates(updatedlist);
+    const updatel = displaydates.filter((x) => x !== date);
+    // console.log(up);
+    setdisplaydates(updatel);
   };
   const addDates = () => {
     if (selectedDates.length == 3) {
@@ -69,6 +72,7 @@ function DateTime({ onData }) {
       <Button
         onClick={() => {
           setSelectedDates([]);
+          setdisplaydates([]);
           setdateVal(" ");
         }}
         style={{
