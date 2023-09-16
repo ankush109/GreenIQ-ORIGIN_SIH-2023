@@ -10,14 +10,29 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Class {
+  id    String @id @default(cuid())
+  name  String
+  tests Test[]
+}
+
+model Subject {
+  id    String @id @default(cuid())
+  name  String
+  tests Test[]
+}
+
 model User {
-  id          String   @id @default(cuid())
+  id          String @id @default(cuid())
   name        String
-  email       String   @unique
+  email       String @unique
   password    String
-  phonenumber String   @unique
-  role        String   @default("user")
-  Course      Course[]
+  phonenumber String @unique
+  role        String @default("user")
+  class       Int
+
+  Course Course[]
+  Test   Test[]
 }
 
 model Course {
@@ -27,4 +42,19 @@ model Course {
   userId      String
   description String
   img         String
+}
+
+model Test {
+  id          String   @id @default(cuid())
+  description String
+  title       String?
+  mentorId    String
+  assetUrl    String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  owner       User     @relation(fields: [mentorId], references: [id])
+  class       Class?   @relation(fields: [classId], references: [id])
+  classId     String?
+  subject     Subject? @relation(fields: [subjectId], references: [id])
+  subjectId   String?
 }

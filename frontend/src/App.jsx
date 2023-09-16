@@ -5,6 +5,7 @@ import { Toaster, toast, useToasterStore } from "react-hot-toast";
 import { useEffect } from "react";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
+import Test from "./Components/Test";
 function App() {
   function isJWTValid() {
     const token = localStorage.getItem("token");
@@ -46,6 +47,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+           <Route path="/test" element={<Test />} />
         </Routes>
       </BrowserRouter>
     </div>
