@@ -49,9 +49,7 @@ function App() {
         toastOptions={{ duration: 5000 }}
       />
       <BrowserRouter>
-        <Navbar />
         <Routes>
-          
           <Route path="/" element={<Landing />} />
           <Route path="/book-meeting" element={<ProtectedRoute />}>
             <Route path="/book-meeting" element={<Meeting />} />

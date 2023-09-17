@@ -21,7 +21,7 @@ function Meetings() {
   return (
     <div className=" ">
       <div className="text-2xl font-semibold mb-4 flex justify-center m-10 p-2">
-        Your Meetings ({meet.length})
+        Your Meetings ({meet?.length})
       </div>
       <div className="flex flex-wrap gap-10 mx-10">
         {meet?.length > 0 ? (
