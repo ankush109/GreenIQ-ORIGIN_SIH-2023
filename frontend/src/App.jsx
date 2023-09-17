@@ -5,6 +5,13 @@ import { Toaster, toast, useToasterStore } from "react-hot-toast";
 import { useEffect } from "react";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
+import Landing from "./pages/Home/Landing";
+
+import Meeting from "./Components/Meeting";
+import Navbar from "./Components/Navbar";
+import ConfirmBooking from "./Components/ConfirmBooking";
+import Meetings from "./Components/mentor-page/Meetings";
+import ProtectedRoute from "./Components/PrivateRoute";
 function App() {
   function isJWTValid() {
     const token = localStorage.getItem("token");
@@ -25,7 +32,7 @@ function App() {
     }
   }, []);
 
-  const MAX_TOAST_LIMIT = 2;
+  const MAX_TOAST_LIMIT = 1;
   const { toasts } = useToasterStore();
   useEffect(() => {
     toasts
@@ -43,9 +50,16 @@ function App() {
       />
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/book-meeting" element={<ProtectedRoute />}>
+            <Route path="/book-meeting" element={<Meeting />} />
+          </Route>
           <Route path="/" element={<Home />} />
+          {/* <Route path="/book-meeting" element={<Meeting />} /> */}
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/confirm-booking/:id" element={<ConfirmBooking />} />
+          <Route path="/Meetings" element={<Meetings />} />
         </Routes>
       </BrowserRouter>
     </div>

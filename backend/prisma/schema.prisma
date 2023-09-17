@@ -11,13 +11,36 @@ datasource db {
 }
 
 model User {
-  id          String   @id @default(cuid())
-  name        String
-  email       String   @unique
-  password    String
-  phonenumber String   @unique
-  role        String   @default("user")
-  Course      Course[]
+  id              String    @id @default(cuid())
+  name            String
+  email           String    @unique
+  password        String
+  phonenumber     String    @unique
+  role            String    @default("student")
+  Course          Course[]
+  meetingsAsHost  Meeting[] @relation("host") // meetings where the user is the host
+  meetingsAsGuest Meeting[] @relation("guest") // meetings where the user is the guest
+}
+
+model Meeting {
+  id       String  @id @default(cuid())
+  host     User    @relation("host", fields: [hostId], references: [id])
+  guest    User    @relation("guest", fields: [guestId], references: [id])
+  hostId   String
+  guestId  String
+  status   String
+  notes    String?
+  duration Int?
+  type     String?
+  location String?
+  dates    Date[]
+}
+
+model Date {
+  id        String   @id @default(cuid())
+  date      DateTime
+  meeting   Meeting  @relation(fields: [meetingId], references: [id])
+  meetingId String
 }
 
 model Course {

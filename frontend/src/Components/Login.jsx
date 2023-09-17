@@ -37,7 +37,6 @@ function Login() {
     },
   });
   const onSubmit = async (formData) => {
-    console.table(formData);
     try {
       const response = await loginUser(formData);
 
