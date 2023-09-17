@@ -16,6 +16,7 @@ import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 
 const Landing = () => {
+
   const [dropDown,setDropDown]=useState(false)
   const data = GetUserQuery();
   const [user,setuser]=useState();
@@ -46,6 +47,16 @@ const Landing = () => {
 
   const navigate = useNavigate();
 
+  const NavLinks=({obj})=>{
+        console.log(obj);
+        return(!obj.protected?
+            <Link to={obj.path} className='hover:text-theme cursor-pointer tracking-widest  '>{obj.name}</Link>:
+            user?
+            <Link to={obj.path} className='hover:text-theme cursor-pointer tracking-widest  '>{obj.name}</Link>:''
+    )}
+            
+  
+    
   return (
     <div className=' bg-background text-center'>
         <section className='fixed inset-x-0 mx-auto w-full custom-navbar-width z-10 py-5'>
@@ -56,11 +67,9 @@ const Landing = () => {
                 </div>
                 <div className=' mx-2  list-none space-x-10  flex-row-center text-lg text-primary font-comf'>
                         {
-                            Links.Navbar_Links.map((obj,id)=>(
-                                <Link to={obj.path} className='hover:text-theme cursor-pointer tracking-widest  '>{obj.name}</Link>
-                            ))
+                            Links.Navbar_Links.map((obj,id)=><NavLinks obj={obj}/>)
                         }
-                   
+                                           
                         <li className='flex flex-row items-center hover:text-theme cursor-pointer '><GoGlobe/>&nbsp;<span>English</span></li>
 
                     {user?
@@ -89,9 +98,7 @@ const Landing = () => {
         <section className='absolute inset-x-0 mx-auto custom-navbar-width top-32 z-10 font-comf'>
             <div className=' flex flex-col list-none top-32 rounded-lg leading-10 text-left px-7  py-3 custom-navbar-width border-2 border-[#cbcdd4] bg-white z-10'>
                         {
-                            Links.Navbar_Links.map((obj,id)=>(
-                                <Link to={obj.path} className='hover:text-theme cursor-pointer tracking-widest  '>{obj.name}</Link>
-                            ))
+                            Links.Navbar_Links.map((obj,id)=><NavLinks obj={obj}/>)
                         }
                     <li className='flex flex-row items-center hover:text-theme cursor-pointer '><span>English</span>&nbsp;<GoGlobe/></li>
 
