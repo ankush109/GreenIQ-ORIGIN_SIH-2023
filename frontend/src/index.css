@@ -1,3 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Merriweather&family=Raleway:wght@600&family=Righteous&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.base-container{
+    @apply px-[2vw] ;
+}
+.primary-container{
+    @apply px-[7vw] py-[10vh] ;
+}
+.custom-navbar-width {
+    width: calc(100vw - 10vh);    
+}
+.flex-row-center{
+    @apply flex flex-row justify-center items-center
+}
+.flex-row-between{
+    @apply flex flex-row justify-between items-center
+}
+.flex-col-center{
+    @apply flex flex-col justify-center
+}
+.horizontal-scroll::-webkit-scrollbar{
+    display: none;
+}
+.primary-btn{
+    @apply my-5 px-10 tracking-wider text-medium text-sm  py-3 w-[200px] bg-theme rounded-full
+}
+
+.curved{
+    border-radius: 100px 100px 0px 0px;
+}
+.curved-right{
+    border-radius: 0px 100px 100px 0px;
+}
+.heading{
+    @apply md:text-5xl text-4xl font-merri py-[5vh]
+}
+.border-nav{
+    border:1px solid rgb(200, 198, 198);
+}
