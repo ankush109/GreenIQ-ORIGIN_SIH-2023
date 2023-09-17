@@ -32,15 +32,19 @@ function Navbar() {
                 <Link to="/book-meeting">book a call</Link>
               )}
 
-              <li
-                onClick={() => {
-                  localStorage.removeItem("token");
-                  navigate("/login");
-                }}
-                className="font-bold hover:cursor-pointer"
-              >
-                Logout
-              </li>
+              {user ? (
+                <li
+                  onClick={() => {
+                    localStorage.removeItem("token");
+                    navigate("/login");
+                  }}
+                  className="font-bold hover:cursor-pointer"
+                >
+                  Logout
+                </li>
+              ) : (
+                ""
+              )}
             </ul>
           </div>
         </div>
