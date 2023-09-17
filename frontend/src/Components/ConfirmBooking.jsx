@@ -17,6 +17,9 @@ function ConfirmBooking() {
       guestId: id,
       notes: notes,
     };
+    if (notes.length < 10) {
+      toast.error("please enter more than 10 words ");
+    }
     if (selectedDates.length > 0 && notes.length > 10) {
       const res = await bookMeeting(meetingInfo);
 
@@ -40,8 +43,8 @@ function ConfirmBooking() {
       <div className="bg-gray-200 w-full p-5  justify-center items-center">
         <h1 className="text-2xl font-bold my-5 ">Please give the dates </h1>
         <DateTime onData={handleChildData} />
-        <div className="m-10">
-          <h1>You need guidance in </h1>
+        <div className="my-10">
+          <h1 className="font-bold my-4">You need guidance in </h1>
           <textarea
             className="w-1/2 h-32 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
             placeholder="Enter text here"

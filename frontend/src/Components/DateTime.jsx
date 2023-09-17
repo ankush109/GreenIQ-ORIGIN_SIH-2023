@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { Button } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 import toast from "react-hot-toast";
 function DateTime({ onData }) {
   const [selectedDates, setSelectedDates] = useState([]);
@@ -9,7 +11,7 @@ function DateTime({ onData }) {
     const dateValue = newDate.$d;
     setdateVal(dateValue);
   };
-  const [displaydates, setdisplaydates] = useState([]);
+
   const options = {
     year: "numeric",
     month: "long",
@@ -19,18 +21,20 @@ function DateTime({ onData }) {
     second: "2-digit",
   };
   const deleteDate = (date) => {
-    const updatedlist = selectedDates.filter((x) => x !== date);
+    const updatedlist = selectedDates.filter((time) => {
+      time !== date;
+    });
     setSelectedDates(updatedlist);
-    const updatel = displaydates.filter((x) => x !== date);
-    setdisplaydates(updatel);
   };
   const addDates = () => {
+    console.log(dateVal);
     if (selectedDates.length == 3) {
       toast.error("You can choose only 3 dates ");
     }
     let present = false;
 
     selectedDates.forEach((date) => {
+      console.log(dateVal);
       if (date === dateVal.toISOString()) {
         present = true;
       }
@@ -40,10 +44,6 @@ function DateTime({ onData }) {
     }
     if (!present) {
       setSelectedDates([...selectedDates, dateVal.toISOString()]);
-      setdisplaydates([
-        ...displaydates,
-        dateVal.toLocaleDateString("en-US", options),
-      ]);
     }
   };
 
@@ -71,7 +71,7 @@ function DateTime({ onData }) {
       <Button
         onClick={() => {
           setSelectedDates([]);
-          setdisplaydates([]);
+
           setdateVal(" ");
         }}
         style={{
@@ -83,20 +83,19 @@ function DateTime({ onData }) {
       </Button>
       <div className="">
         <h2 className="text-xl font-bold my-2 ">Selected Dates :</h2>
-        <ul>
-          {displaydates?.map((date, index) => (
+        <ul className="flex gap-5">
+          {selectedDates?.map((date, index) => (
             <div
-              className="flex justify-between bg-green-300 p-5 rounded-lg my-4"
+              className="flex w-80 text-sm justify-between bg-green-300 p-5 rounded-lg my-4"
               key={index}
             >
-              <div> {date}</div>
+              <div>{new Date(date).toLocaleDateString("en-US", options)}</div>
               <div
                 onClick={() => {
                   deleteDate(date);
                 }}
-                className="bg-red-500 text-white rounded-lg p-1 w-32 text-center"
               >
-                delete
+                <DeleteIcon color="red" />
               </div>
             </div>
           ))}
