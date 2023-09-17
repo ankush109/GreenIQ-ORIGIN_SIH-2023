@@ -22,7 +22,6 @@ function DateTime({ onData }) {
     const updatedlist = selectedDates.filter((x) => x !== date);
     setSelectedDates(updatedlist);
     const updatel = displaydates.filter((x) => x !== date);
-    // console.log(up);
     setdisplaydates(updatel);
   };
   const addDates = () => {

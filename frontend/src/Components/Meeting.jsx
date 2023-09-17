@@ -12,7 +12,6 @@ function Meeting() {
   useEffect(() => {
     setMeetings(data?.data);
     setbookmeetings(myrequestedmeetings.data);
-    console.log();
   }, [myrequestedmeetings]);
   return (
     <div className="flex ">

@@ -30,23 +30,17 @@ function Register() {
   // making the api call for registering user
 
   const onSubmit = async (formData) => {
-    console.table(formData);
     try {
-      console.log("Submitting", formData);
       const { data } = await registerUser(formData);
       toast.success(data.message, { id: data.message });
       navigate("/Login");
       reset();
       setApiError(null);
 
-      // As reset will fallback to defaultValues
-      // so they have to be cleared explicitly
-
       setValue("name", "");
       setValue("email", "");
       setValue("picture", null);
     } catch (err) {
-      console.log(err.response.data.message);
       setApiError(err.response.data.message);
     }
   };
@@ -92,13 +86,12 @@ function Register() {
                 />
               </div>
               <div className="relative">
-                {/* p-2 mt-3 rounded-2xl border w-full */}
                 <TextField
                   id="outlined-basic"
                   label="Password"
                   variant="outlined"
                   className={`w-full rounded-lg text-white ${
-                    errors.password ? "border-red-500" : "" // Add red border for errors
+                    errors.password ? "border-red-500" : ""
                   }`}
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter a password"
@@ -122,7 +115,7 @@ function Register() {
                   </p>
                 )}
                 {apiError && (
-                  <p className="text-red-500 text-sm italic">{apiError}</p> // Display API error message
+                  <p className="text-red-500 text-sm italic">{apiError}</p>
                 )}
               </div>
             </div>

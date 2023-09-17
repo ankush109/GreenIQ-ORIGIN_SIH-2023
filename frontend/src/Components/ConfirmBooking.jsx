@@ -19,7 +19,7 @@ function ConfirmBooking() {
     };
     if (selectedDates.length > 0 && notes.length > 10) {
       const res = await bookMeeting(meetingInfo);
-      console.log(res.success);
+
       if (res.success) {
         toast.success("meeting request");
         navigate("/book-meeting");
@@ -30,7 +30,6 @@ function ConfirmBooking() {
   };
   const handleChildData = (dateTimeArray) => {
     setSelectedDates(dateTimeArray);
-    console.log(selectedDates);
   };
 
   return (

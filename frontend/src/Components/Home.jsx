@@ -6,7 +6,6 @@ function Home() {
   const data = GetUserQuery();
   const [user, setuser] = useState();
   useEffect(() => {
-    console.log(data.data, "data");
     setuser(data.data);
   });
   return <div>hi there!</div>;
