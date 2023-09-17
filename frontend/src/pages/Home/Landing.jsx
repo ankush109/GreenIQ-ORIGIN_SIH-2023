@@ -41,7 +41,7 @@ const Landing = () => {
 
   useEffect(() => {
     console.log(data.data, "data");
-    setuser(data.data);
+    setuser(data?.data);
   }, [data.data]);
 
   const navigate = useNavigate();
@@ -84,7 +84,7 @@ const Landing = () => {
             <li className="flex flex-row items-center hover:text-theme cursor-pointer ">
               &nbsp;
               <span>
-                {data?.data.role === "mentor" ? (
+                {data?.data?.role === "mentor" ? (
                   <Link to="/Meetings">Meetings</Link>
                 ) : (
                   <Link to="/book-meeting">Book a call</Link>
@@ -93,7 +93,7 @@ const Landing = () => {
             </li>
             {user ? (
               <li className="flex flex-row items-center hover:text-theme cursor-pointer ">
-                &nbsp;<span>Hello, {data?.data.name}</span>
+                &nbsp;<span>Hello, {data?.data?.name}</span>
               </li>
             ) : (
               ""
