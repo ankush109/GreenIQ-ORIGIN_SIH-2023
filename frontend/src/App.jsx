@@ -5,6 +5,8 @@ import { Toaster, toast, useToasterStore } from "react-hot-toast";
 import { useEffect } from "react";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
+import Landing from "./pages/Home/Landing";
+
 import Meeting from "./Components/Meeting";
 import Navbar from "./Components/Navbar";
 import ConfirmBooking from "./Components/ConfirmBooking";
@@ -30,7 +32,7 @@ function App() {
     }
   }, []);
 
-  const MAX_TOAST_LIMIT = 2;
+  const MAX_TOAST_LIMIT = 1;
   const { toasts } = useToasterStore();
   useEffect(() => {
     toasts
@@ -49,6 +51,8 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
+          
+          <Route path="/" element={<Landing />} />
           <Route path="/book-meeting" element={<ProtectedRoute />}>
             <Route path="/book-meeting" element={<Meeting />} />
           </Route>

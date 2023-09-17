@@ -10,17 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@mui/icons-material": "^5.14.9",
-    "@mui/x-date-pickers": "^6.6.0",
-    "@next/font": "^13.1.1",
-    "date-fns": "^2.30.0",
-    "dayjs": "^1.11.9",
+    "@mapbox/mapbox-gl-geocoder": "^5.0.1",
     "react": "^18.2.0",
-    "react-date-picker": "^10.5.0",
-    "react-datetime-picker": "^5.5.1",
     "react-dom": "^18.2.0",
-    "react-time-picker": "^6.5.0"
+    "react-map-gl": "^7.1.6",
+    "react-map-gl-geocoder": "^2.2.0",
+    "react-simple-typewriter": "^5.0.1"
   },
+  
   "devDependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
@@ -48,6 +45,14 @@
     "react-router": "^6.11.0",
     "react-router-dom": "^6.11.0",
     "tailwindcss": "^3.3.3",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "@mui/icons-material": "^5.14.9",
+    "@mui/x-date-pickers": "^6.6.0",
+    "@next/font": "^13.1.1",
+    "date-fns": "^2.30.0",
+    "dayjs": "^1.11.9",
+    "react-date-picker": "^10.5.0",
+    "react-datetime-picker": "^5.5.1",
+    "react-time-picker": "^6.5.0"
   }
 }
