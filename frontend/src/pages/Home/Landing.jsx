@@ -158,10 +158,10 @@ const Landing = () => {
             <span>
               <Typewriter
                 words={[
-                  "Learn through the best way you have never been",
-                  "FREELANCER",
-                  "BLOGGER",
-                  "DESIGNER",
+                  "Learn Concepts","Find Resources",
+                  "Appear For Tests","Daily Monitoring","Track Your Progress",
+                  "1:1 Mentorship",
+                  "Resolve Your Doubts",
                 ]}
                 loop
                 cursor
@@ -173,12 +173,9 @@ const Landing = () => {
             </span>
           </div>
           <p className="md:text-lg text-sm font-comf">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam,
-            quibusdam rem et pariatur ducimus dolores maxime illo exercitationem
-            labore repellendus corporis dolore hic corrupti rerum doloremque
-            natus sint ratione culpa!
+            
           </p>
-          <button className=" primary-btn ">GO DASHBOARD</button>
+          <button className=" primary-btn ">DASHBOARD</button>
         </div>
       </section>
 
@@ -269,7 +266,7 @@ const Landing = () => {
         </div>
         <div className="md:w-full lg:w-2/5 text-left my-5">
           <h1 className="md:text-5xl text-3xl font-merri">
-            Keep the Tools You Love
+            Your School at your Doorstep
           </h1>
           <p className="leading-7 my-5 font-comf">
             We’ve built our learning platforms to fit seamlessly with the tools
