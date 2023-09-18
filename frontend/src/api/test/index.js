@@ -58,6 +58,7 @@ export { createTest, getTestsQuery, deleteTestQuery };
 */
 
 // test/index.js
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const AuthAPI = () => {
@@ -84,7 +85,10 @@ const createTest = async (testInfo) => {
   const { data } = await AuthAPI().post("/user/create-test", testInfo);
   return data;
 };
-
+const getMyTest = async () => {
+  const { data } = await AuthAPI().get("/user/get-my-test", "11");
+  return data;
+};
 const getTests = async (subjectId, classId) => {
   const params = { subjectId, classId };
   const { data } = await AuthAPI().get("/user/get-test", { params });
@@ -95,5 +99,14 @@ const deleteTest = async (testId) => {
   const { data } = await AuthAPI().delete(`/user/delete-test?id=${testId}`);
   return data;
 };
+const getTestsQuery = () =>
+  useQuery({
+    queryKey: ["get-my-Tests"],
+    queryFn: () => getMyTest(),
+    select: (data) => {
+      const res = data.message;
+      return res;
+    },
+  });
 
-export { createTest, getTests, deleteTest };
+export { createTest, getTests, deleteTest, getTestsQuery };

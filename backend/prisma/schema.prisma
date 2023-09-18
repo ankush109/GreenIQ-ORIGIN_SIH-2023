@@ -117,7 +117,7 @@ model Course {
 model Test {
   id          String   @id @default(cuid())
   description String
-  title       String?
+  title       String   @unique
   mentorId    String
   assetUrl    String[]
   createdAt   DateTime @default(now())

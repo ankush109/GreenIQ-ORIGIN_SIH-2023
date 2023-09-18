@@ -4,24 +4,60 @@ import { customResponse } from "../../../utils/Response";
 const prisma = new PrismaClient();
 
 const courseController = {
-  async getcourse(req, res, next) {
+  async creatCourse(req, res, next) {
     try {
-      if (!req.user) {
-        return res.json(customResponse(403, "Access denied. User is not authenticated."));
-      }
-      console.log("Parameters from URL:", req.query);
+      const { className, courseName, courseDescription, courseImg } = req.body;
 
-      const { classId } = req.query;
-      console.log("classId from URL:", classId);
-
-
-      const courses = await prisma.course.findMany({
+      // Find the class by name
+      let classRecord = await prisma.class.findFirst({
         where: {
-          classId: classId,
+          name: className,
         },
       });
 
-   
+      if (!classRecord) {
+        return res.status(404).json({ error: "Class not found" });
+      }
+
+      // Create the course
+      const newCourse = await prisma.course.create({
+        data: {
+          name: courseName,
+          description: courseDescription,
+          img: courseImg,
+          classId: classRecord.id,
+          userId: req.user.id,
+        },
+      });
+
+      res.status(201).json(newCourse);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  },
+  async getcourse(req, res, next) {
+    try {
+      if (!req.user) {
+        return res.json(
+          customResponse(403, "Access denied. User is not authenticated.")
+        );
+      }
+      console.log("Parameters from URL:", req.query);
+
+      const { classname } = req.query;
+      const findclassId = await prisma.class.findFirst({
+        where: {
+          name: classname,
+        },
+      });
+
+      const courses = await prisma.course.findMany({
+        where: {
+          classId: findclassId.id,
+        },
+      });
+
       if (courses.length === 0) {
         return res.status(404).json(customResponse(404, "Class not found."));
       }
@@ -32,8 +68,6 @@ const courseController = {
       console.error(err);
     }
   },
-
-
 };
 
 export default courseController;

@@ -12,10 +12,14 @@ import authMiddleware from "../middlewares/Auth.middleware";
 const router = express.Router();
 
 router.post("/create-test", authMiddleware, testController.createTest);
-
-router.get("/get-test", authMiddleware, testController.gettest);
+router.post("/create-course", authMiddleware, courseController.creatCourse);
+router.get(
+  "/get-test",
+  authMiddleware,
+  testController.getAllTestsCreatedByUser
+);
 router.delete("/delete-test", authMiddleware, testController.deleteTest);
-
+router.get("/get-my-test", authMiddleware, testController.getUserTestByClass);
 router.get("/user-details", authMiddleware, userController.userDetails);
 router.post("/book-meeting", authMiddleware, meetController.bookMeeting);
 router.get("/get-meetings", authMiddleware, meetController.getMeetings);
