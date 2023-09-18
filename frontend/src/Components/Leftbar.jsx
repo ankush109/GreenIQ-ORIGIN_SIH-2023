@@ -72,6 +72,23 @@ const Leftbar = () => {
                 </span>
               </div>
             </li>
+            {user?.role == "mentor" ? (
+              <li>
+                <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                  <span className="inline-flex justify-center items-center ml-4"></span>
+                  <PiExamFill className="text-xl" />
+                  <span className="ml-2 text-sm tracking-wide truncate">
+                    {" "}
+                    <Link to="/createtest">create test</Link>
+                  </span>
+                  <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-indigo-500 bg-indigo-50 rounded-full">
+                    New
+                  </span>
+                </div>
+              </li>
+            ) : (
+              ""
+            )}
             <li>
               <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
                 <span className="inline-flex justify-center items-center ml-4"></span>
