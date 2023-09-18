@@ -1,9 +1,8 @@
 import React from 'react'
 import Leftbar from './Leftbar'
-import Leftbar1 from './Leftbar1'
-import Leftbar2 from './Leftbar2'
-import Test1 from './Test1'
+
 import Navbar from './Navbar'
+import Gettest from './Gettest'
 
 const Test = () => {
   return (
@@ -14,13 +13,23 @@ const Test = () => {
 // <Test1/>
 //     </div>
  <>
-      <Navbar />
+      
      
       <div className="flex flex-col">
           <Leftbar />
        <div className='flex  justify-center font-bold text-4xl '>Tests</div>
        <div>
-        <Test1/>
+      <div className="fixed flex flex-col  right-0 w-[75%] my-2 flex-col mx-10 bg-blue-200 rounded-xl  ">
+            <div className="flex justify-between p-4 mx-2">
+          <div>All Tests</div>
+          <div>Upcoming Tests</div>
+          <div>Attempted Tests</div>
+          <div>Unsolved Tests</div>
+          <div>Subject</div>
+
+        </div>
+          </div>
+        
        </div>
       </div>
     </> 

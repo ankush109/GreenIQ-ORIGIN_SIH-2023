@@ -34,7 +34,7 @@ const Leftbar = () => {
   }, [selectedTab]);
   return (
   <>
-  {/* component */}
+
 
     <div className="fixed flex flex-col  left-0 w-64 bg-white h-full border-r">
       <div className="flex items-center justify-center h-14 border-b">
@@ -68,23 +68,21 @@ const Leftbar = () => {
             </div>
           </li>
           <li>
-            <a
-              href="#"
+            <div
               className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
             >
                  <span className="inline-flex justify-center items-center ml-4">
                
               </span>
              <PiExamFill className='text-xl'/>
-              <span className="ml-2 text-sm tracking-wide truncate">Tests</span>
+              <span className="ml-2 text-sm tracking-wide truncate">        <Link to="/gettest">Tests</Link></span>
               <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-indigo-500 bg-indigo-50 rounded-full">
                 New
               </span>
-            </a>
+            </div>
           </li>
           <li>
-            <a
-              href="#"
+            <div
               className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
             >
               <span className="inline-flex justify-center items-center ml-4">
@@ -92,13 +90,11 @@ const Leftbar = () => {
               </span>
               <BiSolidReport className='text-xl'/>
               <span className="ml-2 text-sm tracking-wide truncate">
-                Reports
-              </span>
-            </a>
+                 <Link to="/reports">Reports</Link></span>
+            </div>
           </li>
           <li>
-            <a
-              href="#"
+            <div
               className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
             >
               <span className="inline-flex justify-center items-center ml-4">
@@ -106,17 +102,16 @@ const Leftbar = () => {
               </span>
               <MdLeaderboard className='text-xl'/>
               <span className="ml-2 text-sm tracking-wide truncate">
-                Leaderboard
+                <Link to="/leaderboard">Leaderboard</Link>
               </span>
               <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-500 bg-red-50 rounded-full">
                 1.2k
               </span>
-            </a>
+            </div>
           </li>
         
           <li>
-            <a
-              href="#"
+            <div
               className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
             >
               <span className="inline-flex justify-center items-center ml-4">
@@ -124,13 +119,25 @@ const Leftbar = () => {
               </span>
         <FaNewspaper className='text-xl'/>
               <span className="ml-2 text-sm tracking-wide truncate">
-               NewsFeed
+              <Link to="/newsfeed">News Feed</Link>
               </span>
-            </a>
+            </div>
+          </li>
+             <li>
+            <div
+              className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
+            >
+              <span className="inline-flex justify-center items-center ml-4">
+
+              </span>
+        <FaNewspaper className='text-xl'/>
+              <span className="ml-2 text-sm tracking-wide truncate">
+              <Link to="/discuss">Discuss</Link>
+              </span>
+            </div>
           </li>
           <li>
-            <a
-              href="#"
+            <div
               className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
             >
               <span className="inline-flex justify-center items-center ml-4">
@@ -139,14 +146,15 @@ const Leftbar = () => {
               <MdAssignmentAdd className='text-xl'/>
               
               <span className="ml-2 text-sm tracking-wide truncate">
-                Assignments
+              <Link to="/materials">Materials</Link>
               </span>
               <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-green-500 bg-green-50 rounded-full">
                 15
               </span>
-            </a>
+            </div>
           </li>
           <li className="px-5">
+            
             <div className="flex flex-row items-center h-8">
               <div className="text-sm font-light tracking-wide text-gray-500">
                 Settings
@@ -154,21 +162,19 @@ const Leftbar = () => {
             </div>
           </li>
           <li>
-            <a
-              href="#"
+            <div
               className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
             >
               <span className="inline-flex justify-center items-center ml-4">
                 <CgProfile className='text-xl'/>
               </span>
               <span className="ml-2 text-sm tracking-wide truncate">
-                Profile
+               <Link to="/profile">Profile</Link>
               </span>
-            </a>
+            </div>
           </li>
           <li>
-            <a
-              href="#"
+           <div
               className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
             >
               <span className="inline-flex justify-center items-center ml-4">
@@ -176,13 +182,12 @@ const Leftbar = () => {
               </span>
               <AiFillSetting className='text-xl'/>
               <span className="ml-2 text-sm tracking-wide truncate">
-                Settings
+              <Link to="/settings">Settings</Link>
               </span>
-            </a>
+            </div>
           </li>
           <li>
-            <a
-              href="#"
+            <div
               className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
             >
               <span className="inline-flex justify-center items-center ml-4">
@@ -190,9 +195,9 @@ const Leftbar = () => {
               </span>
               <BiSolidLogOut className="text-xl"/>
               <span className="ml-2 text-sm tracking-wide truncate">
-                Logout
+               <Link to="/logout">Logout</Link>
               </span>
-            </a>
+            </div>
           </li>
         </ul>
       </div>

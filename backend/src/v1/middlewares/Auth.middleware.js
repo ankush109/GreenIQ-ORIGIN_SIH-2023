@@ -8,6 +8,10 @@ import config from "../config/env.config";
 
 const authMiddleware = async (req, _res, next) => {
   const authHeader = req.headers.authorization;
+   if (!authHeader) {
+    // Return a 401 Unauthorized response if the Authorization header is missing
+    return _res.status(401).json({ message: 'Unauthorized. Please log in.' });
+  }
 
   /* 0th index is "Bearer" and 1st index is the " JWT Token" */
 

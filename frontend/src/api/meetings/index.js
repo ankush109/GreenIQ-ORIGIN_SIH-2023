@@ -28,7 +28,7 @@ const bookMeeting = async (meetinginfo) => {
 };
 const getMyRequestedMeetings = async () => {
   const { data } = await AuthAPI().get("/user/my-meetings");
-  console.log;
+
   return data;
 };
 const GetMentors = async () => {
