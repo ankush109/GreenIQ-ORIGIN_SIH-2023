@@ -4,39 +4,57 @@ import { customResponse } from "../../../utils/Response";
 const prisma = new PrismaClient();
 
 const testController = {
+  // allows mentor to create a test by providing a particular class and subject
   async createTest(req, res, next) {
     try {
+      const { subjectname, classname, description, title } = req.body;
+
       // Find the Class by name
-      const { subjectname, classname, description } = req.body;
-      const classRecord = await prisma.class.findFirst({
+      let classRecord = await prisma.class.findFirst({
         where: {
-          name: "1",
+          name: classname,
         },
       });
 
+      // If the class doesn't exist, create a new class
       if (!classRecord) {
-        throw new Error(`Class with name ${classname} not found.`);
+        classRecord = await prisma.class.create({
+          data: {
+            name: classname,
+            // Add any other class-related fields here
+          },
+        });
       }
 
       // Find the Subject by name within the Class
-      const subjectRecord = await prisma.subject.findFirst({
+      let subjectRecord = await prisma.subject.findFirst({
         where: {
           name: subjectname,
           classId: classRecord.id,
         },
       });
-      console.log(subjectRecord);
+
+      // If the subject doesn't exist, create a new subject
       if (!subjectRecord) {
-        throw new Error(
-          `Subject with name ${subjectname} not found in class ${classname}.`
-        );
+        subjectRecord = await prisma.subject.create({
+          data: {
+            name: subjectname,
+            classId: classRecord.id,
+            // Add any other subject-related fields here
+          },
+        });
       }
 
       // Create a new Test associated with the found Class and Subject
       const newTest = await prisma.test.create({
         data: {
           description: description,
-          mentorId: req.user.id,
+          title: title,
+          owner: {
+            connect: {
+              id: req.user.id,
+            },
+          },
           class: {
             connect: {
               id: classRecord.id,
@@ -49,22 +67,54 @@ const testController = {
           },
         },
       });
+
       res.json({
-        succuss: true,
+        success: true,
         message: newTest,
       });
       console.log("Test created:", newTest);
     } catch (error) {
       console.error("Error creating test:", error);
       res.json({
-        succuss: false,
+        success: false,
         message: error,
       });
     } finally {
       await prisma.$disconnect();
     }
   },
-  async gettest(req, res, next) {},
+  // alows to get mentor all the test he/she has created til yet
+  async getAllTestsCreatedByUser(req, res, next) {
+    try {
+      // Get the user's ID from the request (assuming you have a way to identify the user)
+      const userId = req.user.id;
+
+      // Find all tests created by the user
+      const tests = await prisma.test.findMany({
+        where: {
+          mentorId: userId,
+        },
+        include: {
+          class: true,
+          subject: true,
+        },
+      });
+
+      res.json({
+        success: true,
+        message: tests,
+      });
+    } catch (error) {
+      console.error("Error getting tests:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error getting tests.",
+      });
+    } finally {
+      await prisma.$disconnect();
+    }
+  },
+
   async deleteTest(req, res, next) {
     try {
       const { id } = req.query;
@@ -106,6 +156,39 @@ const testController = {
     } catch (err) {
       res.json(customResponse(400, err));
       console.error(err);
+    }
+  },
+  async getUserTestByClass(req, res, next) {
+    try {
+      const classname = req.body.class;
+      const findclassId = await prisma.class.findFirst({
+        where: {
+          name: classname,
+        },
+      });
+      console.log(findclassId, "class ID");
+      const Tests = await prisma.test.findMany({
+        where: {
+          classId: findclassId.id,
+        },
+        include: {
+          subject: true,
+          owner: true,
+        },
+      });
+      console.log(Tests);
+      if (Tests) {
+        res.json({
+          success: true,
+          message: Tests,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+      res.json({
+        success: false,
+        message: err,
+      });
     }
   },
 };

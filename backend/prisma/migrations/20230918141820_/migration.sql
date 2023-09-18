@@ -101,7 +101,7 @@ CREATE TABLE "Course" (
 CREATE TABLE "Test" (
     "id" TEXT NOT NULL,
     "description" TEXT NOT NULL,
-    "title" TEXT,
+    "title" TEXT NOT NULL,
     "mentorId" TEXT NOT NULL,
     "assetUrl" TEXT[],
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -129,6 +129,9 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_phonenumber_key" ON "User"("phonenumber");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Test_title_key" ON "Test"("title");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_ClassToUser_AB_unique" ON "_ClassToUser"("A", "B");

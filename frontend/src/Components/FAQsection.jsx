@@ -11,6 +11,7 @@ import { Button } from "@mui/material";
 import Sidebar from "./Sidebar";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { GetUserQuery } from "../api/user";
+import Leftbar from "./Leftbar";
 
 function FAQsection() {
   const q = GetUserQuery();
@@ -145,10 +146,10 @@ function FAQsection() {
 
   return (
     <div className="flex">
-      <div className="hidden lg:block w-1/4 h-screen ">
-        <Sidebar />
+      <div className="w-1/4 h-screen">
+        <Leftbar />
       </div>
-      <div className="p-4 w-full bg-white shadow-md rounded-lg">
+      <div className="p-4 w-full lg:w-3/4 bg-white shadow-md rounded-lg">
         <div class="w-full max-w-xs">
           <div class="relative">
             <input
