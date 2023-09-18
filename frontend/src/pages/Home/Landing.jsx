@@ -107,7 +107,7 @@ const Landing = () => {
                   navigate("/login");
                 }}
               >
-                LOGOUT
+                LOG OUT
               </button>
             ) : (
               <Link to="/login">
@@ -159,9 +159,9 @@ const Landing = () => {
               <Typewriter
                 words={[
                   "Learn Concepts","Find Resources",
-                  "Appear For Tests","Daily Monitoring","Track Your Progress",
+                  "Appear For Tests","Daily Monitoring","Track Progress",
                   "1:1 Mentorship",
-                  "Resolve Your Doubts",
+                  "Resolve Doubts",
                 ]}
                 loop
                 cursor
@@ -183,7 +183,7 @@ const Landing = () => {
         <Container palette="" text="text-primary" />
       </section>
       <section className="primary-container text-left flex-col-center  bg-primary text-white curved ">
-        <h1 className="heading">Recommended courses for you</h1>
+        <h1 className="heading">Hand-picked Courses for You</h1>
         <div
           className="my-5 py-10 flex overflow-x-auto space-x-8 w-full  overflow-y-visible horizontal-scroll "
           id="scroll-container"
@@ -196,7 +196,7 @@ const Landing = () => {
               <div className="group-hover:opacity-100  opacity-0  bg-theme text-center flex-col-center w-full h-full rounded-2xl gap-5">
                 <h1 className="font-merri text-3xl">Mathematics</h1>
                 <p className="font-comf leading-6">
-                  10+ Assignments and 20+Test Module
+                  10+ Assignments | 20+Test Module
                 </p>
               </div>
             </div>
@@ -226,7 +226,7 @@ const Landing = () => {
       </section>
 
       <section className=" my-5 text-left h-[80vh] flex-col-center items-center gap-8 mt-[20vh]">
-        <h1 className=" heading ">Our Successfull Users</h1>
+        <h1 className=" heading ">User Reviews</h1>
 
         <div className="flex-row-center  w-full">
           <img src="" className="w-full h-[400px]" />
@@ -240,12 +240,12 @@ const Landing = () => {
             <div className=" w-[400px] h-[200px] rounded-2xl shadow-md  flex-shrink-0 border-2 border-theme">
               <div className="group-hover:opacity-100 opacity-0 bg-temporary text-center flex-col-center w-full h-full rounded-2xl">
                 <h1 className="text-theme">Mathematics</h1>
-                <p className="text-white">10+ Assignments 20+Test Module</p>
+                <p className="text-white">10+ Assignments | 20+ Test Modules</p>
               </div>
             </div>
           ))}
         </div>
-        <h1 className=" heading ">Partners and Sponsors</h1>
+        <h1 className=" heading ">Partners & Sponsors</h1>
         <div className="py-10 flex-row-center flex-wrap text-center">
           {arr.map((obj, id) => (
             <div
@@ -253,8 +253,8 @@ const Landing = () => {
               style={{ backgroundImage: `url(${Demo})` }}
             >
               <div className="group-hover:opacity-100 opacity-0 bg-primary text-center flex-col-center w-full h-full rounded-2xl">
-                <h1 className="text-theme">Mathematics</h1>
-                <p className="text-white">10+ Assignments 20+Test Module</p>
+                <h1 className="text-theme">English</h1>
+                <p className="text-white">20+ Assignments | 40+Test Module</p>
               </div>
             </div>
           ))}
@@ -266,13 +266,10 @@ const Landing = () => {
         </div>
         <div className="md:w-full lg:w-2/5 text-left my-5">
           <h1 className="md:text-5xl text-3xl font-merri">
-            Your School at your Doorstep
+            Your School at your Doorstep!
           </h1>
           <p className="leading-7 my-5 font-comf">
-            We’ve built our learning platforms to fit seamlessly with the tools
-            you, your educators and learners love—no heartbreak or sacrifice.
-            With hundreds of integration options, you can easily create a
-            consistent digital learning experience.
+            Inform your friends and join us on this journey of self-discovery. Learn, build, create and innovate all under one roof. GreenIQ is here for everyone.
           </p>
           <button className="primary-btn">GET STARTED</button>
         </div>
@@ -285,7 +282,7 @@ const Landing = () => {
             </Link>
           </div>
           <div className="text-left leading-10 flex flex-col my-5 ">
-            <label className="pb-3 ">CHECT OUT</label>
+            <label className="pb-3 ">CHECK OUT</label>
             {Links.Footer_1_Links.map((obj, id) => (
               <Link to={obj.path} className="hover:text-theme ">
                 {obj.name}
