@@ -6,8 +6,8 @@ const Container = ({palette,text}) => {
     <div className={`primary-container flex flex-row flex-wrap items-center justify-between ${palette} ${text}`}>
                 
                 <div className='md:w-full lg:w-2/5 text-left my-5'>
-                    <h1 className='md:text-5xl text-3xl font-merri'>Keep the Tools You Love</h1>
-                    <p className='leading-7 my-5 font-comf'>We’ve built our learning platforms to fit seamlessly with the tools you, your educators and learners love—no heartbreak or sacrifice. With hundreds of integration options, you can easily create a consistent digital learning experience.</p>
+                    <h1 className='md:text-5xl text-3xl font-merri'>Find your School Everywhere</h1>
+                    <p className='leading-7 my-5 font-comf'>GreenIQ as a platform aims to provide users with seamless learning experience. Our goal is to make quality education and proper information accessible to one and all. Take a step forward to transform your educational journey with us.</p>
                     <button className='primary-btn'>GET STARTED</button>
                 </div>
                 <div className='lg:w-[500px] md:w-full   my-5'>
