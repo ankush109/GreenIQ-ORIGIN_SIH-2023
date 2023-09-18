@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
 import Test from "./Components/Test";
+import Landing from "./pages/Home/Landing";
 
 import Meeting from "./Components/Meeting";
 import Navbar from "./Components/Navbar";
@@ -15,6 +16,8 @@ import Courses from "./Components/Course";
 import CreateTest from "./Components/Createtest";
 import Gettest from "./Components/Gettest";
 // import Createtest1 from "./Components/Createtest1";
+import Meetings from "./Components/mentor-page/Meetings";
+import ProtectedRoute from "./Components/PrivateRoute";
 function App() {
   function isJWTValid() {
     const token = localStorage.getItem("token");
@@ -35,7 +38,7 @@ function App() {
     }
   }, []);
 
-  const MAX_TOAST_LIMIT = 2;
+  const MAX_TOAST_LIMIT = 1;
   const { toasts } = useToasterStore();
   useEffect(() => {
     toasts
@@ -52,10 +55,13 @@ function App() {
         toastOptions={{ duration: 5000 }}
       />
       <BrowserRouter>
-        <Navbar />
         <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/book-meeting" element={<ProtectedRoute />}>
+            <Route path="/book-meeting" element={<Meeting />} />
+          </Route>
           <Route path="/" element={<Home />} />
-          <Route path="/book-meeting" element={<Meeting />} />
+          {/* <Route path="/book-meeting" element={<Meeting />} /> */}
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
            <Route path="/test" element={<Test />} />
@@ -65,6 +71,7 @@ function App() {
             
             <Route path="/courses" element={<Courses classId={`clmnd94480001vgy0xtlg1uaj`}/>} />
           <Route path="/confirm-booking/:id" element={<ConfirmBooking />} />
+          <Route path="/Meetings" element={<Meetings />} />
         </Routes>
       </BrowserRouter>
     </div>

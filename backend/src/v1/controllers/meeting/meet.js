@@ -13,7 +13,7 @@ const meetController = {
   // student to book their meeting with the mentor he wants
   async bookMeeting(req, res, next) {
     try {
-      const { guestId } = req.body;
+      const { guestId, notes } = req.body;
       const hostId = req.user.id;
       const dates = req.body.dates;
 
@@ -36,6 +36,7 @@ const meetController = {
           hostId: hostId,
           guestId: guestId,
           status: "requested",
+          notes: notes,
           dates: {
             create: dates.map((date) => ({
               date: date,
@@ -62,7 +63,7 @@ const meetController = {
 
   async confirmMeeting(req, res, next) {
     try {
-      const { meetingId } = req.body;
+      const meetingId = req.body.meetingId;
       const mentorId = req.user.id;
       const meeting = await prisma.meeting.findFirst({
         where: {
@@ -70,7 +71,7 @@ const meetController = {
           guestId: mentorId,
         },
       });
-      console.log(meeting);
+      console.log(meetingId, "");
       if (!meeting) {
         return res
           .status(404)
@@ -78,6 +79,7 @@ const meetController = {
       }
 
       // Update the meeting status to "confirmed"
+      console.log(meetingId);
       const updatedMeeting = await prisma.meeting.update({
         where: {
           id: meetingId,
@@ -93,7 +95,7 @@ const meetController = {
       res.status(500).json({ error: "Internal server error" });
     }
   },
-
+  // for mentor to see the meetings he need to attend
   async getMeetings(req, res, next) {
     try {
       const userId = req.user.id;
@@ -109,9 +111,13 @@ const meetController = {
           },
           include: {
             host: true,
+            dates: true,
           },
         });
-        res.json(meetings);
+        res.json({
+          success: true,
+          message: meetings,
+        });
       } else {
         res.json({ message: "no meetings found" });
       }

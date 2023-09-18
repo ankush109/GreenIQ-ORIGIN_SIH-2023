@@ -7,7 +7,6 @@ function Navbar() {
   const data = GetUserQuery();
   const [user, setuser] = useState();
   useEffect(() => {
-    console.log(data.data, "data");
     setuser(data.data);
   }, [data.data]);
   const navigate = useNavigate();
@@ -22,22 +21,30 @@ function Navbar() {
           </div>
           <div>
             <ul className="flex space-x-4 text-white">
-              {/* <li className="font-bold">Hi, {userQuery.data?.message.email}</li> */}
               {user ? (
                 <h1>hello {user?.name} </h1>
               ) : (
                 <Link to="/login">Login</Link>
               )}
-              <Link to="/book-meeting">book a call</Link>
-              <li
-                onClick={() => {
-                  localStorage.removeItem("token");
-                  navigate("/login");
-                }}
-                className="font-bold hover:cursor-pointer"
-              >
-                Logout
-              </li>
+              {user?.role === "mentor" ? (
+                <Link to="/Meetings">Meetings</Link>
+              ) : (
+                <Link to="/book-meeting">book a call</Link>
+              )}
+
+              {user ? (
+                <li
+                  onClick={() => {
+                    localStorage.removeItem("token");
+                    navigate("/login");
+                  }}
+                  className="font-bold hover:cursor-pointer"
+                >
+                  Logout
+                </li>
+              ) : (
+                ""
+              )}
             </ul>
           </div>
         </div>

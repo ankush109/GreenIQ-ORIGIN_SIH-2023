@@ -36,7 +36,7 @@ const Leftbar = () => {
   <>
 
 
-    <div className="fixed flex flex-col  left-0 w-64 bg-white h-full border-r">
+    <div className="h-full w-full bg-white border-r">
       <div className="flex items-center justify-center h-14 border-b">
         <div> {user ? (
                 <h1>Hello {user?.name} </h1>
