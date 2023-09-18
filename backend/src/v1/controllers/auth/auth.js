@@ -24,7 +24,7 @@ const loginController = {
       }
       const isPasswordMatch = await bcrypt.compare(password, user.password);
       if (!isPasswordMatch) {
-        return next(createError.Unauthorized("Verify your Credentials"));
+        return next(createError.Unauthorized("Verify your Credentials1"));
       }
 
       // generating jwt tokens for the logged in user

@@ -10,6 +10,39 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Class {
+  id           String     @id @default(cuid())
+  name         String
+  subjects     Subject[] // Subjects associated with this class
+  extraCourses Course[] // Extra courses associated with this class
+  tests        Test[] // Tests associated with this class
+  users        User[] // Users associated with this class
+  Material     Material[]
+}
+
+model Subject {
+  id      String @id @default(cuid())
+  name    String
+  classId String
+  class   Class  @relation(fields: [classId], references: [id])
+
+  tests     Test[] // Tests associated with this subject
+  users     User[] // Users associated with this subject
+  materials Material[] // Materials (roadmaps, video lectures, notes, etc.) for this subject
+  // Course    Course?    @relation(fields: [courseId], references: [id])
+  courseId  String?
+}
+
+model Material {
+  id        String  @id @default(cuid())
+  title     String
+  content   String // Content of the material (text, videos, etc.)
+  subject   Subject @relation(fields: [subjectId], references: [id])
+  subjectId String
+  classId   String
+  class     Class   @relation(fields: [classId], references: [id])
+}
+
 model User {
   id              String    @id @default(cuid())
   name            String
@@ -17,9 +50,12 @@ model User {
   password        String
   phonenumber     String    @unique
   role            String    @default("student")
+  classes         Class[] // Classes associated with this user
+  subjects        Subject[] // Subjects associated with this user
   Course          Course[]
-  meetingsAsHost  Meeting[] @relation("host") // meetings where the user is the host
-  meetingsAsGuest Meeting[] @relation("guest") // meetings where the user is the guest
+  Test            Test[] // Tests associated with this user
+  meetingsAsHost  Meeting[] @relation("host") // Meetings where the user is the host
+  meetingsAsGuest Meeting[] @relation("guest") // Meetings where the user is the guest
 }
 
 model Meeting {
@@ -50,4 +86,22 @@ model Course {
   userId      String
   description String
   img         String
+  // subjects    Subject[] // Subjects within this course
+  class       Class  @relation(fields: [classId], references: [id])
+  classId     String
+}
+
+model Test {
+  id          String   @id @default(cuid())
+  description String
+  title       String?
+  mentorId    String
+  assetUrl    String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  owner       User     @relation(fields: [mentorId], references: [id])
+  class       Class    @relation(fields: [classId], references: [id])
+  classId     String
+  subject     Subject  @relation(fields: [subjectId], references: [id])
+  subjectId   String
 }
