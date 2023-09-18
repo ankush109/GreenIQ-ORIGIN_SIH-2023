@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Sidebar from "./Sidebar";
 import { createTest } from "../api/test";
 import { Button, TextField } from "@mui/material";
 import toast from "react-hot-toast";
 import Leftbar from "./Leftbar";
+import { Link } from "react-router-dom";
 
 function CreateTest() {
   const [testInfo, setTestInfo] = useState({
@@ -50,6 +50,7 @@ function CreateTest() {
       </div>
       <div className="bg-gray-100 w-full lg:w-3/4 p-5 justify-center items-center">
         <h1 className="text-2xl font-bold my-5">Create a Test</h1>
+        <Link to="/my-Test">Get my Test</Link>
         <form>
           <TextField
             name="title"
