@@ -5,11 +5,17 @@ import { Toaster, toast, useToasterStore } from "react-hot-toast";
 import { useEffect } from "react";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
+import Test from "./Components/Test";
 import Landing from "./pages/Home/Landing";
 
 import Meeting from "./Components/Meeting";
 import Navbar from "./Components/Navbar";
 import ConfirmBooking from "./Components/ConfirmBooking";
+// import Test11 from "./Components/Test11";
+import Courses from "./Components/Course";
+import CreateTest from "./Components/Createtest";
+import Gettest from "./Components/Gettest";
+// import Createtest1 from "./Components/Createtest1";
 import Meetings from "./Components/mentor-page/Meetings";
 import ProtectedRoute from "./Components/PrivateRoute";
 import FAQsection from "./Components/FAQsection";
@@ -59,6 +65,12 @@ function App() {
           <Route path="/faq" element={<FAQsection />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+           <Route path="/test" element={<Test />} />
+        
+             <Route path="/createtest" element={<CreateTest />} />
+             <Route path="/gettest" element={<Gettest />} />
+            
+            <Route path="/courses" element={<Courses classId={`clmnd94480001vgy0xtlg1uaj`}/>} />
           <Route path="/confirm-booking/:id" element={<ConfirmBooking />} />
           <Route path="/Meetings" element={<Meetings />} />
         </Routes>

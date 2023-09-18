@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "./Sidebar";
+import Leftbar from "./Leftbar"
 import DateTime from "./DateTime";
 import { useNavigate, useParams } from "react-router";
 import { bookMeeting } from "../api/meetings";
@@ -38,7 +38,7 @@ function ConfirmBooking() {
   return (
     <div className="max-w-screen max-h-screen flex overflow-hidden">
       <div className="w-1/4 h-screen">
-        <Sidebar />
+       <Leftbar/>
       </div>
       <div className="bg-gray-200 w-full p-5  justify-center items-center">
         <h1 className="text-2xl font-bold my-5 ">Please give the dates </h1>

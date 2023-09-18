@@ -32,7 +32,7 @@ const userController = {
       if (questions.length === 0) {
         return res.json({
           success: true,
-          message: "No questions found matching the search criteria.",
+          message: [],
         });
       }
 

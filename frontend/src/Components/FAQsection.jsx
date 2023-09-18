@@ -132,14 +132,16 @@ function FAQsection() {
     );
   };
 
-  const filteredData = data.filter((question) => {
-    const textMatch = question.text.includes(searchText);
-    const tabMatch =
-      activeTab === "all" ||
-      (activeTab === "my" && question.User.id === q?.data.id);
+  const filteredData =
+    data.length > 0 &&
+    data?.filter((question) => {
+      const textMatch = question.text.includes(searchText);
+      const tabMatch =
+        activeTab === "all" ||
+        (activeTab === "my" && question.User.id === q?.data.id);
 
-    return textMatch && tabMatch;
-  });
+      return textMatch && tabMatch;
+    });
 
   return (
     <div className="flex">
@@ -229,113 +231,116 @@ function FAQsection() {
           <p className="text-red-600 text-center">Error loading questions.</p>
         ) : (
           <div>
-            {filteredData?.map((question) => (
-              <>
-                <div
-                  key={question.id}
-                  className="mb-4 border border-gray-500 p-4 rounded-lg"
-                >
-                  <div className="flex gap-2">
-                    <h1 className="text-xl font-semi-bold mb-2">
-                      #{question.id}
-                      {")"}
-                    </h1>
-                    <h3 className="text-lg font-bold mb-2">{question.text}</h3>
-                  </div>
-
-                  <div className="flex justify-between">
-                    <div className="">
-                      <button
-                        type="button"
-                        className="text-zinc-700 bg-gray-200 p-3 rounded-lg hover:underline m-2"
-                        onClick={() => handleComments(question.id)}
-                      >
-                        Comments
-                      </button>
-
-                      {replyingTo === question.id &&
-                        renderReplyInput(question.id)}
-                      <button
-                        onClick={() => handleReply(question.id)}
-                        className=" bg-blue-500 text-white px-4 mx-3 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-                      >
-                        Add Comment
-                      </button>
-                      {question.User.id === q?.data.id ? (
-                        <Button
-                          onClick={() => {
-                            deleteQuestion(question.id);
-                          }}
-                        >
-                          <DeleteIcon
-                            color="red"
-                            style={{
-                              color: "red",
-                            }}
-                          />
-                        </Button>
-                      ) : (
-                        ""
-                      )}
+            {filteredData.length > 0 &&
+              filteredData?.map((question) => (
+                <>
+                  <div
+                    key={question.id}
+                    className="mb-4 border border-gray-500 p-4 rounded-lg"
+                  >
+                    <div className="flex gap-2">
+                      <h1 className="text-xl font-semi-bold mb-2">
+                        #{question.id}
+                        {")"}
+                      </h1>
+                      <h3 className="text-lg font-bold mb-2">
+                        {question.text}
+                      </h3>
                     </div>
 
-                    <div className="flex items-center">
-                      <div className="bg-gray-200 p-3 rounded-lg font-semibold">
-                        {question?.answers.length} Comments
-                      </div>
+                    <div className="flex justify-between">
                       <div className="">
-                        <h1
-                          className="text-md font-se
+                        <button
+                          type="button"
+                          className="text-zinc-700 bg-gray-200 p-3 rounded-lg hover:underline m-2"
+                          onClick={() => handleComments(question.id)}
+                        >
+                          Comments
+                        </button>
+
+                        {replyingTo === question.id &&
+                          renderReplyInput(question.id)}
+                        <button
+                          onClick={() => handleReply(question.id)}
+                          className=" bg-blue-500 text-white px-4 mx-3 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+                        >
+                          Add Comment
+                        </button>
+                        {question.User.id === q?.data.id ? (
+                          <Button
+                            onClick={() => {
+                              deleteQuestion(question.id);
+                            }}
+                          >
+                            <DeleteIcon
+                              color="red"
+                              style={{
+                                color: "red",
+                              }}
+                            />
+                          </Button>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+
+                      <div className="flex items-center">
+                        <div className="bg-gray-200 p-3 rounded-lg font-semibold">
+                          {question?.answers.length} Comments
+                        </div>
+                        <div className="">
+                          <h1
+                            className="text-md font-se
                     text-blue-500
                     font-bold
                     
                     mi-bold mx-12"
-                        >
-                          Posted by{" "}
-                          {question?.User.name === q?.data.name
-                            ? "you"
-                            : question?.User.name}
-                        </h1>
-                        <h1
-                          className="text-md font-se
+                          >
+                            Posted by{" "}
+                            {question?.User.name === q?.data.name
+                              ? "you"
+                              : question?.User.name}
+                          </h1>
+                          <h1
+                            className="text-md font-se
                     text-zinc-500
                     font-bold
                     
                     mi-bold mx-12"
-                        >
-                          {" "}
-                          ({" "}
-                          {new Date(question.createdAt).toLocaleDateString(
-                            "en-US",
-                            options
-                          )}
-                          )
-                        </h1>
+                          >
+                            {" "}
+                            ({" "}
+                            {new Date(question.createdAt).toLocaleDateString(
+                              "en-US",
+                              options
+                            )}
+                            )
+                          </h1>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className="">
-                  {openCommentsMap[question.id] &&
-                    question.answers.length > 0 && (
-                      <div className="mx-7 ">
-                        <h1 className="font-bold m-2">Answers : </h1>
-                        {question.answers.map((answer) => (
-                          <div
-                            key={answer.id}
-                            className="mb-2  border border-blue-600 p-5 rounded-lg"
-                          >
-                            <div className="font-medium ">
-                              {answer.owner.name}
+                  <div className="">
+                    {openCommentsMap[question.id] &&
+                      question.answers.length > 0 && (
+                        <div className="mx-7 ">
+                          <h1 className="font-bold m-2">Answers : </h1>
+                          {question.answers.map((answer) => (
+                            <div
+                              key={answer.id}
+                              className="mb-2  border border-blue-600 p-5 rounded-lg"
+                            >
+                              <div className="font-medium ">
+                                {answer.owner.name}
+                              </div>
+                              <div> {answer.text} </div>
                             </div>
-                            <div> {answer.text} </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                </div>
-              </>
-            ))}
+                          ))}
+                        </div>
+                      )}
+                  </div>
+                </>
+              ))}
           </div>
         )}
       </div>

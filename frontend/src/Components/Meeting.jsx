@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "./Sidebar";
+import Leftbar from "./Leftbar"
 import { getMentorsQuery, myRequestedMeetingsQuery } from "../api/meetings";
 import MentorCard from "./MentorCard";
 import BookedMeeting from "./BookedMeeting";
@@ -16,7 +16,7 @@ function Meeting() {
   return (
     <div className="flex ">
       <div className="w-1/4 h-screen ">
-        <Sidebar />
+        <Leftbar />
       </div>
 
       <div className="bg-gray-200 w-full  justify-center ">
