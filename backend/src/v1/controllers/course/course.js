@@ -59,7 +59,10 @@ const courseController = {
       });
 
       if (courses.length === 0) {
-        return res.status(404).json(customResponse(404, "Class not found."));
+        return res.status(200).json({
+          success: true,
+          message: [],
+        });
       }
 
       res.json(customResponse(200, courses));

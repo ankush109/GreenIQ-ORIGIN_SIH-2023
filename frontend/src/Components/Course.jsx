@@ -14,6 +14,18 @@ function Courses() {
     );
   }
 
+  // Check if data is empty
+  if (data && data.length === 0) {
+    return (
+      <div className="max-w-screen max-h-screen flex overflow-hidden">
+        <div className="w-1/4 h-screen">
+          <Leftbar />
+        </div>
+        <div className="p-4   overflow-y-auto">Courses not found.</div>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-screen max-h-screen flex overflow-hidden">
       <div className="w-1/4 h-screen">
@@ -22,7 +34,7 @@ function Courses() {
       <div className="p-4 w-3/4 overflow-y-auto">
         <h2 className="text-2xl font-semibold mb-4">Courses for class 11</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {data.map((course) => (
+          {data?.map((course) => (
             <div
               key={course.id}
               className="border rounded-lg shadow-lg bg-white p-4"
