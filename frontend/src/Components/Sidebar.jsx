@@ -1,10 +1,12 @@
 import React from "react";
+import { GetUserQuery } from "../api/user";
 
 function Sidebar() {
+  const data = GetUserQuery();
   return (
     <div className="bg-blue-400 h-full w-full">
       <div className="bg-blue-600 p-3 flex justify-center items-center  text-white text-center font-bold">
-        Welcome Ankush
+        Welcome {data?.data?.name}
       </div>
       <div className="flex flex-col items-center justify-center h-full gap-10">
         <div className="bg-white p-2 rounded-lg w-2/3 hover:font-bold">

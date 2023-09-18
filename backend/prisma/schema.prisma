@@ -44,18 +44,20 @@ model Material {
 }
 
 model User {
-  id              String    @id @default(cuid())
+  id              String     @id @default(cuid())
   name            String
-  email           String    @unique
+  email           String     @unique
   password        String
-  phonenumber     String    @unique
-  role            String    @default("student")
+  phonenumber     String     @unique
+  role            String     @default("student")
   classes         Class[] // Classes associated with this user
   subjects        Subject[] // Subjects associated with this user
   Course          Course[]
   Test            Test[] // Tests associated with this user
-  meetingsAsHost  Meeting[] @relation("host") // Meetings where the user is the host
-  meetingsAsGuest Meeting[] @relation("guest") // Meetings where the user is the guest
+  meetingsAsHost  Meeting[]  @relation("host") // Meetings where the user is the host
+  meetingsAsGuest Meeting[]  @relation("guest") // Meetings where the user is the guest
+  questions       Question[]
+  Answer          Answer[]
 }
 
 model Meeting {
@@ -77,6 +79,27 @@ model Date {
   date      DateTime
   meeting   Meeting  @relation(fields: [meetingId], references: [id])
   meetingId String
+}
+
+model Question {
+  id        Int      @id @default(autoincrement())
+  text      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  answers   Answer[]
+  User      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+}
+
+model Answer {
+  id         Int       @id @default(autoincrement())
+  text       String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  owner      User      @relation(fields: [userId], references: [id])
+  question   Question? @relation(fields: [questionId], references: [id])
+  questionId Int?
+  userId     String
 }
 
 model Course {

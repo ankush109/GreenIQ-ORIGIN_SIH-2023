@@ -4,137 +4,110 @@ import { customResponse } from "../../../utils/Response";
 const prisma = new PrismaClient();
 
 const testController = {
- async createTest(req, res, next) {
-  try {
-    if (req.user.role !== 'mentor') {
-      return res.status(403).json({ message: 'Access denied. You must be a mentor to create a test.' });
-    }
-
-    const { classId, subjectId, ...response } = req.body;
-    const mentorId = req.user.id;
-
-
-    if (!classId || !subjectId) {
-      return res.status(400).json({ message: 'Both classId and subjectId are required to create a test.' });
-    }
-
-    const classExists = await prisma.class.findFirst({
-      where: {
-        id: classId,
-      },
-    });
-
-    const subjectExists = await prisma.subject.findFirst({
-      where: {
-        id: subjectId,
-      },
-    });
-
-    if (!classExists || !subjectExists) {
-      return res.status(400).json({ message: 'Invalid class or subject.' });
-    }
-
-    const test = await prisma.test.create({
-      data: {
-        ...response,
-        mentorId,
-        classId,
-        subjectId,
-      },
-    });
-
-    res.json(customResponse(200,test));
-  } catch (err) {
-    res.status(400).json(customResponse(400, err));
-    console.error(err);
-  }
-}
-,
-    async gettest(req, res, next) {
-  try {
-    const { subjectId, classId } = req.query;
-    let tests;
-
-    if (subjectId && classId) {
-
-      tests = await prisma.test.findMany({
+  async createTest(req, res, next) {
+    try {
+      // Find the Class by name
+      const { subjectname, classname, description } = req.body;
+      const classRecord = await prisma.class.findFirst({
         where: {
-          subjectId,
-          classId,
+          name: "1",
         },
       });
-    } else if (subjectId) {
-    
-      tests = await prisma.test.findMany({
+
+      if (!classRecord) {
+        throw new Error(`Class with name ${classname} not found.`);
+      }
+
+      // Find the Subject by name within the Class
+      const subjectRecord = await prisma.subject.findFirst({
         where: {
-          subjectId,
+          name: subjectname,
+          classId: classRecord.id,
         },
       });
-    } else if (classId) {
+      console.log(subjectRecord);
+      if (!subjectRecord) {
+        throw new Error(
+          `Subject with name ${subjectname} not found in class ${classname}.`
+        );
+      }
 
-      tests = await prisma.test.findMany({
-        where: {
-          classId,
+      // Create a new Test associated with the found Class and Subject
+      const newTest = await prisma.test.create({
+        data: {
+          description: description,
+          mentorId: req.user.id,
+          class: {
+            connect: {
+              id: classRecord.id,
+            },
+          },
+          subject: {
+            connect: {
+              id: subjectRecord.id,
+            },
+          },
         },
       });
-    } else {
-    
-      tests = await prisma.test.findMany();
+      res.json({
+        succuss: true,
+        message: newTest,
+      });
+      console.log("Test created:", newTest);
+    } catch (error) {
+      console.error("Error creating test:", error);
+      res.json({
+        succuss: false,
+        message: error,
+      });
+    } finally {
+      await prisma.$disconnect();
     }
+  },
+  async gettest(req, res, next) {},
+  async deleteTest(req, res, next) {
+    try {
+      const { id } = req.query;
 
+      if (!id) {
+        return res.status(400).json({ message: "Test ID is required." });
+      }
 
-    if (!tests || tests.length === 0) {
-      return res.status(404).json({ message: 'No valid tests found for the specified criteria.' });
+      const test = await prisma.test.findUnique({
+        where: {
+          id,
+        },
+      });
+
+      if (!test) {
+        return res.status(404).json({ message: "Test not found." });
+      }
+
+      if (req.user.role !== "mentor") {
+        return res.status(403).json({
+          message: "Access denied. You must be a mentor to delete a test.",
+        });
+      }
+
+      if (test.mentorId !== req.user.id) {
+        return res.status(403).json({
+          message:
+            "Access denied. You must be the creator of the test to delete it.",
+        });
+      }
+
+      await prisma.test.delete({
+        where: {
+          id,
+        },
+      });
+
+      res.json(customResponse(200, "Test deleted successfully"));
+    } catch (err) {
+      res.json(customResponse(400, err));
+      console.error(err);
     }
-
-    res.json(customResponse(200, tests));
-  } catch (err) {
-    res.status(400).json(customResponse(400, err));
-    console.error(err);
-  }
-}
-,
- async deleteTest(req, res, next) {
-  try {
-    const { id } = req.query;
-
-    if (!id) {
-      return res.status(400).json({ message: 'Test ID is required.' });
-    }
-
-  
-    const test = await prisma.test.findUnique({
-      where: {
-        id,
-      },
-    });
-
-    if (!test) {
-      return res.status(404).json({ message: 'Test not found.' });
-    }
-
-  
-    if (req.user.role !== 'mentor') {
-      return res.status(403).json({ message: 'Access denied. You must be a mentor to delete a test.' });
-    }
-
-    if (test.mentorId !== req.user.id) {
-      return res.status(403).json({ message: 'Access denied. You must be the creator of the test to delete it.' });
-    }
-
-    await prisma.test.delete({
-      where: {
-        id,
-      },
-    });
-
-    res.json(customResponse(200, 'Test deleted successfully'));
-  } catch (err) {
-    res.json(customResponse(400, err));
-    console.error(err);
-  }
-},
-
+  },
 };
 
 export default testController;
