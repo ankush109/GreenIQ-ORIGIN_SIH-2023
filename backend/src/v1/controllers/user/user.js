@@ -12,17 +12,40 @@ const prisma = new PrismaClient();
 const userController = {
   async getAllQuestionandAnswer(req, res, next) {
     try {
-      const allquestions = await prisma.question.findMany({
+      const searchText = req.query.searchText;
+      const questions = await prisma.question.findMany({
+        where: {
+          text: {
+            contains: searchText,
+          },
+        },
         include: {
-          answers: true,
+          answers: {
+            include: {
+              owner: true,
+            },
+          },
+          User: true,
         },
       });
+
+      if (questions.length === 0) {
+        return res.json({
+          success: true,
+          message: "No questions found matching the search criteria.",
+        });
+      }
+
       res.json({
         success: true,
-        message: allquestions,
+        message: questions,
       });
-    } catch (err) {}
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: err });
+    }
   },
+
   async getQuestionOfUser(req, res, next) {
     try {
       const userId = req.user.id;
@@ -59,6 +82,69 @@ const userController = {
       }
     } catch (err) {}
   },
+  async deleteQuestion(req, res, next) {
+    try {
+      const userId = req.user.id;
+
+      if (!userId) {
+        res.json({
+          message: "User ID is missing or undefined in req.user",
+        });
+        return;
+      }
+
+      const user = await prisma.user.findFirst({
+        where: {
+          id: userId,
+        },
+      });
+
+      // Check if user exists
+      if (!user) {
+        res.json({
+          message: "User does not exist",
+        });
+        return;
+      }
+      console.log(req.params, "request");
+      const question = await prisma.question.findFirst({
+        where: {
+          id: parseInt(req.params.id),
+        },
+      });
+      console.log(question);
+
+      if (!question) {
+        res.json({
+          message: "Question does not exist",
+        });
+        return;
+      }
+
+      // Check if the user owns the question
+      if (question.userId !== userId) {
+        res.json({
+          message: "Not the owner of this question",
+        });
+        return;
+      }
+
+      await prisma.question.delete({
+        where: {
+          id: parseInt(req.params.id),
+        },
+      });
+
+      res.json({
+        success: true,
+        message: "Question deleted successfully",
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: err.message });
+    }
+  },
+
   async createQuestion(req, res, next) {
     try {
       const { text } = req.body;

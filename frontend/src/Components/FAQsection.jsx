@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from "react";
 import {
   answerReply,
+  deleteMyQuestion,
+  getAllquestionsInfo,
   getAllquestionsInfoQuery,
   postQuestion,
 } from "../api/questions/question";
 import toast from "react-hot-toast";
+import { Button } from "@mui/material";
+import Sidebar from "./Sidebar";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { GetUserQuery } from "../api/user";
 
 function FAQsection() {
+  const q = GetUserQuery();
   const {
     data: questions,
     isLoading,
@@ -17,15 +24,39 @@ function FAQsection() {
   const [newQuestion, setNewQuestion] = useState("");
   const [replyingTo, setReplyingTo] = useState(null);
   const [replyText, setReplyText] = useState("");
-
+  const [openCommentsMap, setOpenCommentsMap] = useState({});
+  const [activeTab, setActiveTab] = useState("all"); // "all" or "my"
+  const [searchText, setSearchText] = useState("");
   useEffect(() => {
     if (questions) {
       setData(questions);
     }
+    console.log(questions);
   }, [questions]);
-
+  const searchQuestion = async () => {
+    console.log(searchText);
+    await getAllquestionsInfo(searchText);
+  };
   const handleReply = (questionId) => {
     setReplyingTo(questionId);
+  };
+
+  const handleComments = (questionId) => {
+    setOpenCommentsMap((prevMap) => ({
+      ...prevMap,
+      [questionId]: !prevMap[questionId],
+    }));
+  };
+
+  const deleteQuestion = async (id) => {
+    console.log(id, "id");
+    const res = await deleteMyQuestion(id);
+    if (res.success) {
+      toast.success("Post has been deleted");
+      refetch();
+    } else {
+      toast.error(res.message);
+    }
   };
 
   const handleCancelReply = () => {
@@ -35,16 +66,23 @@ function FAQsection() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (questions.length) {
-      toast.error("Please enter 2 words.");
+    if (newQuestion.trim() === "") {
+      toast.error("Please enter a question.");
+      return;
     }
-    console.log(newQuestion);
     const res = await postQuestion(newQuestion);
 
     if (res.success) {
       toast.success("Post made successfully");
       refetch();
+      setNewQuestion(""); // Clear the input field
     }
+  };
+
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   };
 
   const handleSubmitReply = async (questionId) => {
@@ -68,7 +106,7 @@ function FAQsection() {
       <div className="mb-2">
         <textarea
           rows="3"
-          className="border border-gray-300 rounded-lg p-2 w-full"
+          className="border border-gray-300 rounded-lg p-2 w-[600px]"
           placeholder="Write your reply..."
           value={replyText}
           onChange={(e) => setReplyText(e.target.value)}
@@ -94,69 +132,213 @@ function FAQsection() {
     );
   };
 
+  const filteredData = data.filter((question) => {
+    const textMatch = question.text.includes(searchText);
+    const tabMatch =
+      activeTab === "all" ||
+      (activeTab === "my" && question.User.id === q?.data.id);
+
+    return textMatch && tabMatch;
+  });
+
   return (
-    <div className="p-4 bg-white shadow-md rounded-lg">
-      <h1 className="text-2xl font-semibold mb-6">
-        Frequently Asked Questions
-      </h1>
-      <div>
-        <form onSubmit={handleSubmit} className="mb-4">
-          <label
-            htmlFor="newQuestion"
-            className="block text-lg font-medium mb-2"
-          >
-            Ask a new question:
-          </label>
-          <input
-            type="text"
-            id="newQuestion"
-            className="border border-gray-300 rounded-lg p-2 w-1/2 m-2"
-            placeholder="Ask your question..."
-            value={newQuestion}
-            onChange={(e) => setNewQuestion(e.target.value)}
-            required
-          />
-          <button
-            type="submit"
-            className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-          >
-            Post Question
-          </button>
-        </form>
+    <div className="flex">
+      <div className="hidden lg:block w-1/4 h-screen ">
+        <Sidebar />
       </div>
-      {isLoading ? (
-        <p className="text-center">Loading...</p>
-      ) : isError ? (
-        <p className="text-red-600 text-center">Error loading questions.</p>
-      ) : (
-        <div>
-          {data.map((question) => (
-            <div
-              key={question.id}
-              className="mb-4 border border-gray-500 p-4 rounded-lg"
+      <div className="p-4 w-full bg-white shadow-md rounded-lg">
+        <div class="w-full max-w-xs">
+          <div class="relative">
+            <input
+              type="text"
+              value={searchText}
+              placeholder="Search..."
+              onChange={(e) => {
+                e.preventDefault();
+                setSearchText(e.target.value);
+              }}
+              class="w-full py-2 pr-10 pl-4 rounded-full border border-gray-300 focus:outline-none focus:border-blue-500"
+            />
+            <button
+              onClick={() => {
+                searchQuestion();
+              }}
+              class="absolute top-0 right-0 mt-2 mr-3"
             >
-              <h3 className="text-lg font-semibold mb-2">{question.text}</h3>
-              <button
-                type="button"
-                className="text-blue-500 hover:underline mt-2"
-                onClick={() => handleReply(question.id)}
-              >
-                Reply
-              </button>
-              {replyingTo === question.id && renderReplyInput(question.id)}
-              <div className="mt-4">
-                <ul className="list-disc ml-6">
-                  {question.answers.map((answer) => (
-                    <li key={answer.id} className="mb-2">
-                      {answer.text}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          ))}
+              search
+            </button>
+          </div>
         </div>
-      )}
+
+        <h1 className="text-2xl font-semibold mb-6">
+          Frequently Asked Questions
+        </h1>
+
+        <div>
+          <form onSubmit={handleSubmit} className="mb-4">
+            <label
+              htmlFor="newQuestion"
+              className="block text-lg font-medium mb-2"
+            >
+              Ask a new question:
+            </label>
+            <input
+              type="text"
+              id="newQuestion"
+              className="border border-gray-300 rounded-lg p-2 w-1/2 m-2"
+              placeholder="Ask your question..."
+              value={newQuestion}
+              onChange={(e) => setNewQuestion(e.target.value)}
+              required
+            />
+            <button
+              type="submit"
+              className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+            >
+              Post Question
+            </button>
+          </form>
+        </div>
+        <div>
+          <div className="flex bg-gray-200 w-[200px] p-2 m-4 rounded-lg justify-center">
+            <div
+              className={`cursor-pointer mr-4 ${
+                activeTab === "all"
+                  ? "text-blue-500 font-bold"
+                  : "text-gray-500"
+              }`}
+              onClick={() => setActiveTab("all")}
+            >
+              All Posts
+            </div>
+            <div
+              className={`cursor-pointer ${
+                activeTab === "my"
+                  ? "text-blue-500 font-semibold"
+                  : "text-gray-500"
+              }`}
+              onClick={() => setActiveTab("my")}
+            >
+              My Posts
+            </div>
+          </div>
+        </div>
+        {isLoading ? (
+          <p className="text-center">Loading...</p>
+        ) : isError ? (
+          <p className="text-red-600 text-center">Error loading questions.</p>
+        ) : (
+          <div>
+            {filteredData?.map((question) => (
+              <>
+                <div
+                  key={question.id}
+                  className="mb-4 border border-gray-500 p-4 rounded-lg"
+                >
+                  <div className="flex gap-2">
+                    <h1 className="text-xl font-semi-bold mb-2">
+                      #{question.id}
+                      {")"}
+                    </h1>
+                    <h3 className="text-lg font-bold mb-2">{question.text}</h3>
+                  </div>
+
+                  <div className="flex justify-between">
+                    <div className="">
+                      <button
+                        type="button"
+                        className="text-zinc-700 bg-gray-200 p-3 rounded-lg hover:underline m-2"
+                        onClick={() => handleComments(question.id)}
+                      >
+                        Comments
+                      </button>
+
+                      {replyingTo === question.id &&
+                        renderReplyInput(question.id)}
+                      <button
+                        onClick={() => handleReply(question.id)}
+                        className=" bg-blue-500 text-white px-4 mx-3 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+                      >
+                        Add Comment
+                      </button>
+                      {question.User.id === q?.data.id ? (
+                        <Button
+                          onClick={() => {
+                            deleteQuestion(question.id);
+                          }}
+                        >
+                          <DeleteIcon
+                            color="red"
+                            style={{
+                              color: "red",
+                            }}
+                          />
+                        </Button>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+
+                    <div className="flex items-center">
+                      <div className="bg-gray-200 p-3 rounded-lg font-semibold">
+                        {question?.answers.length} Comments
+                      </div>
+                      <div className="">
+                        <h1
+                          className="text-md font-se
+                    text-blue-500
+                    font-bold
+                    
+                    mi-bold mx-12"
+                        >
+                          Posted by{" "}
+                          {question?.User.name === q?.data.name
+                            ? "you"
+                            : question?.User.name}
+                        </h1>
+                        <h1
+                          className="text-md font-se
+                    text-zinc-500
+                    font-bold
+                    
+                    mi-bold mx-12"
+                        >
+                          {" "}
+                          ({" "}
+                          {new Date(question.createdAt).toLocaleDateString(
+                            "en-US",
+                            options
+                          )}
+                          )
+                        </h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="">
+                  {openCommentsMap[question.id] &&
+                    question.answers.length > 0 && (
+                      <div className="mx-7 ">
+                        <h1 className="font-bold m-2">Answers : </h1>
+                        {question.answers.map((answer) => (
+                          <div
+                            key={answer.id}
+                            className="mb-2  border border-blue-600 p-5 rounded-lg"
+                          >
+                            <div className="font-medium ">
+                              {answer.owner.name}
+                            </div>
+                            <div> {answer.text} </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                </div>
+              </>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

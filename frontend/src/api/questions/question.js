@@ -33,16 +33,44 @@ const answerReply = async (text, questionId) => {
   });
   return data;
 };
-const getAllquestionsInfo = async () => {
-  const { data } = await AuthAPI().get("/user/get-allquestions");
+const deleteMyQuestion = async (QuestionId) => {
+  console.log(QuestionId);
+  const { data } = await AuthAPI().delete(
+    `/user/delete-question/${QuestionId}`
+  );
+  console.log(data);
   return data;
 };
+
+const getAllquestionsInfo = async (searchText) => {
+  searchText = searchText || "";
+  console.log(searchText);
+
+  try {
+    const { data } = await AuthAPI().get(
+      `/user/get-allquestions/?searchText=${searchText}`
+    );
+    console.log(data);
+    return data.message;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 const getAllquestionsInfoQuery = () =>
   useQuery({
     queryKey: ["questions"],
-    queryFn: () => getAllquestionsInfo(),
+    queryFn: () => getAllquestionsInfo(""),
     select: (data) => {
-      return data.message;
+      console.log(data);
+      return data;
     },
   });
-export { getAllquestionsInfoQuery, postQuestion, answerReply };
+export {
+  getAllquestionsInfoQuery,
+  postQuestion,
+  answerReply,
+  deleteMyQuestion,
+  getAllquestionsInfo,
+};
