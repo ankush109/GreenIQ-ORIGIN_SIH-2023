@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Leftbar from "./Leftbar"
-import DateTime from "./DateTime";
+import Leftbar from "../Leftbar"
+import DateTime from "../DateTime";
 import { useNavigate, useParams } from "react-router";
-import { bookMeeting } from "../api/meetings";
+import { bookMeeting } from "../../api/meetings";
 import { Button, Input } from "@mui/material";
 import toast from "react-hot-toast";
 
@@ -25,7 +25,7 @@ function ConfirmBooking() {
 
       if (res.success) {
         toast.success("meeting request");
-        navigate("/book-meeting");
+        navigate("/user/book-meeting");
       }
     } else {
       toast.error("please fill all the fields");

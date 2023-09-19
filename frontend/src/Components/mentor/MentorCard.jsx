@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "@mui/material";
 import * as Dialog from "@radix-ui/react-dialog";
 import { DialogActions, TextField, TextareaAutosize } from "@mui/material";
-import DateTime from "./DateTime";
+import DateTime from "../DateTime";
 import { useNavigate } from "react-router";
 import ConfirmBooking from "./ConfirmBooking";
 
@@ -18,7 +18,7 @@ function MentorCard({ id, name, phonenumber, email }) {
         variant="contained"
         className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
         onClick={() => {
-          navigate(`/confirm-booking/${id}`);
+          navigate(`/user/confirm-booking/${id}`);
         }}
       >
         Book a Call
