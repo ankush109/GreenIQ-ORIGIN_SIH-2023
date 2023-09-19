@@ -50,21 +50,9 @@ const testController = {
         data: {
           description: description,
           title: title,
-          owner: {
-            connect: {
-              id: req.user.id,
-            },
-          },
-          class: {
-            connect: {
-              id: classRecord.id,
-            },
-          },
-          subject: {
-            connect: {
-              id: subjectRecord.id,
-            },
-          },
+          owner: { connect: { id: req.user.id } }, // Connect the test to the user
+          class: { connect: { id: classRecord.id } },
+          subject: { connect: { id: subjectRecord.id } },
         },
       });
 
@@ -72,17 +60,19 @@ const testController = {
         success: true,
         message: newTest,
       });
+
       console.log("Test created:", newTest);
     } catch (error) {
       console.error("Error creating test:", error);
       res.json({
         success: false,
-        message: error,
+        message: error.message,
       });
     } finally {
       await prisma.$disconnect();
     }
   },
+
   // alows to get mentor all the test he/she has created til yet
   async getAllTestsCreatedByUser(req, res, next) {
     try {
@@ -160,27 +150,34 @@ const testController = {
   },
   async getUserTestByClass(req, res, next) {
     try {
-      const classname = req.body.class;
       const findclassId = await prisma.class.findFirst({
         where: {
-          name: classname,
+          name: req.user.classname,
         },
       });
       console.log(findclassId, "class ID");
-      const Tests = await prisma.test.findMany({
-        where: {
-          classId: findclassId.id,
-        },
-        include: {
-          subject: true,
-          owner: true,
-        },
-      });
-      console.log(Tests);
+      let Tests = [];
+      if (findclassId) {
+        Tests = await prisma.test.findMany({
+          where: {
+            classId: findclassId.id,
+          },
+          include: {
+            subject: true,
+            owner: true,
+          },
+        });
+        console.log(Tests);
+      }
       if (Tests) {
         res.json({
           success: true,
           message: Tests,
+        });
+      } else {
+        res.json({
+          success: false,
+          message: [],
         });
       }
     } catch (err) {
