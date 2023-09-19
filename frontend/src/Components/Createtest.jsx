@@ -9,8 +9,8 @@ function CreateTest() {
   const [testInfo, setTestInfo] = useState({
     title: "",
     description: "",
-    subjectId: "",
-    classId: "",
+    subjectname: "",
+    classname: "",
   });
 
   const handleInputChange = (event) => {
@@ -31,8 +31,8 @@ function CreateTest() {
         setTestInfo({
           title: "",
           description: "",
-          subjectId: "",
-          classId: "",
+          subjectname: "",
+          classname: "",
         });
       } else {
         toast.error("Failed to create test");
@@ -72,18 +72,18 @@ function CreateTest() {
             margin="normal"
           />
           <TextField
-            name="subjectId"
+            name="subjectname"
             label="Subject"
-            value={testInfo.subjectId}
+            value={testInfo.subjectname}
             onChange={handleInputChange}
             fullWidth
             required
             margin="normal"
           />
           <TextField
-            name="classId"
+            name="classname"
             label="Class"
-            value={testInfo.classId}
+            value={testInfo.classname}
             onChange={handleInputChange}
             fullWidth
             required
