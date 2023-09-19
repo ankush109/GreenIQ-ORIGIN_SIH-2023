@@ -3,7 +3,7 @@ import axios from "axios";
 const AuthAPI = () => {
   if (typeof window !== "undefined") {
     return axios.create({
-      baseURL: `http://localhost:5000/v1/`,
+      baseURL: `https://green-iq-backend.onrender.com/v1/`,
       headers: {
         authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
@@ -11,7 +11,7 @@ const AuthAPI = () => {
     });
   } else {
     return axios.create({
-      baseURL: `http://localhost:5000/v1/`,
+      baseURL: `https://green-iq-backend.onrender.com/v1/`,
       headers: {
         authorization: `Bearer }`,
         "Content-Type": "application/json",
