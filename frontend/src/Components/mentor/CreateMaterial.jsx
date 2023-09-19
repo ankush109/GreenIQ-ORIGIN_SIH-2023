@@ -22,12 +22,10 @@ function CreateMaterial() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(formData);
     const data = await createMaterial(formData);
     if (data.success) {
       toast.success("material added");
     }
-    console.log(data, "data");
   };
 
   return (

@@ -17,7 +17,6 @@ const Leftbar = () => {
   const data = GetUserQuery();
   const [user, setuser] = useState();
   useEffect(() => {
-    console.log(data.data, "data");
     setuser(data.data);
   }, [data.data]);
 
@@ -27,7 +26,6 @@ const Leftbar = () => {
 
   useEffect(() => {
     const path = window.location.pathname;
-    console.log(path);
 
     setSelectedTab(path);
   }, [selectedTab]);
