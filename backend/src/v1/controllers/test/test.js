@@ -167,20 +167,28 @@ const testController = {
         },
       });
       console.log(findclassId, "class ID");
-      const Tests = await prisma.test.findMany({
-        where: {
-          classId: findclassId.id,
-        },
-        include: {
-          subject: true,
-          owner: true,
-        },
-      });
-      console.log(Tests);
+      let Tests = [];
+      if (findclassId) {
+        Tests = await prisma.test.findMany({
+          where: {
+            classId: findclassId.id,
+          },
+          include: {
+            subject: true,
+            owner: true,
+          },
+        });
+        console.log(Tests);
+      }
       if (Tests) {
         res.json({
           success: true,
           message: Tests,
+        });
+      } else {
+        res.json({
+          success: false,
+          message: [],
         });
       }
     } catch (err) {

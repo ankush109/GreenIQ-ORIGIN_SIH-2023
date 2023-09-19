@@ -8,7 +8,6 @@ import {
 } from "../api/questions/question";
 import toast from "react-hot-toast";
 import { Button } from "@mui/material";
-import Sidebar from "./Sidebar";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { GetUserQuery } from "../api/user";
 import Leftbar from "./Leftbar";

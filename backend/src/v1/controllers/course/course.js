@@ -52,6 +52,14 @@ const courseController = {
         },
       });
 
+      if (!findclassId) {
+        // Class not found, return an empty array as a message
+        return res.status(200).json({
+          success: true,
+          message: [],
+        });
+      }
+
       const courses = await prisma.course.findMany({
         where: {
           classId: findclassId.id,
@@ -59,7 +67,10 @@ const courseController = {
       });
 
       if (courses.length === 0) {
-        return res.status(404).json(customResponse(404, "Class not found."));
+        return res.status(200).json({
+          success: true,
+          message: [],
+        });
       }
 
       res.json(customResponse(200, courses));

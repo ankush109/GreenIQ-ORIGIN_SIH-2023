@@ -11,7 +11,6 @@ CREATE TABLE "Subject" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "classId" TEXT NOT NULL,
-    "courseId" TEXT,
 
     CONSTRAINT "Subject_pkey" PRIMARY KEY ("id")
 );
@@ -23,6 +22,7 @@ CREATE TABLE "Material" (
     "content" TEXT NOT NULL,
     "subjectId" TEXT NOT NULL,
     "classId" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
 
     CONSTRAINT "Material_pkey" PRIMARY KEY ("id")
 );
@@ -147,6 +147,9 @@ CREATE INDEX "_SubjectToUser_B_index" ON "_SubjectToUser"("B");
 
 -- AddForeignKey
 ALTER TABLE "Subject" ADD CONSTRAINT "Subject_classId_fkey" FOREIGN KEY ("classId") REFERENCES "Class"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Material" ADD CONSTRAINT "Material_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Material" ADD CONSTRAINT "Material_subjectId_fkey" FOREIGN KEY ("subjectId") REFERENCES "Subject"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

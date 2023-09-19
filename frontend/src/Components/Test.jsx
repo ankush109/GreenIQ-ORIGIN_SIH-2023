@@ -29,7 +29,7 @@ const Test = () => {
         </div>
         <div className="w-full lg:w-3/4">
           <div className="px-4 py-6">
-            <h1 className="text-4xl font-bold mb-6">Tests</h1>
+            <h1 className="text-4xl font-bold mb-6">Tests Available for You</h1>
             <input
               type="text"
               placeholder="Search subjects..."
