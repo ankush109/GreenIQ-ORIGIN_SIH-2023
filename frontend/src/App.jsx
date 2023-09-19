@@ -21,6 +21,7 @@ import Profile from "./Components/student/Profile";
 import Settings from "./Components/student/Settings";
 import Protectedroute1 from "./Components/Protectedroute1";
 import Dashboard from "./Components/Dashboard";
+import ProtectedRoute1 from "./Components/Protectedroute1";
 function App() {
   function isJWTValid() {
     const token = localStorage.getItem("token");
@@ -79,7 +80,7 @@ function App() {
             <Route path="settings" element={<Settings />} />
             <Route path="confirm-booking/:id" element={<ConfirmBooking />} />
           </Route>
-          <Route path="/mentor" element={<ProtectedRoute />}>
+          <Route path="/mentor" element={<ProtectedRoute1 />}>
             <Route path="my-Test" element={<Mentortest />} />
             <Route path="createtest" element={<CreateTest />} />
             <Route path="Meetings" element={<Meetings />} />
