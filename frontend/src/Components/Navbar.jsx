@@ -27,7 +27,7 @@ function Navbar() {
                 <Link to="/login">Login</Link>
               )}
               {user?.role === "mentor" ? (
-                <Link to="/user/Meetings">Meetings</Link>
+                <Link to="/mentor/Meetings">Meetings</Link>
               ) : (
                 <Link to="/user/book-meeting">book a call</Link>
               )}

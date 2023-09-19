@@ -18,7 +18,7 @@ function MentorCard({ id, name, phonenumber, email }) {
         variant="contained"
         className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
         onClick={() => {
-          navigate(`/confirm-booking/${id}`);
+          navigate(`/user/confirm-booking/${id}`);
         }}
       >
         Book a Call

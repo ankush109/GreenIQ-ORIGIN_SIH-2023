@@ -25,7 +25,7 @@ function ConfirmBooking() {
 
       if (res.success) {
         toast.success("meeting request");
-        navigate("/book-meeting");
+        navigate("/user/book-meeting");
       }
     } else {
       toast.error("please fill all the fields");
