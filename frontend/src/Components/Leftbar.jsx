@@ -96,7 +96,7 @@ const Leftbar = () => {
                   <PiExamFill className="text-xl" />
                   <span className="ml-2 text-sm tracking-wide truncate">
                     {" "}
-                    <Link to="/mentor/createtest">create test</Link>
+                    <Link to="/mentor/createtest">Create test</Link>
                   </span>
                   <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-indigo-500 bg-indigo-50 rounded-full">
                     New
@@ -120,7 +120,7 @@ const Leftbar = () => {
                 <span className="inline-flex justify-center items-center ml-4"></span>
                 <HomeIcon className="text-xl" />
                 <span className="ml-2 text-sm tracking-wide truncate">
-                  <Link to="/home">Home</Link>
+                  <Link to="/">Home</Link>
                 </span>
               </div>
             </li>

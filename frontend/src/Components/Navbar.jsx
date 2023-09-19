@@ -22,7 +22,7 @@ function Navbar() {
           <div>
             <ul className="flex space-x-4 text-white">
               {user ? (
-                <h1>hello {user?.name} </h1>
+                <h1>Hello {user?.name} </h1>
               ) : (
                 <Link to="/login">Login</Link>
               )}
