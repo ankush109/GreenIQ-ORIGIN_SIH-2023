@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "@mui/material";
 import * as Dialog from "@radix-ui/react-dialog";
 import { DialogActions, TextField, TextareaAutosize } from "@mui/material";
-import DateTime from "./DateTime";
+import DateTime from "../DateTime";
 import { useNavigate } from "react-router";
 import ConfirmBooking from "./ConfirmBooking";
 

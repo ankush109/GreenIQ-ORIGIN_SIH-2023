@@ -5,14 +5,14 @@ import {
   getAllquestionsInfo,
   getAllquestionsInfoQuery,
   postQuestion,
-} from "../api/questions/question";
+} from "../../api/questions/question";
 import toast from "react-hot-toast";
 import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { GetUserQuery } from "../api/user";
-import Leftbar from "./Leftbar";
+import { GetUserQuery } from "../../api/user";
+import Leftbar from "../Leftbar";
 
-function FAQsection() {
+function Discuss() {
   const q = GetUserQuery();
   const {
     data: questions,
@@ -348,4 +348,4 @@ function FAQsection() {
   );
 }
 
-export default FAQsection;
+export default Discuss;

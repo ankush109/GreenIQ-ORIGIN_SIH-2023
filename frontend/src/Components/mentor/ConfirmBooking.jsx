@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Leftbar from "./Leftbar"
-import DateTime from "./DateTime";
+import Leftbar from "../Leftbar"
+import DateTime from "../DateTime";
 import { useNavigate, useParams } from "react-router";
-import { bookMeeting } from "../api/meetings";
+import { bookMeeting } from "../../api/meetings";
 import { Button, Input } from "@mui/material";
 import toast from "react-hot-toast";
 

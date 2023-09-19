@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { createTest } from "../api/test";
+import { createTest } from "../../api/test";
 import { Button, TextField } from "@mui/material";
 import toast from "react-hot-toast";
-import Leftbar from "./Leftbar";
+import Leftbar from "../Leftbar";
 import { Link } from "react-router-dom";
 
 function CreateTest() {

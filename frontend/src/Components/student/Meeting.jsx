@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Leftbar from "./Leftbar"
-import { getMentorsQuery, myRequestedMeetingsQuery } from "../api/meetings";
-import MentorCard from "./MentorCard";
+import Leftbar from "../Leftbar"
+import { getMentorsQuery, myRequestedMeetingsQuery } from "../../api/meetings";
+import MentorCard from "../mentor/MentorCard";
 import BookedMeeting from "./BookedMeeting";
 
 function Meeting() {

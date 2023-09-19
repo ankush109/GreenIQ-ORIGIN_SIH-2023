@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GetUserQuery } from "../api/user";
-
+import {RiDiscussFill} from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
 import { MdDashboard } from "react-icons/md";
 import { MdLeaderboard, MdAssignmentAdd } from "react-icons/md";
@@ -56,7 +56,7 @@ const Leftbar = () => {
                 <span className="inline-flex justify-center items-center ml-4"></span>
                 <SiBookstack className="text-xl" />
                 <span className="ml-2 text-sm tracking-wide truncate">
-                  <Link to="/courses">Courses</Link>
+                  <Link to="/user/courses">Courses</Link>
                 </span>
               </div>
             </li>
@@ -66,7 +66,7 @@ const Leftbar = () => {
                 <PiExamFill className="text-xl" />
                 <span className="ml-2 text-sm tracking-wide truncate">
                   {" "}
-                  <Link to="/test">Tests</Link>
+                  <Link to="/user/test">Tests</Link>
                 </span>
                 <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-indigo-500 bg-indigo-50 rounded-full">
                   New
@@ -80,7 +80,7 @@ const Leftbar = () => {
                   <PiExamFill className="text-xl" />
                   <span className="ml-2 text-sm tracking-wide truncate">
                     {" "}
-                    <Link to="/createtest">create test</Link>
+                    <Link to="/user/createtest">create test</Link>
                   </span>
                   <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-indigo-500 bg-indigo-50 rounded-full">
                     New
@@ -95,7 +95,7 @@ const Leftbar = () => {
                 <span className="inline-flex justify-center items-center ml-4"></span>
                 <BiSolidReport className="text-xl" />
                 <span className="ml-2 text-sm tracking-wide truncate">
-                  <Link to="">Reports</Link>
+                  <Link to="/user/report">Reports</Link>
                 </span>
               </div>
             </li>
@@ -104,7 +104,7 @@ const Leftbar = () => {
                 <span className="inline-flex justify-center items-center ml-4"></span>
                 <HomeIcon className="text-xl" />
                 <span className="ml-2 text-sm tracking-wide truncate">
-                  <Link to="/">Home</Link>
+                  <Link to="/home">Home</Link>
                 </span>
               </div>
             </li>
@@ -113,7 +113,7 @@ const Leftbar = () => {
                 <span className="inline-flex justify-center items-center ml-4"></span>
                 <MdLeaderboard className="text-xl" />
                 <span className="ml-2 text-sm tracking-wide truncate">
-                  <Link to="">Leaderboard</Link>
+                  <Link to="/user/leaderboard">Leaderboard</Link>
                 </span>
                 <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-500 bg-red-50 rounded-full">
                   1.2k
@@ -126,16 +126,16 @@ const Leftbar = () => {
                 <span className="inline-flex justify-center items-center ml-4"></span>
                 <FaNewspaper className="text-xl" />
                 <span className="ml-2 text-sm tracking-wide truncate">
-                  <Link to="">News Feed</Link>
+                  <Link to="/user/newsfeed">News Feed</Link>
                 </span>
               </div>
             </li>
             <li>
               <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
                 <span className="inline-flex justify-center items-center ml-4"></span>
-                <FaNewspaper className="text-xl" />
+                <RiDiscussFill className="text-xl" />
                 <span className="ml-2 text-sm tracking-wide truncate">
-                  <Link to="/faq">Discuss</Link>
+                  <Link to="/user/discuss">Discuss</Link>
                 </span>
               </div>
             </li>
@@ -145,7 +145,7 @@ const Leftbar = () => {
                 <MdAssignmentAdd className="text-xl" />
 
                 <span className="ml-2 text-sm tracking-wide truncate">
-                  <Link to="">Materials</Link>
+                  <Link to="/user/material">Materials</Link>
                 </span>
                 <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-green-500 bg-green-50 rounded-full">
                   15
@@ -165,7 +165,7 @@ const Leftbar = () => {
                   <CgProfile className="text-xl" />
                 </span>
                 <span className="ml-2 text-sm tracking-wide truncate">
-                  <Link to="">Profile</Link>
+                  <Link to="/user/profile">Profile</Link>
                 </span>
               </div>
             </li>
@@ -174,7 +174,7 @@ const Leftbar = () => {
                 <span className="inline-flex justify-center items-center ml-4"></span>
                 <AiFillSetting className="text-xl" />
                 <span className="ml-2 text-sm tracking-wide truncate">
-                  <Link to="">Settings</Link>
+                  <Link to="/user/settings">Settings</Link>
                 </span>
               </div>
             </li>

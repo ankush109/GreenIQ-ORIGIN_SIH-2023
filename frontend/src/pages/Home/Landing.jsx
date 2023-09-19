@@ -87,7 +87,7 @@ const Landing = () => {
                 {data?.data?.role === "mentor" ? (
                   <Link to="/Meetings">Meetings</Link>
                 ) : (
-                  <Link to="/book-meeting">Book a call</Link>
+                  <Link to="/user/book-meeting">Book a call</Link>
                 )}
               </span>
             </li>

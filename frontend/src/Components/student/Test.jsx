@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Leftbar from "./Leftbar";
-import Navbar from "./Navbar";
-import Gettest from "./Gettest";
-import { getTestsQuery } from "../api/test";
+import Leftbar from "../Leftbar";
+import Navbar from "../Navbar";
+import Gettest from "../Gettest";
+import { getTestsQuery } from "../../api/test";
 
 const Test = () => {
   const myTest = getTestsQuery();
