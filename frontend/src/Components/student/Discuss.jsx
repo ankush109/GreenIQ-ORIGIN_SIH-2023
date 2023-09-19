@@ -31,10 +31,8 @@ function Discuss() {
     if (questions) {
       setData(questions);
     }
-    console.log(questions);
   }, [questions]);
   const searchQuestion = async () => {
-    console.log(searchText);
     await getAllquestionsInfo(searchText);
   };
   const handleReply = (questionId) => {
@@ -49,7 +47,6 @@ function Discuss() {
   };
 
   const deleteQuestion = async (id) => {
-    console.log(id, "id");
     const res = await deleteMyQuestion(id);
     if (res.success) {
       toast.success("Post has been deleted");

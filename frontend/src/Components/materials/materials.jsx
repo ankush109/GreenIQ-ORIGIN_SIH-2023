@@ -9,7 +9,7 @@ function Material() {
   const [subjects, setsubjects] = useState([]);
   useEffect(() => {
     setsubjects(data.data);
-  });
+  }, [data?.data]);
   return (
     <div className="max-w-screen max-h-screen flex overflow-hidden">
       <div className="w-1/4 h-screen">

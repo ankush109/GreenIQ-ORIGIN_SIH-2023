@@ -21,8 +21,10 @@ const AuthAPI = () => {
   }
 };
 
-const getCoursesByClass = async (classId) => {
-  const { data } = await AuthAPI().get(`/user/get-course?classId=${classId}`);
+const getCoursesByClass = async (classname) => {
+  const { data } = await AuthAPI().get(
+    `/user/get-course?classname=${classname}`
+  );
   return data;
 };
 

@@ -24,7 +24,7 @@ function CreateTest() {
   const createTestHandler = async () => {
     try {
       const response = await createTest(testInfo);
-      console.log("Response:", response.success);
+
       if (response.success) {
         toast.success("Test created successfully");
 
@@ -50,8 +50,11 @@ function CreateTest() {
       </div>
       <div className="bg-gray-100 w-full lg:w-3/4 p-5 justify-center items-center">
         <h1 className="text-2xl font-bold my-5">Create a Test</h1>
-        <Link to="/mentor/my-Test"><Button variant="contained"
-            color="primary">Get mentor's Test</Button></Link>
+        <Link to="/mentor/my-Test">
+          <Button variant="contained" color="primary">
+            Get mentor's Test
+          </Button>
+        </Link>
         <form>
           <TextField
             name="title"
