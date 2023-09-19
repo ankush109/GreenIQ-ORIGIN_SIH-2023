@@ -19,14 +19,25 @@ const AuthAPI = () => {
     });
   }
 };
-
-const getmaterial = async (classname = "11", subjectname = "maths") => {
+const getallSubjects = async () => {
+  const { data } = await AuthAPI().get("/user/get-subjects");
+  return data;
+};
+const getmaterial = async (subjectname) => {
   const { data } = await AuthAPI().get("/user/get-materials", {
-    classname,
     subjectname,
   });
   return data;
 };
+const getSubjectsQuery = () =>
+  useQuery({
+    queryKey: ["get-subjects"],
+    queryFn: () => getallSubjects,
+    select: (data) => {
+      const res = data.message;
+      return res;
+    },
+  });
 const getmaterialQuery = () =>
   useQuery({
     queryKey: ["get-materials"],
@@ -36,4 +47,4 @@ const getmaterialQuery = () =>
       return res;
     },
   });
-export { getmaterialQuery };
+export { getmaterialQuery, getSubjectsQuery };
