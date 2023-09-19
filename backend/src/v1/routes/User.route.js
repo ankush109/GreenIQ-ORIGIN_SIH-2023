@@ -10,7 +10,16 @@ import authMiddleware from "../middlewares/Auth.middleware";
 //import testController from "../controllers/test/test";
 
 const router = express.Router();
-
+router.post(
+  "/create-material",
+  authMiddleware,
+  materialController.createMaterialsMentor
+);
+router.get(
+  "/get-materials",
+  authMiddleware,
+  materialController.getMaterialByClass
+);
 router.post("/create-test", authMiddleware, testController.createTest);
 router.post("/create-course", authMiddleware, courseController.creatCourse);
 router.get(
@@ -18,6 +27,7 @@ router.get(
   authMiddleware,
   testController.getAllTestsCreatedByUser
 );
+router.get("/get-subjects", authMiddleware, materialController.getallSubjects);
 router.delete("/delete-test", authMiddleware, testController.deleteTest);
 router.get("/get-my-test", authMiddleware, testController.getUserTestByClass);
 router.get("/user-details", authMiddleware, userController.userDetails);

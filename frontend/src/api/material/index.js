@@ -3,7 +3,7 @@ import axios from "axios";
 const AuthAPI = () => {
   if (typeof window !== "undefined") {
     return axios.create({
-      baseURL: `http://localhost:5000/v1/`,
+      baseURL: `https://green-iq-backend.onrender.com/v1/`,
       headers: {
         authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
@@ -11,7 +11,7 @@ const AuthAPI = () => {
     });
   } else {
     return axios.create({
-      baseURL: `http://localhost:5000/v1/`,
+      baseURL: `https://green-iq-backend.onrender.com/v1/`,
       headers: {
         authorization: `Bearer }`,
         "Content-Type": "application/json",
@@ -20,17 +20,20 @@ const AuthAPI = () => {
   }
 };
 
-const getmaterial = async () => {
-  const { data } = await AuthAPI().get("/user/get-material");
+const getmaterial = async (classname = "11", subjectname = "maths") => {
+  const { data } = await AuthAPI().get("/user/get-materials", {
+    classname,
+    subjectname,
+  });
   return data;
 };
 const getmaterialQuery = () =>
   useQuery({
-    queryKey: ["material"],
+    queryKey: ["get-materials"],
     queryFn: () => getmaterial,
     select: (data) => {
       const res = data.message;
       return res;
     },
   });
-  export {getmaterialQuery}
+export { getmaterialQuery };

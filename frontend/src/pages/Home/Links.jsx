@@ -26,7 +26,7 @@ export const Footer_1_Links = [
   },
   {
     name: "DASHBOARD",
-    path: "",
+    path: "/dashboard",
     protected: false,
   },
   {
@@ -43,7 +43,7 @@ export const Footer_2_Links = [
   },
   {
     name: "HOME",
-    path: "",
+    path: "/",
     protected: false,
   },
   {
@@ -53,14 +53,14 @@ export const Footer_2_Links = [
   },
   {
     name: "DASHBOARD",
-    path: "",
+    path: "/dashboard",
     protected: false,
   },
 ];
 export const Navbar_Links = [
   {
     name: "HOME",
-    path: "",
+    path: "/",
     protected: false,
   },
   {
@@ -68,14 +68,10 @@ export const Navbar_Links = [
     path: "",
     protected: false,
   },
-  {
-    name: "FAQ",
-    path: "/faq",
-    protected: false,
-  },
+ 
   {
     name: "DASHBOARD",
-    path: "",
+    path: "/dashboard",
     protected: true,
   },
 ];
