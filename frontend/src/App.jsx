@@ -25,6 +25,7 @@ import Newsfeed from "./Components/student/Newsfeed";
 import Profile from "./Components/student/Profile";
 import Settings from "./Components/student/Settings";
 import Protectedroute1 from "./Components/Protectedroute1";
+import Dashboard from "./Components/Dashboard";
 function App() {
   function isJWTValid() {
     const token = localStorage.getItem("token");
@@ -65,7 +66,8 @@ function App() {
         <Routes>
           <Route path="/">
             <Route path="/"element={<Landing/>}/>
-            <Route path="/home" element={<Home />} />
+            <Route path="/" element={<Home />} />
+             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
          </Route>
