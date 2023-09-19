@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://green-iq-backend.onrender.com/v1/",
+  baseURL: `https://green-iq-backend.onrender.com/v1/`,
   headers: {
     "Content-Type": "application/json",
   },
