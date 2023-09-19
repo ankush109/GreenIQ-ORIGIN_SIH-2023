@@ -68,7 +68,11 @@ export const Navbar_Links = [
     path: "",
     protected: false,
   },
-
+  {
+    name: "FAQ",
+    path: "/faq",
+    protected: false,
+  },
   {
     name: "DASHBOARD",
     path: "",

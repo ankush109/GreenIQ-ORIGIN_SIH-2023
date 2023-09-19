@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import Sidebar from "./Sidebar";
-import { createTest } from "../api/test"; 
+import { createTest } from "../api/test";
 import { Button, TextField } from "@mui/material";
 import toast from "react-hot-toast";
+import Leftbar from "./Leftbar";
+import { Link } from "react-router-dom";
 
 function CreateTest() {
   const [testInfo, setTestInfo] = useState({
@@ -22,13 +23,11 @@ function CreateTest() {
 
   const createTestHandler = async () => {
     try {
-     
       const response = await createTest(testInfo);
-      console.log("Response:",response.success);
+      console.log("Response:", response.success);
       if (response.success) {
-
         toast.success("Test created successfully");
-      
+
         setTestInfo({
           title: "",
           description: "",
@@ -36,11 +35,9 @@ function CreateTest() {
           classId: "",
         });
       } else {
-       
         toast.error("Failed to create test");
       }
     } catch (error) {
-   
       console.error("Error creating test:", error);
       toast.error("Error creating test: " + error.message);
     }
@@ -48,11 +45,12 @@ function CreateTest() {
 
   return (
     <div className="max-w-screen max-h-screen flex overflow-hidden">
-      <div className="w-1/4 h-screen">
-        <Sidebar />
+      <div className="hidden lg:block w-1/4 h-screen">
+        <Leftbar />
       </div>
-      <div className="bg-gray-200 w-full p-5 justify-center items-center">
+      <div className="bg-gray-100 w-full lg:w-3/4 p-5 justify-center items-center">
         <h1 className="text-2xl font-bold my-5">Create a Test</h1>
+        <Link to="/my-Test">Get my Test</Link>
         <form>
           <TextField
             name="title"

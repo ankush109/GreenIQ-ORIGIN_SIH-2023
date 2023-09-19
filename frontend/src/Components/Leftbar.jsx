@@ -2,20 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GetUserQuery } from "../api/user";
 
-import {CgProfile}   from "react-icons/cg";
-import {MdDashboard}  from "react-icons/md";
-import {
-  
-  MdLeaderboard,
-  MdAssignmentAdd
-} from "react-icons/md";
+import { CgProfile } from "react-icons/cg";
+import { MdDashboard } from "react-icons/md";
+import { MdLeaderboard, MdAssignmentAdd } from "react-icons/md";
 import { SiBookstack } from "react-icons/si";
-import {PiExamFill}from "react-icons/pi";
-import {BiSolidReport,BiSolidLogOut}from "react-icons/bi";
-import {FaNewspaper}from "react-icons/fa";
-import {AiFillSetting} from "react-icons/ai"
+import { PiExamFill } from "react-icons/pi";
+import { BiSolidReport, BiSolidLogOut } from "react-icons/bi";
+import { FaNewspaper } from "react-icons/fa";
+import { AiFillSetting } from "react-icons/ai";
+import HomeIcon from "@mui/icons-material/Home";
 const Leftbar = () => {
-   const data = GetUserQuery();
+  const data = GetUserQuery();
   const [user, setuser] = useState();
   useEffect(() => {
     console.log(data.data, "data");
@@ -33,179 +30,168 @@ const Leftbar = () => {
     setSelectedTab(path);
   }, [selectedTab]);
   return (
-  <>
-
-
-    <div className="h-full w-full bg-white border-r">
-      <div className="flex items-center justify-center h-14 border-b">
-        <div> {user ? (
-                <h1>Hello {user?.name} </h1>
-              ) : (
-                <Link to="/login">Login</Link>
-              )}</div>
-      </div>
-      <div className="overflow-y-auto overflow-x-hidden flex-grow">
-        <ul className="flex flex-col py-4 space-y-1">
-          <li className="px-5">
-            <div className="flex flex-row items-center h-8">
-                {/* <MdDashboard className="text-xl"/> */}
-              <div className="text-sm font-light tracking-wide text-gray-500">
-                Dashboard
+    <>
+      <div className=" hidden lg:block h-full  bg-white border-r">
+        <div className="flex items-center justify-center h-14 border-b">
+          <div>
+            {" "}
+            {user ? (
+              <h1>Hello {user?.name} </h1>
+            ) : (
+              <Link to="/login">Login</Link>
+            )}
+          </div>
+        </div>
+        <div className="overflow-y-auto overflow-x-hidden flex-grow">
+          <ul className="flex flex-col py-4 space-y-1">
+            <li className="px-5">
+              <div className="flex flex-row items-center h-8">
+                <div className="text-sm font-light tracking-wide text-gray-500">
+                  Dashboard
+                </div>
               </div>
-            </div>
-          </li>
-          <li>
-            <div
-              className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
-            >
-              <span className="inline-flex justify-center items-center ml-4">
-               
-              </span>
-             <SiBookstack className="text-xl" />
-              <span className="ml-2 text-sm tracking-wide truncate">
-                <Link to="/courses">Courses</Link>
-              </span>
-            </div>
-          </li>
-          <li>
-            <div
-              className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
-            >
-                 <span className="inline-flex justify-center items-center ml-4">
-               
-              </span>
-             <PiExamFill className='text-xl'/>
-              <span className="ml-2 text-sm tracking-wide truncate">        <Link to="/gettest">Tests</Link></span>
-              <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-indigo-500 bg-indigo-50 rounded-full">
-                New
-              </span>
-            </div>
-          </li>
-          <li>
-            <div
-              className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
-            >
-              <span className="inline-flex justify-center items-center ml-4">
-             
-              </span>
-              <BiSolidReport className='text-xl'/>
-              <span className="ml-2 text-sm tracking-wide truncate">
-                 <Link to="/reports">Reports</Link></span>
-            </div>
-          </li>
-          <li>
-            <div
-              className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
-            >
-              <span className="inline-flex justify-center items-center ml-4">
-               
-              </span>
-              <MdLeaderboard className='text-xl'/>
-              <span className="ml-2 text-sm tracking-wide truncate">
-                <Link to="/leaderboard">Leaderboard</Link>
-              </span>
-              <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-500 bg-red-50 rounded-full">
-                1.2k
-              </span>
-            </div>
-          </li>
-        
-          <li>
-            <div
-              className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
-            >
-              <span className="inline-flex justify-center items-center ml-4">
-
-              </span>
-        <FaNewspaper className='text-xl'/>
-              <span className="ml-2 text-sm tracking-wide truncate">
-              <Link to="/newsfeed">News Feed</Link>
-              </span>
-            </div>
-          </li>
-             <li>
-            <div
-              className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
-            >
-              <span className="inline-flex justify-center items-center ml-4">
-
-              </span>
-        <FaNewspaper className='text-xl'/>
-              <span className="ml-2 text-sm tracking-wide truncate">
-              <Link to="/discuss">Discuss</Link>
-              </span>
-            </div>
-          </li>
-          <li>
-            <div
-              className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
-            >
-              <span className="inline-flex justify-center items-center ml-4">
-               
-              </span>
-              <MdAssignmentAdd className='text-xl'/>
-              
-              <span className="ml-2 text-sm tracking-wide truncate">
-              <Link to="/materials">Materials</Link>
-              </span>
-              <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-green-500 bg-green-50 rounded-full">
-                15
-              </span>
-            </div>
-          </li>
-          <li className="px-5">
-            
-            <div className="flex flex-row items-center h-8">
-              <div className="text-sm font-light tracking-wide text-gray-500">
-                Settings
+            </li>
+            <li>
+              <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                <span className="inline-flex justify-center items-center ml-4"></span>
+                <SiBookstack className="text-xl" />
+                <span className="ml-2 text-sm tracking-wide truncate">
+                  <Link to="/courses">Courses</Link>
+                </span>
               </div>
-            </div>
-          </li>
-          <li>
-            <div
-              className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
-            >
-              <span className="inline-flex justify-center items-center ml-4">
-                <CgProfile className='text-xl'/>
-              </span>
-              <span className="ml-2 text-sm tracking-wide truncate">
-               <Link to="/profile">Profile</Link>
-              </span>
-            </div>
-          </li>
-          <li>
-           <div
-              className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
-            >
-              <span className="inline-flex justify-center items-center ml-4">
-                
-              </span>
-              <AiFillSetting className='text-xl'/>
-              <span className="ml-2 text-sm tracking-wide truncate">
-              <Link to="/settings">Settings</Link>
-              </span>
-            </div>
-          </li>
-          <li>
-            <div
-              className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
-            >
-              <span className="inline-flex justify-center items-center ml-4">
-               
-              </span>
-              <BiSolidLogOut className="text-xl"/>
-              <span className="ml-2 text-sm tracking-wide truncate">
-               <Link to="/logout">Logout</Link>
-              </span>
-            </div>
-          </li>
-        </ul>
+            </li>
+            <li>
+              <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                <span className="inline-flex justify-center items-center ml-4"></span>
+                <PiExamFill className="text-xl" />
+                <span className="ml-2 text-sm tracking-wide truncate">
+                  {" "}
+                  <Link to="/test">Tests</Link>
+                </span>
+                <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-indigo-500 bg-indigo-50 rounded-full">
+                  New
+                </span>
+              </div>
+            </li>
+            {user?.role == "mentor" ? (
+              <li>
+                <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                  <span className="inline-flex justify-center items-center ml-4"></span>
+                  <PiExamFill className="text-xl" />
+                  <span className="ml-2 text-sm tracking-wide truncate">
+                    {" "}
+                    <Link to="/createtest">create test</Link>
+                  </span>
+                  <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-indigo-500 bg-indigo-50 rounded-full">
+                    New
+                  </span>
+                </div>
+              </li>
+            ) : (
+              ""
+            )}
+            <li>
+              <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                <span className="inline-flex justify-center items-center ml-4"></span>
+                <BiSolidReport className="text-xl" />
+                <span className="ml-2 text-sm tracking-wide truncate">
+                  <Link to="">Reports</Link>
+                </span>
+              </div>
+            </li>
+            <li>
+              <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                <span className="inline-flex justify-center items-center ml-4"></span>
+                <HomeIcon className="text-xl" />
+                <span className="ml-2 text-sm tracking-wide truncate">
+                  <Link to="/">Home</Link>
+                </span>
+              </div>
+            </li>
+            <li>
+              <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                <span className="inline-flex justify-center items-center ml-4"></span>
+                <MdLeaderboard className="text-xl" />
+                <span className="ml-2 text-sm tracking-wide truncate">
+                  <Link to="">Leaderboard</Link>
+                </span>
+                <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-500 bg-red-50 rounded-full">
+                  1.2k
+                </span>
+              </div>
+            </li>
+
+            <li>
+              <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                <span className="inline-flex justify-center items-center ml-4"></span>
+                <FaNewspaper className="text-xl" />
+                <span className="ml-2 text-sm tracking-wide truncate">
+                  <Link to="">News Feed</Link>
+                </span>
+              </div>
+            </li>
+            <li>
+              <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                <span className="inline-flex justify-center items-center ml-4"></span>
+                <FaNewspaper className="text-xl" />
+                <span className="ml-2 text-sm tracking-wide truncate">
+                  <Link to="/faq">Discuss</Link>
+                </span>
+              </div>
+            </li>
+            <li>
+              <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                <span className="inline-flex justify-center items-center ml-4"></span>
+                <MdAssignmentAdd className="text-xl" />
+
+                <span className="ml-2 text-sm tracking-wide truncate">
+                  <Link to="">Materials</Link>
+                </span>
+                <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-green-500 bg-green-50 rounded-full">
+                  15
+                </span>
+              </div>
+            </li>
+            <li className="px-5">
+              <div className="flex flex-row items-center h-8">
+                <div className="text-sm font-light tracking-wide text-gray-500">
+                  Settings
+                </div>
+              </div>
+            </li>
+            <li>
+              <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                <span className="inline-flex justify-center items-center ml-4">
+                  <CgProfile className="text-xl" />
+                </span>
+                <span className="ml-2 text-sm tracking-wide truncate">
+                  <Link to="">Profile</Link>
+                </span>
+              </div>
+            </li>
+            <li>
+              <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                <span className="inline-flex justify-center items-center ml-4"></span>
+                <AiFillSetting className="text-xl" />
+                <span className="ml-2 text-sm tracking-wide truncate">
+                  <Link to="">Settings</Link>
+                </span>
+              </div>
+            </li>
+            <li>
+              <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                <span className="inline-flex justify-center items-center ml-4"></span>
+                <BiSolidLogOut className="text-xl" />
+                <span className="ml-2 text-sm tracking-wide truncate">
+                  <Link to="">Logout</Link>
+                </span>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
- 
-</>
+    </>
+  );
+};
 
-  )
-}
-
-export default Leftbar
+export default Leftbar;

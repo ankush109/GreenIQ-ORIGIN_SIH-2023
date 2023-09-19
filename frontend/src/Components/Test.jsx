@@ -1,41 +1,73 @@
-import React from 'react'
-import Leftbar from './Leftbar'
-
-import Navbar from './Navbar'
-import Gettest from './Gettest'
+import React, { useEffect, useState } from "react";
+import Leftbar from "./Leftbar";
+import Navbar from "./Navbar";
+import Gettest from "./Gettest";
+import { getTestsQuery } from "../api/test";
 
 const Test = () => {
+  const myTest = getTestsQuery();
+  const [test, setTest] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    setTest(myTest.data);
+  }, [myTest]);
+
+  const filteredTests = test?.filter((item) =>
+    item.subject.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
   return (
-//     <div >
-//         {/* <Leftbar/> */}
-//         <h1>Tests</h1>
-// <Leftbar/>
-// <Test1/>
-//     </div>
- <>
-      
-     
-      <div className="flex flex-col">
+    <>
+      <div className="flex flex-col lg:flex-row h-screen">
+        <div className="w-1/4 h-screen">
           <Leftbar />
-       <div className='flex  justify-center font-bold text-4xl '>Tests</div>
-       <div>
-      <div className="fixed flex flex-col  right-0 w-[75%] my-2 flex-col mx-10 bg-blue-200 rounded-xl  ">
-            <div className="flex justify-between p-4 mx-2">
-          <div>All Tests</div>
-          <div>Upcoming Tests</div>
-          <div>Attempted Tests</div>
-          <div>Unsolved Tests</div>
-          <div>Subject</div>
-
         </div>
+        <div className="w-full lg:w-3/4">
+          <div className="px-4 py-6">
+            <h1 className="text-4xl font-bold mb-6">Tests Available for You</h1>
+            <input
+              type="text"
+              placeholder="Search subjects..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full p-2 mb-4 rounded-lg border border-gray-300"
+            />
+            <div className="overflow-auto rounded-lg bg-gray-200">
+              <div className="grid grid-cols-1 lg:grid-cols-5 gap-2 px-4 py-2 font-semibold bg-gray-300">
+                <div>Subject</div>
+                <div>Description</div>
+                <div>Title</div>
+                <div>Subject</div>
+                <div>Created by</div>
+              </div>
+              {filteredTests?.map((item) => (
+                <div
+                  key={item.id}
+                  className="grid grid-cols-1 lg:grid-cols-5 gap-2 px-4 py-2 border-t border-gray-300"
+                >
+                  <div>{item.description}</div>
+                  <div>{item.title || "dummy t1"}</div>
+                  <div>{item.subject.name}</div>
+                  <div>{item.owner.name}</div>
+                  <div>
+                    {new Date(item.createdAt).toLocaleDateString(
+                      "en-US",
+                      options
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        
-       </div>
+        </div>
       </div>
-    </> 
+    </>
+  );
+};
 
-    
-  )
-}
-
-export default Test
+export default Test;

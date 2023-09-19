@@ -18,6 +18,8 @@ import Gettest from "./Components/Gettest";
 // import Createtest1 from "./Components/Createtest1";
 import Meetings from "./Components/mentor-page/Meetings";
 import ProtectedRoute from "./Components/PrivateRoute";
+import FAQsection from "./Components/FAQsection";
+import Mentortest from "./Components/mentor-page/mentor-test";
 function App() {
   function isJWTValid() {
     const token = localStorage.getItem("token");
@@ -61,15 +63,15 @@ function App() {
             <Route path="/book-meeting" element={<Meeting />} />
           </Route>
           <Route path="/" element={<Home />} />
-          {/* <Route path="/book-meeting" element={<Meeting />} /> */}
+          <Route path="/faq" element={<FAQsection />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-           <Route path="/test" element={<Test />} />
-        
-             <Route path="/createtest" element={<CreateTest />} />
-             <Route path="/gettest" element={<Gettest />} />
-            
-            <Route path="/courses" element={<Courses classId={`clmnd94480001vgy0xtlg1uaj`}/>} />
+          <Route path="/test" element={<Test />} />
+          <Route path="/my-Test" element={<Mentortest />} />
+          <Route path="/createtest" element={<CreateTest />} />
+          <Route path="/gettest" element={<Gettest />} />
+
+          <Route path="/courses" element={<Courses />} />
           <Route path="/confirm-booking/:id" element={<ConfirmBooking />} />
           <Route path="/Meetings" element={<Meetings />} />
         </Routes>
