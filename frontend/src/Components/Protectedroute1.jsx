@@ -1,49 +1,40 @@
-/*import React, { useEffect, useState } from "react";
-import { Navigate, Outlet } from "react-router-dom";
-import { GetUserQuery } from "../api/user";
-
-const Protectedroute1 = () => {
-  const data = GetUserQuery();
-  console.log("Data:",data.data);
-  const [user, setUser] = useState(true);
-
-  useEffect(() => {
-    setUser(data.data); // Move the setUser inside the useEffect callback
-  }, [data.data]); // Place the dependencies array here
-
-console.log("User:",user);
-  const isMentor = user && user.role === "mentor";
-
-  return isMentor ? <Outlet /> : <Navigate to="/login" />;
- 
-};
-
-export default Protectedroute1;
-*/
-
 import React, { useEffect, useState } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { GetUserQuery } from "../api/user";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProtectedRoute = () => {
+  const navigate = useNavigate();
   const data = GetUserQuery();
-  console.log("Data:",data);
-  const [user, setUser] = useState(true);
+  const [user, setUser] = useState(null);
+  const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
-  
-    if (data.isAuthenticated) {
-      setUser(data);
+    if (data?.data) {
+      setUser(data.data);
     }
-  }, [data.isAuthenticated]); 
-  console.log("User:",user);
-  
-  console.log("User role:",user.data.role);
-  const isMentor = user && user.data && user.data.role === "mentor";
+  }, [data?.data]);
 
-  return isMentor ? <Outlet /> : <Navigate to="/login" />;
+  useEffect(() => {
+    if (user && user.role !== "mentor") {
+      setShowToast(true);
+      notify();
+      setTimeout(() => {
+        navigate("/");
+        notify();
+      }, 3000);
+    }
+  }, [user, navigate]);
+
+  const notify = () => {
+    toast.error("You are not authorized to access this page.");
+  };
+
+  const isMentor = user && user.role === "mentor";
+
+  return;
+  <></>;
 };
 
 export default ProtectedRoute;
-
-

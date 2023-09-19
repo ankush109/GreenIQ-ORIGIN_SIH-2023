@@ -12,7 +12,7 @@ const materialController = {
           .json({ message: "Unauthorized. Please log in." });
       }
 
-      const { classId, subjectId } = req.query;
+      const { classId, subjectId } = req.body;
 
       if (!classId || !subjectId) {
         return res
@@ -109,10 +109,10 @@ const materialController = {
   },
   async getMaterialByClass(req, res, next) {
     try {
-      const { classname, subjectName } = req.body;
+      const { subjectName } = req.query;
       const findclassId = await prisma.class.findFirst({
         where: {
-          name: classname,
+          name: req.user.classname,
         },
       });
 
@@ -157,7 +157,7 @@ const materialController = {
   },
   async getallSubjects(req, res, next) {
     try {
-      const { classname } = req.body;
+      const classname = req.user.classname;
       const findclassId = await prisma.class.findFirst({
         where: {
           name: classname,

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GetUserQuery } from "../api/user";
-import {RiDiscussFill} from "react-icons/ri";
+import { RiDiscussFill } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
 import { MdDashboard } from "react-icons/md";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { MdLeaderboard, MdAssignmentAdd } from "react-icons/md";
 import { SiBookstack } from "react-icons/si";
 import { PiExamFill } from "react-icons/pi";
@@ -34,7 +36,6 @@ const Leftbar = () => {
       <div className=" hidden lg:block h-full  bg-white border-r">
         <div className="flex items-center justify-center h-14 border-b">
           <div>
-            {" "}
             {user ? (
               <h1>Hello {user?.name} </h1>
             ) : (
@@ -60,34 +61,34 @@ const Leftbar = () => {
                 </span>
               </div>
             </li>
-             {user?.role == "mentor" ? (
-            <li>
-              <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
-                <span className="inline-flex justify-center items-center ml-4"></span>
-                <PiExamFill className="text-xl" />
-                <span className="ml-2 text-sm tracking-wide truncate">
-                  {" "}
-                  <Link to="/mentor/my-test">Mentor's Tests</Link>
-                </span>
-                <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-indigo-500 bg-indigo-50 rounded-full">
-                  New
-                </span>
-              </div>
-            </li>
-             ) : (
-               <li>
-              <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
-                <span className="inline-flex justify-center items-center ml-4"></span>
-                <PiExamFill className="text-xl" />
-                <span className="ml-2 text-sm tracking-wide truncate">
-                  {" "}
-                  <Link to="/user/test">Tests</Link>
-                </span>
-                <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-indigo-500 bg-indigo-50 rounded-full">
-                  New
-                </span>
-              </div>
-            </li>
+            {user?.role == "mentor" ? (
+              <li>
+                <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                  <span className="inline-flex justify-center items-center ml-4"></span>
+                  <PiExamFill className="text-xl" />
+                  <span className="ml-2 text-sm tracking-wide truncate">
+                    {" "}
+                    <Link to="/mentor/my-test">Mentor's Tests</Link>
+                  </span>
+                  <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-indigo-500 bg-indigo-50 rounded-full">
+                    New
+                  </span>
+                </div>
+              </li>
+            ) : (
+              <li>
+                <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                  <span className="inline-flex justify-center items-center ml-4"></span>
+                  <PiExamFill className="text-xl" />
+                  <span className="ml-2 text-sm tracking-wide truncate">
+                    {" "}
+                    <Link to="/user/test">Tests</Link>
+                  </span>
+                  <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-indigo-500 bg-indigo-50 rounded-full">
+                    New
+                  </span>
+                </div>
+              </li>
             )}
             {user?.role == "mentor" ? (
               <li>
@@ -197,9 +198,26 @@ const Leftbar = () => {
             <li>
               <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
                 <span className="inline-flex justify-center items-center ml-4"></span>
+                <AiFillSetting className="text-xl" />
+                <span className="ml-2 text-sm tracking-wide truncate">
+                  <Link to="/mentor/createMaterial">Create Material</Link>
+                </span>
+              </div>
+            </li>
+            <li>
+              <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                <span className="inline-flex justify-center items-center ml-4"></span>
                 <BiSolidLogOut className="text-xl" />
                 <span className="ml-2 text-sm tracking-wide truncate">
-                  <Link to="">Logout</Link>
+                  <Link
+                    onClick={() => {
+                      localStorage.removeItem("token");
+                      navigate("/login");
+                    }}
+                    to=""
+                  >
+                    Logout
+                  </Link>
                 </span>
               </div>
             </li>

@@ -1,22 +1,17 @@
 import "./App.css";
-import Home from "./Components/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster, toast, useToasterStore } from "react-hot-toast";
 import { useEffect } from "react";
-import Register from "./Components/Register";
-import Login from "./Components/Login";
+import Register from "./Components/auth/Register";
+import Login from "./Components/auth/Login";
 import Test from "./Components/student/Test";
 import Landing from "./pages/Home/Landing";
-
 import Meeting from "./Components/student/Meeting";
-import Navbar from "./Components/Navbar";
 import ConfirmBooking from "./Components/mentor/ConfirmBooking";
 import Courses from "./Components/student/Course";
 import CreateTest from "./Components/mentor/Createtest";
-import Gettest from "./Components/Gettest";
 import Meetings from "./Components/mentor/Meetings";
 import ProtectedRoute from "./Components/PrivateRoute";
-
 import Mentortest from "./Components/mentor/mentor-test";
 import Report from "./Components/student/Report";
 import Discuss from "./Components/student/Discuss";
@@ -26,6 +21,10 @@ import Profile from "./Components/student/Profile";
 import Settings from "./Components/student/Settings";
 import Protectedroute1 from "./Components/Protectedroute1";
 import Dashboard from "./Components/Dashboard";
+import ProtectedRoute1 from "./Components/Protectedroute1";
+import Material from "./Components/materials/materials";
+import MaterialSubject from "./Components/materials/MaterialSubject";
+import CreateMaterial from "./Components/mentor/CreateMaterial";
 function App() {
   function isJWTValid() {
     const token = localStorage.getItem("token");
@@ -50,9 +49,9 @@ function App() {
   const { toasts } = useToasterStore();
   useEffect(() => {
     toasts
-      .filter((t) => t.visible) // Only consider visible toasts
-      .filter((_, i) => i >= MAX_TOAST_LIMIT) // Is toast index over limit?
-      .forEach((t) => toast.dismiss(t.id)); // Dismiss – Use toast.remove(t.id) for no exit animation
+      .filter((t) => t.visible)
+      .filter((_, i) => i >= MAX_TOAST_LIMIT)
+      .forEach((t) => toast.dismiss(t.id));
   }, [toasts]);
 
   return (
@@ -65,47 +64,32 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/">
-            <Route path="/"element={<Landing/>}/>
-            <Route path="/" element={<Home />} />
-             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/" element={<Landing />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-         </Route>
+          </Route>
 
-
-             
-          {/* <Route path="/createtest"  element={<Protectedroute1/>}>
-            <Route path="/createtest" element={<CreateTest />} />
-          </Route> */}
-          {/* <Route path="/user/report" element={<ProtectedRoute />}>
-         <Route path="/user/report" element={<Report />} />
-         </Route> */}
-
-          
-      {/* <Route path="createtest" element={<CreateTest />} /> */}
-
-      
-    <Route path="/user" element={<ProtectedRoute />} >
-  <Route path="courses" element={<Courses />} />
-  <Route path="test" element={<Test />} />
-  <Route path="gettest" element={<Gettest />} />
-  <Route path="book-meeting" element={<Meeting />} />
-  <Route path="discuss" element={<Discuss />} />
-  <Route path="report" element={<Report />} />
-  <Route path="leaderboard" element={<Leaderboard />} />
-  <Route path="newsfeed" element={<Newsfeed />} />
-  <Route path="profile" element={<Profile />} />
-  <Route path="settings" element={<Settings />} />
-   <Route path="confirm-booking/:id" element={<ConfirmBooking />} />
- 
-</Route>
-<Route path="/mentor" element={<ProtectedRoute />} >
-
-  <Route path="my-Test" element={<Mentortest />} />
-  <Route path="createtest" element={<CreateTest />} />
-  <Route path="Meetings" element={<Meetings />} />
-</Route>
-
+          <Route path="/user">
+            <Route path="courses" element={<Courses />} />
+            <Route path="material/:id" element={<MaterialSubject />} />
+            <Route path="test" element={<Test />} />
+            <Route path="material" element={<Material />} />
+            <Route path="book-meeting" element={<Meeting />} />
+            <Route path="discuss" element={<Discuss />} />
+            <Route path="report" element={<Report />} />
+            <Route path="leaderboard" element={<Leaderboard />} />
+            <Route path="newsfeed" element={<Newsfeed />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="settings" element={<Settings />} />
+            <Route path="confirm-booking/:id" element={<ConfirmBooking />} />
+          </Route>
+          <Route path="/mentor">
+            <Route path="my-Test" element={<Mentortest />} />
+            <Route path="createtest" element={<CreateTest />} />
+            <Route path="Meetings" element={<Meetings />} />
+            <Route path="createMaterial" element={<CreateMaterial />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>

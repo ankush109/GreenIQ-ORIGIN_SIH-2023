@@ -1,23 +1,14 @@
 import { TextField } from "@mui/material";
-import React, {
-  FC,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import classNames from "classnames";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { loginUser, registerUser } from "../api";
+import { registerUser } from "../../api";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useNavigate } from "react-router";
-function Login() {
+function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const [apiError, setApiError] = useState(null);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const {
     reset,
     register,
@@ -28,40 +19,31 @@ function Login() {
     formState: { errors, isSubmitting, isValidating },
   } = useForm({
     mode: "onChange",
-
     defaultValues: {
       name: "",
       email: "",
       password: "",
-      confirmPassword: "",
+      classname: "",
+      phonenumber: "",
     },
   });
+
+  // making the api call for registering user
+
   const onSubmit = async (formData) => {
     try {
-      const response = await loginUser(formData);
-
-      const { data } = response;
-      if (response.status === 200) {
-        localStorage.setItem("token", data.message.accessToken);
-        toast.success("Login Successful", { id: data.message });
-        navigate("/");
-      }
+      console.log(formData);
+      const { data } = await registerUser(formData);
+      toast.success(data.message, { id: data.message });
+      navigate("/Login");
       reset();
       setApiError(null);
-
-      // As reset will fallback to defaultValues
-      // so they have to be cleared explicitly
+      setValue("name", "");
       setValue("email", "");
-      setShowPassword(false);
+      setValue("picture", null);
     } catch (err) {
-      setApiError("please verify your credentials");
-      toast.error("Invalid Credentials");
+      setApiError(err.response.data.message);
     }
-    reset();
-    // As reset will fallback to defaultValues
-    // so they have to be cleared explicitly
-    setValue("email", "");
-    setShowPassword(false);
   };
   return (
     <div className="flex">
@@ -71,15 +53,41 @@ function Login() {
           src="https://newlookschool.com/wp-content/uploads/2021/08/Knolage-and-Learning.jpg"
         />
       </div>
-      <div className="flex lg:w-1/2  sm:w-full  justify-center p-32">
+      <div className="flex lg:w-1/2  sm:w-full h-screen justify-center p-20">
         <div className="flex flex-col gap-4">
-          <p className="text-gray-500">Existing User? </p>
-          <h1 className="font-bold text-3xl font-mono">Login</h1>
+          <p className="text-gray-500">New User? </p>
+          <h1 className="font-bold text-3xl font-mono">Register</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-5 my-10">
               <div className="">
                 <TextField
-                  required
+                  id="outlined-basic"
+                  label="Name"
+                  variant="outlined"
+                  className="w-full rounded-lg text-white"
+                  {...register("name")}
+                />
+              </div>
+              <div className="">
+                <TextField
+                  id="outlined-basic"
+                  label="class"
+                  variant="outlined"
+                  className="w-full rounded-lg text-white"
+                  {...register("classname")}
+                />
+              </div>
+              <div className="">
+                <TextField
+                  id="outlined-basic"
+                  label="phonenumber"
+                  variant="outlined"
+                  className="w-full rounded-lg text-white"
+                  {...register("phonenumber")}
+                />
+              </div>
+              <div className="">
+                <TextField
                   id="outlined-basic"
                   label="Email"
                   variant="outlined"
@@ -88,15 +96,15 @@ function Login() {
                 />
               </div>
               <div className="relative">
-                {/* p-2 mt-3 rounded-2xl border w-full */}
                 <TextField
-                  required
                   id="outlined-basic"
                   label="Password"
                   variant="outlined"
-                  className="w-full rounded-lg text-white"
+                  className={`w-full rounded-lg text-white ${
+                    errors.password ? "border-red-500" : ""
+                  }`}
                   type={showPassword ? "text" : "password"}
-                  placeholder="enter  a password"
+                  placeholder="Enter a password"
                   {...register("password")}
                 />
                 <div
@@ -111,6 +119,14 @@ function Login() {
                     <AiFillEyeInvisible size={20} />
                   )}
                 </div>
+                {errors.password && (
+                  <p className="text-red-500 text-sm italic">
+                    {errors.password.message}
+                  </p>
+                )}
+                {apiError && (
+                  <p className="text-red-500 text-sm italic">{apiError}</p>
+                )}
               </div>
             </div>
             <div className="flex mx-10 p-5">
@@ -120,20 +136,20 @@ function Login() {
           
             "
               >
-                New User ?
+                Already have an account?{" "}
               </p>
               <p
-                className="text-blue-500 mx-1 hover: cursor-pointer"
+                className="text-blue-500 hover: cursor-pointer"
                 onClick={() => {
-                  navigate("/register");
+                  navigate("/Login");
                 }}
               >
                 {"  "}
-                Sign up
+                Sign In
               </p>
             </div>
             <button className="py-2 px-10 mx-24 my-4 bg-blue-400  text-white  rounded-xl hover:bg-blue-500 hover:text-white hover:scale-110 duration-300">
-              Login
+              Register
             </button>
           </form>
         </div>
@@ -142,4 +158,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

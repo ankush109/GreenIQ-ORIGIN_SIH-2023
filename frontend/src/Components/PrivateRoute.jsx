@@ -1,10 +1,10 @@
-/*import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { GetUserQuery } from "../api/user";
 
 const ProtectedRoute = () => {
   const data = GetUserQuery();
-  console.log("Data1",data.data);
+  console.log("Data1", data.data);
   const [user, setUser] = useState(true);
 
   useEffect(() => {
@@ -15,29 +15,3 @@ const ProtectedRoute = () => {
 };
 
 export default ProtectedRoute;
-
-*/
-
-
-import React, { useEffect, useState } from "react";
-import { Navigate, Outlet } from "react-router-dom";
-import { GetUserQuery } from "../api/user";
-
-const ProtectedRoute = () => {
-  const data = GetUserQuery();
-  console.log("Data1",data);
-  const [user, setUser] = useState(true);
-
-  useEffect(() => {
-  
-    if (data.isAuthenticated) {
-      setUser(data); 
-    }
-  }, [data.isAuthenticated]);
-
-  return user ? <Outlet /> : <Navigate to="/login" />;
-};
-
-export default ProtectedRoute;
-
-
