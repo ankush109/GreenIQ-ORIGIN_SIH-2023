@@ -23,12 +23,14 @@ const limiter = rateLimit({
   },
 });
 
-const corsOption = {
-  origin: [process.env.FRONTEND_URL],
+const corsOptions = {
+  origin: ["http://localhost:5173"],
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
 };
 
 const app = express();
-
+app.use(cors(corsOptions));
 // Global variable appRoot with base dirname
 global.appRoot = path.resolve(__dirname);
 
@@ -36,7 +38,6 @@ global.appRoot = path.resolve(__dirname);
 app.use(helmet());
 app.set("trust proxy", 1);
 app.use(limiter);
-app.use(cors(corsOption));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan("dev"));
@@ -44,7 +45,7 @@ app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
 
 // Welcome Route
 app.all("/", (req, res, next) => {
-  res.send({ message: "API is Up and Running 😎🚀" });
+  res.send({ message: "API is Up and Running on render 😎🚀" });
 });
 
 const apiVersion = "v1";
