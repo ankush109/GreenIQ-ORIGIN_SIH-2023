@@ -47,6 +47,7 @@ model User {
   id              String     @id @default(cuid())
   name            String
   email           String     @unique
+  classname       String
   password        String
   phonenumber     String     @unique
   role            String     @default("student")
