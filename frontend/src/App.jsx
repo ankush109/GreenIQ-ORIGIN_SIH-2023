@@ -22,6 +22,9 @@ import Settings from "./Components/student/Settings";
 import Protectedroute1 from "./Components/Protectedroute1";
 import Dashboard from "./Components/Dashboard";
 import ProtectedRoute1 from "./Components/Protectedroute1";
+import Material from "./Components/materials/materials";
+import MaterialSubject from "./Components/materials/MaterialSubject";
+import CreateMaterial from "./Components/mentor/CreateMaterial";
 function App() {
   function isJWTValid() {
     const token = localStorage.getItem("token");
@@ -67,10 +70,11 @@ function App() {
             <Route path="/login" element={<Login />} />
           </Route>
 
-          <Route path="/user" element={<ProtectedRoute />}>
+          <Route path="/user">
             <Route path="courses" element={<Courses />} />
+            <Route path="material/:id" element={<MaterialSubject />} />
             <Route path="test" element={<Test />} />
-
+            <Route path="material" element={<Material />} />
             <Route path="book-meeting" element={<Meeting />} />
             <Route path="discuss" element={<Discuss />} />
             <Route path="report" element={<Report />} />
@@ -80,10 +84,11 @@ function App() {
             <Route path="settings" element={<Settings />} />
             <Route path="confirm-booking/:id" element={<ConfirmBooking />} />
           </Route>
-          <Route path="/mentor" element={<ProtectedRoute1 />}>
+          <Route path="/mentor">
             <Route path="my-Test" element={<Mentortest />} />
             <Route path="createtest" element={<CreateTest />} />
             <Route path="Meetings" element={<Meetings />} />
+            <Route path="createMaterial" element={<CreateMaterial />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -33,13 +33,8 @@ const ProtectedRoute = () => {
 
   const isMentor = user && user.role === "mentor";
 
-  return isMentor ? (
-    <>
-      <Outlet />
-    </>
-  ) : (
-    <>{showToast && <ToastContainer />}</>
-  );
+  return;
+  <></>;
 };
 
 export default ProtectedRoute;

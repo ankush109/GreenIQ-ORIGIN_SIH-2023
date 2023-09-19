@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const AuthAPI = () => {
@@ -19,21 +20,31 @@ const AuthAPI = () => {
     });
   }
 };
-
-const getmaterial = async (classname = "11", subjectname = "maths") => {
-  const { data } = await AuthAPI().get("/user/get-materials", {
-    classname,
-    subjectname,
-  });
+const getallSubjects = async () => {
+  const { data } = await AuthAPI().get("/user/get-subjects");
   return data;
 };
-const getmaterialQuery = () =>
+const getmaterial = async (subjectName) => {
+  const { data } = await AuthAPI().get("/user/get-materials", {
+    params: {
+      subjectName, // Include the subjectName parameter
+    },
+  });
+  console.log(data);
+  return data;
+};
+const createMaterial = async (formdata) => {
+  const { data } = await AuthAPI().post("/user/create-material", formdata);
+  return data;
+};
+const getSubjectsQuery = () =>
   useQuery({
-    queryKey: ["get-materials"],
-    queryFn: () => getmaterial,
+    queryKey: ["get-subjects"],
+    queryFn: () => getallSubjects(),
     select: (data) => {
       const res = data.message;
       return res;
     },
   });
-export { getmaterialQuery };
+
+export { getmaterial, getSubjectsQuery, createMaterial };
