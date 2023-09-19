@@ -16,7 +16,7 @@ export const SocialLinks = [
 export const Footer_1_Links = [
   {
     name: "HOME",
-    path: "/",
+    path: "/home",
     protected: false,
   },
   {
@@ -43,7 +43,7 @@ export const Footer_2_Links = [
   },
   {
     name: "HOME",
-    path: "",
+    path: "/home",
     protected: false,
   },
   {
@@ -60,7 +60,7 @@ export const Footer_2_Links = [
 export const Navbar_Links = [
   {
     name: "HOME",
-    path: "",
+    path: "/home",
     protected: false,
   },
   {

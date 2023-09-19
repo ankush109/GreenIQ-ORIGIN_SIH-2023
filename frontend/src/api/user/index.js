@@ -32,7 +32,9 @@ const GetUserQuery = () =>
     queryFn: () => GetUser(),
     select: (data) => {
       const res = data.message;
+      console.log("Res:",res);
       return res;
+
     },
   });
 

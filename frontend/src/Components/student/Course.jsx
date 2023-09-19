@@ -1,5 +1,5 @@
-import { getCoursesQuery } from "../api/course";
-import Leftbar from "./Leftbar";
+import { getCoursesQuery } from "../../api/course";
+import Leftbar from "../Leftbar";
 
 function Courses() {
   const { data, isLoading, isError } = getCoursesQuery("11");
