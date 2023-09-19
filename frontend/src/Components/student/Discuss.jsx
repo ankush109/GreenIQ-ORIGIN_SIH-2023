@@ -11,6 +11,7 @@ import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { GetUserQuery } from "../../api/user";
 import Leftbar from "../Leftbar";
+import Loading from "../Loading";
 
 function Discuss() {
   const q = GetUserQuery();
@@ -226,7 +227,7 @@ function Discuss() {
           </div>
         </div>
         {isLoading ? (
-          <p className="text-center">Loading...</p>
+          <div><Loading/></div>
         ) : isError ? (
           <p className="text-red-600 text-center">Error loading questions.</p>
         ) : (
