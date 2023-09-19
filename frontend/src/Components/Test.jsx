@@ -10,6 +10,7 @@ const Test = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
+    console.log("????????????????///",myTest)
     setTest(myTest.data);
   }, [myTest]);
 
