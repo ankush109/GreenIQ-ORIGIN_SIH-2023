@@ -17,7 +17,6 @@ const Leftbar = () => {
   const data = GetUserQuery();
   const [user, setuser] = useState();
   useEffect(() => {
-    console.log(data.data, "data");
     setuser(data.data);
   }, [data.data]);
 
@@ -27,7 +26,6 @@ const Leftbar = () => {
 
   useEffect(() => {
     const path = window.location.pathname;
-    console.log(path);
 
     setSelectedTab(path);
   }, [selectedTab]);
@@ -192,6 +190,15 @@ const Leftbar = () => {
                 <AiFillSetting className="text-xl" />
                 <span className="ml-2 text-sm tracking-wide truncate">
                   <Link to="/user/settings">Settings</Link>
+                </span>
+              </div>
+            </li>
+            <li>
+              <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                <span className="inline-flex justify-center items-center ml-4"></span>
+                <AiFillSetting className="text-xl" />
+                <span className="ml-2 text-sm tracking-wide truncate">
+                  <Link to="/mentor/createMaterial">Create Material</Link>
                 </span>
               </div>
             </li>

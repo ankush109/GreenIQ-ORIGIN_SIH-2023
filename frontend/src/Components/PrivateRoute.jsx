@@ -4,7 +4,7 @@ import { GetUserQuery } from "../api/user";
 
 const ProtectedRoute = () => {
   const data = GetUserQuery();
-  console.log("Data1", data.data);
+
   const [user, setUser] = useState(true);
 
   useEffect(() => {

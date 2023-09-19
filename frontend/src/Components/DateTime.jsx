@@ -27,14 +27,12 @@ function DateTime({ onData }) {
     setSelectedDates(updatedlist);
   };
   const addDates = () => {
-    console.log(dateVal);
     if (selectedDates.length == 3) {
       toast.error("You can choose only 3 dates ");
     }
     let present = false;
 
     selectedDates.forEach((date) => {
-      console.log(dateVal);
       if (date === dateVal.toISOString()) {
         present = true;
       }

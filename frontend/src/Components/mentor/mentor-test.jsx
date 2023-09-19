@@ -1,28 +1,49 @@
 import React, { useEffect, useState } from "react";
 import Leftbar from "../Leftbar";
+
+
 import { mentorTestQuery } from "../../api/test";
+import Loading from "../Loading";
+import Error from "../Error";
 
 function Mentortest() {
-  const myTest = mentorTestQuery();
+  const {  myTest, isLoading, isError } =  mentorTestQuery();
+
   const [test, setTest] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+
   useEffect(() => {
-    setTest(myTest.data);
+    if (myTest) {
+      setTest(myTest.data);
+    }
   }, [myTest]);
 
   const filteredTests = test?.filter((item) =>
     item.subject.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
   const options = {
     year: "numeric",
     month: "long",
     day: "numeric",
   };
+
+  
+
+  if (isError) {
+    return <div><Error/></div>
+  }
+
   return (
     <div className="max-w-screen max-h-screen flex overflow-hidden">
       <div className="hidden lg:block w-1/4 h-screen">
         <Leftbar />
       </div>
+      {
+        isLoading?(
+        <div><Loading/></div>
+        ):(
+      
       <div className="w-full lg:w-3/4">
         <div className="px-4 py-6">
           <h1 className="text-4xl font-bold mb-6">Your Created Tests</h1>
@@ -61,6 +82,7 @@ function Mentortest() {
           </div>
         </div>
       </div>
+)}
     </div>
   );
 }

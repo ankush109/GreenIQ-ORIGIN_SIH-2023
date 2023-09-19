@@ -11,6 +11,7 @@ import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { GetUserQuery } from "../../api/user";
 import Leftbar from "../Leftbar";
+import Loading from "../Loading";
 
 function Discuss() {
   const q = GetUserQuery();
@@ -31,10 +32,8 @@ function Discuss() {
     if (questions) {
       setData(questions);
     }
-    console.log(questions);
   }, [questions]);
   const searchQuestion = async () => {
-    console.log(searchText);
     await getAllquestionsInfo(searchText);
   };
   const handleReply = (questionId) => {
@@ -49,7 +48,6 @@ function Discuss() {
   };
 
   const deleteQuestion = async (id) => {
-    console.log(id, "id");
     const res = await deleteMyQuestion(id);
     if (res.success) {
       toast.success("Post has been deleted");
@@ -226,7 +224,7 @@ function Discuss() {
           </div>
         </div>
         {isLoading ? (
-          <p className="text-center">Loading...</p>
+          <div><Loading/></div>
         ) : isError ? (
           <p className="text-red-600 text-center">Error loading questions.</p>
         ) : (

@@ -32,7 +32,6 @@ function Register() {
 
   const onSubmit = async (formData) => {
     try {
-      console.log(formData);
       const { data } = await registerUser(formData);
       toast.success(data.message, { id: data.message });
       navigate("/Login");
