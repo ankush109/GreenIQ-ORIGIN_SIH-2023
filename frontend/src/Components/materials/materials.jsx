@@ -9,7 +9,11 @@ function Material() {
   const navigate = useNavigate();
   const [subjects, setsubjects] = useState([]);
   useEffect(() => {
-    setsubjects(data.data);
+    if (data.isSuccess) {
+      setsubjects(data.data);
+    } else {
+      setsubjects([]);
+    }
   }, [data?.data]);
   return (
     <div className="max-w-screen max-h-screen flex overflow-hidden">
