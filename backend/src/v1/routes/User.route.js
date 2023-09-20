@@ -5,6 +5,7 @@ import {
   testController,
   courseController,
   materialController,
+  virtualMentor,
 } from "../controllers";
 import authMiddleware from "../middlewares/Auth.middleware";
 //import testController from "../controllers/test/test";
@@ -47,4 +48,5 @@ router.delete(
 );
 router.get("/get-course", authMiddleware, courseController.getcourse);
 router.get("/get-material", authMiddleware, materialController.getmaterials);
+router.post("/open-ai", authMiddleware, virtualMentor.openAianswer);
 export default router;
