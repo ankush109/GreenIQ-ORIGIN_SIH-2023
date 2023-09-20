@@ -45,9 +45,9 @@ function CreateTest() {
 
   return (
     <div className="max-w-screen max-h-screen flex overflow-hidden">
-      <div className="hidden lg:block w-1/4 h-screen">
+      {/* <div className="hidden lg:block w-1/4 h-screen">
         <Leftbar />
-      </div>
+      </div> */}
       <div className="bg-gray-100 w-full lg:w-3/4 p-5 justify-center items-center">
         <h1 className="text-2xl font-bold my-5">Create a Test</h1>
         <Link to="/mentor/my-Test"><Button variant="contained"

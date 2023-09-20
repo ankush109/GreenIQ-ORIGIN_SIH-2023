@@ -5,6 +5,7 @@ import {
 } from "../../api/meetings";
 import { format } from "date-fns";
 import { Button } from "@mui/material";
+import Searchbox from "../Searchbox";
 
 function Meetings() {
   const meetings = getMentorMeetingsQuery();
@@ -19,28 +20,31 @@ function Meetings() {
   }, [meetings.data]);
 
   return (
-    <div className=" ">
-      <div className="text-2xl font-semibold mb-4 flex justify-center m-10 p-2">
+    <div className="base-container py-[5vh] ">
+
+      <div className="my-5 font-merri text-3xl ">
         Your Meetings ({meet?.length})
       </div>
-      <div className="flex flex-wrap gap-10 mx-10">
+      <Searchbox/>
+      <hr className="gap-10"/>
+      <div className="my-5 gap-5 flex-col flex justify-center items-center">
         {meet?.length > 0 ? (
           meet?.map((meeting) => (
             <div
               key={meeting.id}
-              className="bg-gray-200 p-6 border rounded-lg w-[500px]"
+              className={`p-5 rounded-lg font-comf  w-5/6 ${meeting.status=="confirmed"?'bg-green-200':'bg-orange-100'} text-sm flex-row-between`}
             >
-              <div className="text-xl font-semibold">
-                Name of the student : {meeting.host.name}
+              <div className=" font-semibold gap-2">
+                <p>Student Name : {meeting.host.name}</p>
+                <p>Meeting ID: {meeting.id}</p>
+                <p>Status: {meeting.status}</p>
+
               </div>
-              <div className="text-gray-600 ">Meeting ID: {meeting.id}</div>
-              <div className="text-green-500 font-bold">
-                Status: {meeting.status}
-              </div>
+              
               <div>
                 {meeting?.dates?.map((date, index) => (
                   <p key={index} className="mt-2">
-                    Date: {format(new Date(date.date), "MMMM dd, yyyy, h:mm a")}
+                    Date: {format(new Date(date.date)," yyyy-MM-dd',' HH:mm")}
                   </p>
                 ))}
               </div>

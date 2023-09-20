@@ -9,20 +9,24 @@ import ConfirmBooking from "./ConfirmBooking";
 function MentorCard({ id, name, phonenumber, email }) {
   const navigate = useNavigate();
   return (
-    <div className="bg-stone-300 m-10 w-96 p-5 h-full flex flex-col justify-center items-baseline rounded-md shadow-lg">
-      <h1 className="text-lg font-bold mb-2">Name: {name}</h1>
-      <div className="mb-2">Phone Number: {phonenumber}</div>
-      <div className="mb-4">Email: {email}</div>
-
-      <Button
-        variant="contained"
-        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-        onClick={() => {
-          navigate(`/user/confirm-booking/${id}`);
-        }}
-      >
-        Book a Call
-      </Button>
+    <div className="flex-row-between w-full bg-green-200 rounded-lg text-sm font-comf px-5 py-3">
+      <div className="gap-3">
+        <p>Name: {name}</p>
+        <p>Phone Number: {phonenumber}</p>
+        <p>Email: {email}</p>
+        
+      </div>
+      <div className="">
+          <Button
+            variant="contained"
+            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+            onClick={() => {
+              navigate(`/user/confirm-booking/${id}`);
+            }}
+          >
+            Book a Call
+          </Button>
+      </div>
     </div>
   );
 }

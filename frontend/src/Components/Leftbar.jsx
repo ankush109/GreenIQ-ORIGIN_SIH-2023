@@ -33,7 +33,9 @@ const Leftbar = () => {
   }, [selectedTab]);
   return (
     <>
-      <div className=" hidden lg:block h-full  bg-white border-r">
+    
+      <div className=" h-full  bg-white border-r">
+        
         <div className="flex items-center justify-center h-14 border-b">
           <div>
             {user ? (
@@ -50,6 +52,15 @@ const Leftbar = () => {
                 <div className="text-sm font-light tracking-wide text-gray-500">
                   Dashboard
                 </div>
+              </div>
+            </li>
+            <li>
+              <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                <span className="inline-flex justify-center items-center ml-4"></span>
+                <HomeIcon className="text-xl" />
+                <span className="ml-2 text-sm tracking-wide truncate">
+                  <Link to="/">Home</Link>
+                </span>
               </div>
             </li>
             <li>
@@ -116,21 +127,14 @@ const Leftbar = () => {
                 </span>
               </div>
             </li>
-            <li>
-              <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
-                <span className="inline-flex justify-center items-center ml-4"></span>
-                <HomeIcon className="text-xl" />
-                <span className="ml-2 text-sm tracking-wide truncate">
-                  <Link to="/">Home</Link>
-                </span>
-              </div>
-            </li>
+            
             <li>
               <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
                 <span className="inline-flex justify-center items-center ml-4"></span>
                 <MdLeaderboard className="text-xl" />
                 <span className="ml-2 text-sm tracking-wide truncate">
-                  <Link to="/user/leaderboard">Leaderboard</Link>
+                  {user?.role == "student" ?<Link to="/user/leaderboard">Leaderboard</Link>:
+                  <Link to="mentor/Meetings">Meetings</Link>}
                 </span>
                 <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-500 bg-red-50 rounded-full">
                   1.2k
@@ -169,6 +173,21 @@ const Leftbar = () => {
                 </span>
               </div>
             </li>
+            {user?.role=='student' && 
+            <li>
+              <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                <span className="inline-flex justify-center items-center ml-4"></span>
+                <MdAssignmentAdd className="text-xl" />
+
+                <span className="ml-2 text-sm tracking-wide truncate">
+                  <Link to="user/book-meeting">Book Meeting</Link>
+                </span>
+                <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-green-500 bg-green-50 rounded-full">
+                  15
+                </span>
+              </div>
+            </li>}
+            
             <li className="px-5">
               <div className="flex flex-row items-center h-8">
                 <div className="text-sm font-light tracking-wide text-gray-500">

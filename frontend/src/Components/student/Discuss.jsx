@@ -145,9 +145,9 @@ function Discuss() {
 
   return (
     <div className="flex">
-      <div className="w-1/4 h-screen">
+      {/* <div className="w-1/4 h-screen">
         <Leftbar />
-      </div>
+      </div> */}
       <div className="p-4 w-full lg:w-3/4 bg-white shadow-md rounded-lg">
         <div class="w-full max-w-xs">
           <div class="relative">

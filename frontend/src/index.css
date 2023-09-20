@@ -28,7 +28,9 @@
 .primary-btn{
     @apply my-5 px-10 tracking-wider text-medium text-sm  py-3 w-[200px] bg-theme rounded-full
 }
-
+.mini-btn{
+    @apply my-5 px-10 tracking-wider text-medium text-sm flex-row-center  py-3 w-[100px] bg-theme rounded-full
+}
 .curved{
     border-radius: 100px 100px 0px 0px;
 }
@@ -40,4 +42,7 @@
 }
 .border-nav{
     border:1px solid rgb(200, 198, 198);
+}
+.border-below{
+    border-bottom: 2px solid black;
 }
