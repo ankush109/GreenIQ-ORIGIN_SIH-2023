@@ -38,9 +38,9 @@ function Sathi() {
 
   return (
     <div className="flex">
-      <div className="w-1/4 h-screen">
+      {/* <div className="w-1/4 h-screen">
         <Leftbar />
-      </div>
+      </div> */}
       <div className="p-4 w-3/4">
         <header className="bg-green-500 text-white py-4 text-center">
           <h1 className="text-2xl font-semibold">Sathi Chatbot</h1>

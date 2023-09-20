@@ -51,6 +51,7 @@ const Leftbar = () => {
                 </div>
               </div>
             </li>
+            {user?.role=="student" && 
             <li>
               <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
                 <span className="inline-flex justify-center items-center ml-4"></span>
@@ -59,7 +60,7 @@ const Leftbar = () => {
                   <Link to="/user/sathi">Virtual Mentor</Link>
                 </span>
               </div>
-            </li>
+            </li>}
             <li>
               <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
                 <span className="inline-flex justify-center items-center ml-4"></span>
@@ -133,6 +134,7 @@ const Leftbar = () => {
                 </span>
               </div>
             </li>
+            {user?.role=="student" &&
             <li>
               <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
                 <span className="inline-flex justify-center items-center ml-4"></span>
@@ -144,7 +146,7 @@ const Leftbar = () => {
                   1.2k
                 </span>
               </div>
-            </li>
+            </li>}
 
             <li>
               <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
@@ -155,6 +157,16 @@ const Leftbar = () => {
                 </span>
               </div>
             </li>
+            {user?.role=="mentor" && 
+             <li>
+              <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                <span className="inline-flex justify-center items-center ml-4"></span>
+                <FaNewspaper className="text-xl" />
+                <span className="ml-2 text-sm tracking-wide truncate">
+                  <Link to="/mentor/Meetings">Meetings</Link>
+                </span>
+              </div>
+            </li>}
             <li>
               <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
                 <span className="inline-flex justify-center items-center ml-4"></span>
@@ -164,13 +176,23 @@ const Leftbar = () => {
                 </span>
               </div>
             </li>
+            {user?.role=="student" &&
+            <li>
+              <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                <span className="inline-flex justify-center items-center ml-4"></span>
+                <RiDiscussFill className="text-xl" />
+                <span className="ml-2 text-sm tracking-wide truncate">
+                  <Link to="/user/book-meeting">Book Meeting</Link>
+                </span>
+              </div>
+            </li>}
             <li>
               <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
                 <span className="inline-flex justify-center items-center ml-4"></span>
                 <MdAssignmentAdd className="text-xl" />
 
                 <span className="ml-2 text-sm tracking-wide truncate">
-                  <Link to="/user/material">Materials</Link>
+                  <Link to={`${user?.role=="student"?'/user/material':'/mentor/material'}`}>Materials</Link>
                 </span>
                 <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-green-500 bg-green-50 rounded-full">
                   15
@@ -203,6 +225,7 @@ const Leftbar = () => {
                 </span>
               </div>
             </li>
+            {user?.role=="mentor" && 
             <li>
               <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
                 <span className="inline-flex justify-center items-center ml-4"></span>
@@ -211,7 +234,7 @@ const Leftbar = () => {
                   <Link to="/mentor/createMaterial">Create Material</Link>
                 </span>
               </div>
-            </li>
+            </li>}
             <li>
               <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
                 <span className="inline-flex justify-center items-center ml-4"></span>

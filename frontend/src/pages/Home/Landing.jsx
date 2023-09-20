@@ -79,7 +79,7 @@ const Landing = () => {
               <NavLinks obj={obj} />
             ))}
 
-            <li className="flex flex-row items-center hover:text-theme cursor-pointer ">
+            {/* <li className="flex flex-row items-center hover:text-theme cursor-pointer ">
               &nbsp;
               <span>
                 {data?.data?.role === "mentor" ? (
@@ -88,7 +88,7 @@ const Landing = () => {
                   <Link to="/user/book-meeting">Book a call</Link>
                 )}
               </span>
-            </li>
+            </li> */}
             {user ? (
               <li className="flex flex-row items-center hover:text-theme cursor-pointer ">
                 &nbsp;<span>Hello, {data?.data?.name}</span>
