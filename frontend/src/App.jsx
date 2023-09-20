@@ -25,6 +25,7 @@ import ProtectedRoute1 from "./Components/Protectedroute1";
 import Material from "./Components/materials/materials";
 import MaterialSubject from "./Components/materials/MaterialSubject";
 import CreateMaterial from "./Components/mentor/CreateMaterial";
+import Sathi from "./Components/virtual-mentor/Sathi";
 function App() {
   function isJWTValid() {
     const token = localStorage.getItem("token");
@@ -72,6 +73,7 @@ function App() {
 
           <Route path="/user">
             <Route path="courses" element={<Courses />} />
+            <Route path="sathi" element={<Sathi />} />
             <Route path="material/:id" element={<MaterialSubject />} />
             <Route path="test" element={<Test />} />
             <Route path="material" element={<Material />} />
