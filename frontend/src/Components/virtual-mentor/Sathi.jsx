@@ -1,77 +1,101 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { AskSathiChatBot } from "../../api/virtual-mentor";
+import Leftbar from "../Leftbar";
 
 function Sathi() {
   const [inputMessage, setInputMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const messagesEndRef = useRef(null);
 
   const sendMessage = async () => {
     if (inputMessage.trim() === "") return;
 
-    // Add user message to the messages array
     const updatedMessages = [
       ...messages,
       { role: "user", content: inputMessage },
     ];
 
-    // Update messages state with user message
     setMessages(updatedMessages);
+    setInputMessage("");
 
-    // Call the chatbot API to get a response
     const response = await AskSathiChatBot(inputMessage);
-
-    // Add chatbot's response to the messages array
     const updatedMessagesWithChatbot = [
       ...updatedMessages,
       { role: "chatbot", content: response.data.content },
     ];
-
-    // Update messages state with chatbot response
     setMessages(updatedMessagesWithChatbot);
-
-    // Clear the input field
-    setInputMessage("");
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      sendMessage();
+    }
+  };
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
-      <header className="bg-blue-500 text-white py-4 text-center">
-        <h1 className="text-2xl font-semibold">OpenAI Chatbot</h1>
-      </header>
-      <div className="flex-grow flex flex-col items-center justify-center">
-        <div className="border p-4 rounded-lg shadow-lg w-96 max-w-full">
-          <div className="border p-2 h-60 overflow-y-scroll">
-            {messages.map((message, index) => (
-              <div
-                key={index}
-                className={`mb-2 ${
-                  message.role === "user" ? "text-right" : ""
-                }`}
-              >
+    <div className="max-w-screen max-h-screen flex overflow-hidden">
+      <div className="w-1/4 h-screen">
+        <Leftbar />
+      </div>
+      <div className="p-4 w-3/4 overflow-y-auto">
+        <header className="bg-blue-500 text-white py-4 text-center">
+          <h1 className="text-2xl font-semibold">Sathi Chatbot</h1>
+        </header>
+        <div className="flex-grow flex flex-col items-center justify-center my-10">
+          <div className="border p-4 rounded-lg shadow-lg w-[900px] max-w-full">
+            <div className="border p-2 max-h-80 overflow-y-auto">
+              {messages.map((message, index) => (
                 <div
-                  className={`bg-${
-                    message.role === "user" ? "blue" : "green"
-                  }-200 p-2 rounded-lg inline-block`}
+                  key={index}
+                  className={`mb-2 ${
+                    message.role === "user" ? "text-right" : ""
+                  }`}
                 >
-                  {message.content}
+                  <div
+                    className={`bg-${
+                      message.role === "user" ? "blue" : "green"
+                    }-200 p-2 rounded-lg inline-block`}
+                  >
+                    {message.role === "chatbot" ? (
+                      <div className="flex items-center">
+                        <img
+                          style={{
+                            width: "40px",
+                            height: "40px",
+                          }}
+                          src="https://www.iconarchive.com/download/i143625/iconarchive/robot-avatar/Blue-1-Robot-Avatar.1024.png"
+                          alt="Chatbot Avatar"
+                        />
+                        <span className="ml-2">{message.content}</span>
+                      </div>
+                    ) : (
+                      message.content
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-4 flex">
-            <input
-              type="text"
-              className="flex-grow border rounded p-2 mr-2"
-              placeholder="Type a message..."
-              value={inputMessage}
-              onChange={(e) => setInputMessage(e.target.value)}
-            />
-            <button
-              className="bg-blue-500 text-white rounded p-2"
-              onClick={sendMessage}
-            >
-              Send
-            </button>
+              ))}
+              <div ref={messagesEndRef}></div>
+            </div>
+            <div className="mt-4 flex">
+              <input
+                type="text"
+                className="flex-grow border rounded p-2 mr-2"
+                placeholder="Type a message..."
+                value={inputMessage}
+                onChange={(e) => setInputMessage(e.target.value)}
+                onKeyUp={handleKeyPress}
+              />
+              <button
+                className="bg-blue-500 text-white rounded p-2"
+                onClick={sendMessage}
+              >
+                Send
+              </button>
+            </div>
           </div>
         </div>
       </div>
