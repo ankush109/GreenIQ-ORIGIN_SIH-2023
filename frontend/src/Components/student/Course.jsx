@@ -1,27 +1,37 @@
 import { getCoursesQuery } from "../../api/course";
+import Error from "../Error";
 import Leftbar from "../Leftbar";
+import Loading from "../Loading";
 
 function Courses() {
   const { data, isLoading, isError } = getCoursesQuery("11");
 
-  if (isLoading) {
-    return <div className="p-4 bg-gray-200">Loading...</div>;
-  }
+  // if (isLoading) {
+  //   return <div className="p-4 bg-gray-200">Loading...</div>;
+  // }
 
-  if (isError) {
-    return (
-      <div className="p-4 bg-red-500 text-white">Error loading courses.</div>
-    );
-  }
+  // if (isError) {
+  //   return (
+  //     <div className="p-4 bg-red-500 text-white">Error loading courses.</div>
+  //   );
+  // }
 
   // Check if data is empty
+  if(isError){
+    return <div><Error/></div>
+  }
   if (data && data.length === 0) {
     return (
       <div className="max-w-screen max-h-screen flex overflow-hidden">
         <div className="w-1/4 h-screen">
           <Leftbar />
         </div>
+         {
+        isLoading?(
+          <div><Loading/></div>
+        ):(
         <div className="p-4   overflow-y-auto">Courses not found.</div>
+        )}
       </div>
     );
   }
@@ -31,7 +41,11 @@ function Courses() {
       <div className="w-1/4 h-screen">
         <Leftbar />
       </div>
-      <div className="p-4 w-3/4 overflow-y-auto">
+      {
+        isLoading?(
+          <div><Loading/></div>
+        ):(
+            <div className="p-4 w-3/4 overflow-y-auto">
         <h2 className="text-2xl font-semibold mb-4">Courses for class 11</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {data?.map((course) => (
@@ -50,6 +64,9 @@ function Courses() {
           ))}
         </div>
       </div>
+        )
+      }
+      
     </div>
   );
 }
