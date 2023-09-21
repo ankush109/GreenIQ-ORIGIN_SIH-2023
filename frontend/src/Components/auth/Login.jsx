@@ -9,14 +9,22 @@ import React, {
 } from "react";
 import classNames from "classnames";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
+import toast, { LoaderIcon } from "react-hot-toast";
 import { loginUser, registerUser } from "../../api";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import {
+  AiFillEye,
+  AiFillEyeInvisible,
+  AiOutlineLoading,
+  AiOutlineLoading3Quarters,
+} from "react-icons/ai";
 import { useNavigate } from "react-router";
+import Loading from "../Loading";
+
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const [apiError, setApiError] = useState(null);
+  const [button, setbutton] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const {
     reset,
@@ -37,9 +45,10 @@ function Login() {
     },
   });
   const onSubmit = async (formData) => {
+    setbutton(true);
     try {
       const response = await loginUser(formData);
-
+      setbutton(true);
       const { data } = response;
       if (response.status === 200) {
         localStorage.setItem("token", data.message.accessToken);
@@ -48,15 +57,14 @@ function Login() {
       }
       reset();
       setApiError(null);
-
       setValue("email", "");
       setShowPassword(false);
     } catch (err) {
       setApiError("please verify your credentials");
       toast.error("Invalid Credentials");
+      setbutton(false);
     }
     reset();
-    
     setValue("email", "");
     setShowPassword(false);
   };
@@ -70,10 +78,14 @@ function Login() {
       </div>
       <div className="flex lg:w-1/2  sm:w-full  justify-center p-32">
         <div className="flex flex-col gap-4">
-          <p className="text-gray-500">Existing User? </p>
+          <h1 className="text-center font-bold text-3xl m-5 text-green-600 border-red-500">
+            Welcome to GreenIQ
+          </h1>
+
+          <p className="text-gray-500 ">Existing User? </p>
           <h1 className="font-bold text-3xl font-mono">Login</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex flex-col gap-5 my-10">
+            <div className="flex flex-col gap-8  my-10">
               <div className="">
                 <TextField
                   required
@@ -85,7 +97,6 @@ function Login() {
                 />
               </div>
               <div className="relative">
-               
                 <TextField
                   required
                   id="outlined-basic"
@@ -129,9 +140,16 @@ function Login() {
                 Sign up
               </p>
             </div>
-            <button className="py-2 px-10 mx-24 my-4 bg-blue-400  text-white  rounded-xl hover:bg-blue-500 hover:text-white hover:scale-110 duration-300">
-              Login
-            </button>
+            {!button ? (
+              <button
+                disabled={isSubmitting} // Disable the button while submitting
+                className="py-2 px-10 mx-24 my-4 bg-blue-500 text-white font-bold rounded-xl hover:bg-blue-500 hover:text-white hover:scale-110 duration-300"
+              >
+                Login
+              </button>
+            ) : (
+              <Loading />
+            )}
           </form>
         </div>
       </div>

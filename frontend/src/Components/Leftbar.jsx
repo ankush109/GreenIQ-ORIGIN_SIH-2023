@@ -12,12 +12,12 @@ import { PiExamFill } from "react-icons/pi";
 import { BiSolidReport, BiSolidLogOut } from "react-icons/bi";
 import { FaNewspaper } from "react-icons/fa";
 import { AiFillSetting } from "react-icons/ai";
+import AssistantIcon from "@mui/icons-material/Assistant";
 import HomeIcon from "@mui/icons-material/Home";
 const Leftbar = () => {
   const data = GetUserQuery();
   const [user, setuser] = useState();
   useEffect(() => {
-    console.log(data.data, "data");
     setuser(data.data);
   }, [data.data]);
 
@@ -27,7 +27,6 @@ const Leftbar = () => {
 
   useEffect(() => {
     const path = window.location.pathname;
-    console.log(path);
 
     setSelectedTab(path);
   }, [selectedTab]);
@@ -50,6 +49,15 @@ const Leftbar = () => {
                 <div className="text-sm font-light tracking-wide text-gray-500">
                   Dashboard
                 </div>
+              </div>
+            </li>
+            <li>
+              <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                <span className="inline-flex justify-center items-center ml-4"></span>
+                <AssistantIcon className="text-xl" />
+                <span className="ml-2 text-sm tracking-wide truncate">
+                  <Link to="/user/sathi">Virtual Mentor</Link>
+                </span>
               </div>
             </li>
             <li>
@@ -112,7 +120,7 @@ const Leftbar = () => {
                 <span className="inline-flex justify-center items-center ml-4"></span>
                 <BiSolidReport className="text-xl" />
                 <span className="ml-2 text-sm tracking-wide truncate">
-                  <Link to="/user/report">Reports</Link>
+                  <Link to="">Reports</Link>
                 </span>
               </div>
             </li>
@@ -143,7 +151,7 @@ const Leftbar = () => {
                 <span className="inline-flex justify-center items-center ml-4"></span>
                 <FaNewspaper className="text-xl" />
                 <span className="ml-2 text-sm tracking-wide truncate">
-                  <Link to="/user/newsfeed">News Feed</Link>
+                  <Link to="">News Feed</Link>
                 </span>
               </div>
             </li>

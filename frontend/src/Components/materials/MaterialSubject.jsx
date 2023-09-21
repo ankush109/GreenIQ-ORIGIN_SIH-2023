@@ -3,29 +3,28 @@ import { useParams } from "react-router";
 import Leftbar from "../Leftbar";
 import { getmaterial } from "../../api/material";
 import { toast } from "react-hot-toast";
+import Loading from "../Loading";
 
 function MaterialSubject() {
   const [material, setMaterial] = useState([]);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
   const { id } = useParams();
 
   const fetchMaterial = async () => {
     try {
       const response = await getmaterial(id);
-      console.log(id, "subject name");
 
       setMaterial(response);
-      console.log(response, "mat");
+
       if (!response.success) {
         setMaterial([]);
       } else {
         setMaterial(response.message);
-        console.log(response.message, "me");
       }
-      setLoading(false); 
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching material:", error);
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
@@ -42,7 +41,9 @@ function MaterialSubject() {
         <h2 className="text-2xl font-semibold mb-4">Material for {id}</h2>
         <div className="">
           {loading ? (
-            <div>Loading...</div>
+            <>
+              <Loading />
+            </>
           ) : material?.length > 0 ? (
             material?.map((mat) => (
               <div

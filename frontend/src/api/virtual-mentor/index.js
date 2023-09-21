@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
+// sending the access token (jwt token) to the authenticated urls to validate if the user is logged in
+
 const AuthAPI = () => {
   if (typeof window !== "undefined") {
     return axios.create({
@@ -20,22 +22,12 @@ const AuthAPI = () => {
     });
   }
 };
-
-const getCoursesByClass = async (classname) => {
-  const { data } = await AuthAPI().get(
-    `/user/get-course?classname=${classname}`
+const AskSathiChatBot = async (prompt) => {
+  const { data } = await AuthAPI().post(
+    "https://green-iq-backend.onrender.com/find-complexity",
+    { prompt }
   );
   return data;
 };
 
-const getCoursesQuery = (classId) =>
-  useQuery({
-    queryKey: ["courses", classId],
-    queryFn: () => getCoursesByClass(classId),
-    select: (data) => {
-      const res = data.message;
-      return res;
-    },
-  });
-
-export { getCoursesQuery };
+export { AskSathiChatBot };
