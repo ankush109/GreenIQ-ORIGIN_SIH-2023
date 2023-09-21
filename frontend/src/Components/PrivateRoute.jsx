@@ -8,8 +8,8 @@ const ProtectedRoute = () => {
   const [user, setUser] = useState(true);
 
   useEffect(() => {
-    setUser(data.data); // Move the setUser inside the useEffect callback
-  }, [data.data]); // Place the dependencies array here
+    setUser(data.data); 
+  }, [data.data]);
 
   return user ? <Outlet /> : <Navigate to="/login" />;
 };

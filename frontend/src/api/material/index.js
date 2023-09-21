@@ -27,7 +27,7 @@ const getallSubjects = async () => {
 const getmaterial = async (subjectName) => {
   const { data } = await AuthAPI().get("/user/get-materials", {
     params: {
-      subjectName, // Include the subjectName parameter
+      subjectName, 
     },
   });
   console.log(data);
