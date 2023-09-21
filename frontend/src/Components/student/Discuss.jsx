@@ -73,7 +73,7 @@ function Discuss() {
     if (res.success) {
       toast.success("Post made successfully");
       refetch();
-      setNewQuestion(""); // Clear the input field
+      setNewQuestion("");
     }
   };
 
@@ -142,10 +142,8 @@ function Discuss() {
     });
 
   return (
-    <div className="flex">
-      <div className="w-1/4 h-screen">
-        <Leftbar />
-      </div>
+    <div className="base-container">
+      
       <div className="p-4 w-full lg:w-3/4 bg-white shadow-md rounded-lg">
         <div class="w-full max-w-xs">
           <div class="relative">
@@ -224,7 +222,9 @@ function Discuss() {
           </div>
         </div>
         {isLoading ? (
-          <div><Loading/></div>
+          <div>
+            <Loading />
+          </div>
         ) : isError ? (
           <p className="text-red-600 text-center">Error loading questions.</p>
         ) : (
@@ -238,11 +238,11 @@ function Discuss() {
                   >
                     <div className="flex gap-2">
                       <h1 className="text-xl font-semi-bold mb-2">
-                        #{question.id}
+                        #{question?.id}
                         {")"}
                       </h1>
                       <h3 className="text-lg font-bold mb-2">
-                        {question.text}
+                        {question?.text}
                       </h3>
                     </div>
 
@@ -251,23 +251,23 @@ function Discuss() {
                         <button
                           type="button"
                           className="text-zinc-700 bg-gray-200 p-3 rounded-lg hover:underline m-2"
-                          onClick={() => handleComments(question.id)}
+                          onClick={() => handleComments(question?.id)}
                         >
                           Comments
                         </button>
 
-                        {replyingTo === question.id &&
-                          renderReplyInput(question.id)}
+                        {replyingTo === question?.id &&
+                          renderReplyInput(question?.id)}
                         <button
                           onClick={() => handleReply(question.id)}
                           className=" bg-blue-500 text-white px-4 mx-3 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
                         >
                           Add Comment
                         </button>
-                        {question.User.id === q?.data.id ? (
+                        {question?.User?.id === q?.data?.id ? (
                           <Button
                             onClick={() => {
-                              deleteQuestion(question.id);
+                              deleteQuestion(question?.id);
                             }}
                           >
                             <DeleteIcon
@@ -284,7 +284,7 @@ function Discuss() {
 
                       <div className="flex items-center">
                         <div className="bg-gray-200 p-3 rounded-lg font-semibold">
-                          {question?.answers.length} Comments
+                          {question?.answers?.length} Comments
                         </div>
                         <div className="">
                           <h1
@@ -295,9 +295,9 @@ function Discuss() {
                     mi-bold mx-12"
                           >
                             Posted by{" "}
-                            {question?.User.name === q?.data.name
+                            {question?.User?.name === q?.data?.name
                               ? "you"
-                              : question?.User.name}
+                              : question?.User?.name}
                           </h1>
                           <h1
                             className="text-md font-se
@@ -320,18 +320,18 @@ function Discuss() {
                   </div>
                   <div className="">
                     {openCommentsMap[question.id] &&
-                      question.answers.length > 0 && (
+                      question?.answers?.length > 0 && (
                         <div className="mx-7 ">
                           <h1 className="font-bold m-2">Answers : </h1>
                           {question.answers.map((answer) => (
                             <div
-                              key={answer.id}
+                              key={answer?.id}
                               className="mb-2  border border-blue-600 p-5 rounded-lg"
                             >
                               <div className="font-medium ">
-                                {answer.owner.name}
+                                {answer?.owner?.name}
                               </div>
-                              <div> {answer.text} </div>
+                              <div> {answer?.text} </div>
                             </div>
                           ))}
                         </div>

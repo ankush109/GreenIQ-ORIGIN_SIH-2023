@@ -16,13 +16,10 @@ function Material() {
     }
   }, [data?.data]);
   return (
-    <div className="max-w-screen max-h-screen flex overflow-hidden">
-      <div className="w-1/4 h-screen">
-        <Leftbar />
-      </div>
-      <div className="p-4 w-3/4 overflow-y-auto">
-        <h2 className="text-2xl font-semibold mb-4">subjects for class 11</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div className="">
+      <div className="base-container py-[5vh]">
+        <h2 className="text-3xl font-merri">Subjects for class 11</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 my-5">
           {!data.isLoading ? (
             subjects?.map((course) => (
               <div

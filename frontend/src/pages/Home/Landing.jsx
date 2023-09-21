@@ -2,24 +2,59 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Typewriter } from "react-simple-typewriter";
 import { useNavigate } from "react-router";
+import axios from "axios";
 
 import primaryImage from "../../assets/primary-background.png";
 import Demo from "../../assets/demo.jpg";
+import Chatbot from "../../assets/chatbot.png";
 
 import * as Links from "./Links";
 import Container from "./Container";
 import { GetUserQuery } from "../../api/user";
+
+import { BiRightArrow } from "react-icons/bi";
 
 import { GoGlobe } from "react-icons/go";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { AiOutlineArrowRight } from "react-icons/ai";
 
+import MapCommunities from "./Mapbox/MapCommunities";
+import Searchbox from "../../Components/SearchBox";
+import { ImCross } from "react-icons/im";
+
 const Landing = () => {
   const [dropDown, setDropDown] = useState(false);
   const data = GetUserQuery();
   const [user, setuser] = useState();
   const [scrollLeft, setScrollLeft] = useState(0);
+  const [chatbot, setChatbot] = useState(false);
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
+  const [chatquestion, setChatquestion] = useState([
+    { bot: "Hi this is Sathi Bot how may i help u?" },
+    { user: "Hi i want some answer" },
+  ]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(question);
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:5000/predict",
+        `question=${encodeURIComponent(question)}`, // Serialize the question as form data
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded", // Set the Content-Type header
+          },
+        }
+      );
+      setAnswer(response.data.answer);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const array = [1, 2, 3, 4, 5, 6, 7, 8, 90, 10];
   const arr = [1, 2, 3];
@@ -42,6 +77,10 @@ const Landing = () => {
   useEffect(() => {
     setuser(data?.data);
   }, [data.data]);
+
+  const handleQuestionChange = (e) => {
+    setQuestion(e.target.value);
+  };
 
   const navigate = useNavigate();
 
@@ -67,7 +106,64 @@ const Landing = () => {
 
   return (
     <div className=" bg-background text-center">
-      <section className="fixed inset-x-0 mx-auto w-full custom-navbar-width z-10 py-5">
+      <section>
+        <div
+          className="cursor-pointer w-[120px] h-[120px] rounded-full  fixed bottom-1"
+          onClick={() => {
+            setChatbot(true);
+          }}
+        >
+          <button>
+            <img className="w-full" src={Chatbot} />
+          </button>
+        </div>
+        <div
+          className={`${
+            chatbot ? "" : "hidden"
+          } w-[300px] h-[300px] bg-green-100 rounded-lg fixed bottom-24 p-3 left-24`}
+        >
+          <div className="">
+            <ImCross
+              className=""
+              onClick={() => {
+                setChatbot(false);
+              }}
+            />
+          </div>
+          <div className="px-5 w-full h-3/4 my-2 border-2 border-gray-500 p-2 overflow-y-auto gap-2">
+            {answer && (
+              <div className="chat-message">
+                <strong>User:</strong> {question}
+              </div>
+            )}
+            {answer && (
+              <div className="chat-message">
+                <strong>Chatbot:</strong> {answer}
+              </div>
+            )}
+          </div>
+          <form
+            onSubmit={handleSubmit}
+            className="space-x-2  font-comf flex-row-between border-2 border-gray-500 px-2 py-1 rounded-md"
+          >
+            <input
+              type="text"
+              placeholder="Search for the meeting..."
+              className="w-full outline-none  bg-green-100"
+              value={question}
+              onChange={handleQuestionChange}
+            />
+            <button
+              type="submit"
+              className="hover:bg-slate-700 text-3xl cursor-pointer"
+            >
+              <BiRightArrow />
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <section className="fixed inset-x-0 mx-auto w-full custom-navbar-width z-10 py-5 ">
         <nav className="bg-white text-primary  lg:flex hidden flex-row justify-between px-5 py-1  rounded-2xl shadow-md items-center text-para  z-10 border-nav">
           <div className="mx-2 w-[200px]">
             <Link to="" className="text-5xl font-right ">
@@ -79,7 +175,7 @@ const Landing = () => {
               <NavLinks obj={obj} />
             ))}
 
-            <li className="flex flex-row items-center hover:text-theme cursor-pointer ">
+            {/* <li className="flex flex-row items-center hover:text-theme cursor-pointer ">
               &nbsp;
               <span>
                 {data?.data?.role === "mentor" ? (
@@ -88,7 +184,7 @@ const Landing = () => {
                   <Link to="/user/book-meeting">Book a call</Link>
                 )}
               </span>
-            </li>
+            </li> */}
             {user ? (
               <li className="flex flex-row items-center hover:text-theme cursor-pointer ">
                 &nbsp;<span>Hello, {data?.data?.name}</span>
@@ -96,7 +192,15 @@ const Landing = () => {
             ) : (
               ""
             )}
-
+            {user?.role == "student" ? (
+              <Link to="/user/leaderboard">
+                <button className="  ">DASHBOARD</button>
+              </Link>
+            ) : (
+              <Link to="/mentor/classroom">
+                <button className=" ">DASHBOARD</button>
+              </Link>
+            )}
             {user ? (
               <button
                 className=" primary-btn "
@@ -228,7 +332,8 @@ const Landing = () => {
         <h1 className=" heading ">User Reviews</h1>
 
         <div className="flex-row-center  w-full">
-          <img src="" className="w-full h-[400px]" />
+          {/* <img src="" className="w-full h-[400px]" /> */}
+          <MapCommunities />
         </div>
       </section>
       <section className="primary-container  text-black">

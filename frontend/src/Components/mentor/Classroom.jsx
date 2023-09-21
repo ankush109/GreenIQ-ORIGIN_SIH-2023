@@ -7,38 +7,37 @@ import {Bar} from "react-chartjs-2"
 import { Line } from 'react-chartjs-2';
 import { Doughnut } from 'react-chartjs-2';
 
-
 import {Chart as chartjs} from 'chart.js/auto';
 
 
 const navigationLink=[
     {
-        name:'Meetings',
+        name:'Check out your meetings',
         path:'/mentor/meetings',
         icons:Pencil,
     },
     {
-        name:'Test',
+        name:'View your created test',
         path:'/mentor/my-test',
         icons:Pencil,
     },
     {
-        name:'Discussion',
+        name:'Discuss in portal',
         path:'user/discuss',
         icons:Pencil,
     },
     {
-        name:'Your Course',
+        name:'Your Created Course',
         path:'/mentor/material',
         icons:Pencil,
     },
     {
-        name:'Materials',
+        name:'Materials created by you',
         path:'/mentor/material',
         icons:Pencil,   
     },
     {
-        name:'News Feed',
+        name:'Reach fast by news',
         path:'/mentor/meetings',
         icons:Pencil,
     },
@@ -166,7 +165,7 @@ const options = {
   };
 const month=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 
-const Leaderboard = () => {
+const Classroom = () => {
   const [chartData,setChartData]=useState({
     labels:classReport.map((data)=>data.class),
     datasets:[{
@@ -182,36 +181,81 @@ const Leaderboard = () => {
     datasets:[{
         label:"Class 1",
         data:class1.map((data)=>data.performance),
-        borderColour:'red',
-        suggestedMin: 0, // Adjust this value to set a minimum Y-axis value
-        suggestedMax: 25, // Adjust this value to set a maximum Y-axis value
+        borderColour:'red'
+        
+    }]
+})
+const [createdTopics,setCreatedTopics]=useState({
+    labels: ['Assignments', 'Test', 'Meetings'],
+    datasets:[{
+        data: [12, 19, 3],
+        backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+      ],
         
     }]
 })
 
   return (
-    <div className='base-container gap-10 py-[5vh]'>
-        <div className='flex-row-between space-x-2 w-full h-[220px]'>
-            <div className='w-2/6 h-full bg-slate-300 rounded-lg shadow-md p-5'>
-                <Bar data={chartData} options={options} />
-            </div> 
-            <div className='w-2/6 h-full bg-slate-300 rounded-lg shadow-md p-5'>
-                <Line data={chartAnalysis} options={options} />
-            </div>
-           
-            <div className='w-2/6 flex-row-center flex-wrap '>
+    <div className='base-container gap-20 py-[5vh]'>
+        <div className='flex-row-center mb-10'>
+         
                 {navigationLink.map((obj,id)=>(
-                    <Link to={obj.path} className='bg-green-200 h-[100px] gap-2 rounded-md w-[100px] font-comf text-sm flex flex-col justify-center items-center m-2'>
+                    <Link to={obj.path} className='bg-green-200 h-[70px] px-2 gap-2 rounded-md w-[200px] font-comf text-sm flex flex-row justify-between items-center m-2'>
                         <button >
                             <img src={obj.icons} className='w-[50px]'/>
                         </button>
                         {obj.name}
                    </Link>
                 ))}
-            </div> 
+       
         </div>
+        <div className='flex-row-between space-x-2 w-full h-[220px]'>
+            <div className='w-2/6 h-full bg-slate-300 rounded-lg shadow-md p-5'>
+                <Bar data={chartData} options={options} />
+            </div>
+            <div className='w-2/6 h-full bg-slate-300 rounded-lg shadow-md p-5'>
+                <Line data={chartAnalysis} options={options} />
+            </div>
+            <div className='w-2/6 h-full bg-slate-300 rounded-lg shadow-md p-5'>
+                <Doughnut data={createdTopics} options={options} />
+            </div>
+            
         </div>
+        <hr className='my-5'/>
+        <div className=''>
+            <Searchbox/>
+            <div className='flex flex-col justify-center items-center gap-5'>
+                {navigationLink.map((obj,id)=>(
+                    <div className={`p-5 rounded-lg font-comf  w-5/6 bg-green-200 text-sm flex-row-between`} >
+
+                        <div className=" font-semibold gap-2">
+                            <p>Class : 5</p>
+                            <p>Subject: Envioment Science</p>
+                            <p>Students: 45</p>
+
+                        </div>
+                    
+                        <div>
+                            <p className="text-center flex-col flex justify-center">
+                               <b>45%</b>
+                               <p>Average</p>
+                            </p>
+                        
+                        </div>
+                        <button className=''>
+                            <img src={View} className='w-[40px]'/>
+                        </button>
+                    </div>))}
+            </div>
+        </div>
+    </div>
   )
 }
 
-export default Leaderboard
+export default Classroom

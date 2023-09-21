@@ -63,7 +63,7 @@ app.post(`/find-complexity`, async (req, res) => {
     const chatCompletion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo-0301",
       messages: [{ role: "user", content: prompt }],
-      max_tokens: 30,
+      max_tokens: 100,
     });
 
     return res.status(200).json({

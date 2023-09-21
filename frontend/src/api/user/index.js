@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
-// sending the access token (jwt token) to the authenticated urls to validate if the user is logged in
+
 
 const AuthAPI = () => {
   if (typeof window !== "undefined") {

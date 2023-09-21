@@ -16,16 +16,19 @@ import Mentortest from "./Components/mentor/mentor-test";
 import Report from "./Components/student/Report";
 import Discuss from "./Components/student/Discuss";
 import Leaderboard from "./Components/student/Leaderboard";
-import Newsfeed from "./Components/student/Newsfeed";
+
 import Profile from "./Components/student/Profile";
 import Settings from "./Components/student/Settings";
 import Protectedroute1 from "./Components/Protectedroute1";
 import Dashboard from "./Components/Dashboard";
-import ProtectedRoute1 from "./Components/Protectedroute1";
 import Material from "./Components/materials/materials";
 import MaterialSubject from "./Components/materials/MaterialSubject";
 import CreateMaterial from "./Components/mentor/CreateMaterial";
 import Sathi from "./Components/virtual-mentor/Sathi";
+import Classroom from "./Components/mentor/Classroom";
+
+import Newsfeed from "./Components/Newsfeed";
+import Chatbot from "./Components/virtual-mentor/chatbot";
 function App() {
   function isJWTValid() {
     const token = localStorage.getItem("token");
@@ -71,7 +74,8 @@ function App() {
             <Route path="/login" element={<Login />} />
           </Route>
 
-          <Route path="/user">
+          <Route path="/user" element={<Dashboard />}>
+            <Route path="chatbot" element={<Chatbot />} />
             <Route path="courses" element={<Courses />} />
             <Route path="sathi" element={<Sathi />} />
             <Route path="material/:id" element={<MaterialSubject />} />
@@ -86,11 +90,14 @@ function App() {
             <Route path="settings" element={<Settings />} />
             <Route path="confirm-booking/:id" element={<ConfirmBooking />} />
           </Route>
-          <Route path="/mentor">
+          <Route path="/mentor" element={<Dashboard />}>
             <Route path="my-Test" element={<Mentortest />} />
             <Route path="createtest" element={<CreateTest />} />
             <Route path="Meetings" element={<Meetings />} />
             <Route path="createMaterial" element={<CreateMaterial />} />
+            <Route path="material" element={<Material />} />
+            <Route path="material/:id" element={<MaterialSubject />} />
+            <Route path="classroom" element={<Classroom />} />
           </Route>
         </Routes>
       </BrowserRouter>

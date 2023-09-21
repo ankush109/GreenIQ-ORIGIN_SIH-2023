@@ -44,18 +44,11 @@ function CreateTest() {
   };
 
   return (
-    <div className="max-w-screen max-h-screen flex overflow-hidden">
-      <div className="hidden lg:block w-1/4 h-screen">
-        <Leftbar />
-      </div>
-      <div className="bg-gray-100 w-full lg:w-3/4 p-5 justify-center items-center">
-        <h1 className="text-2xl font-bold my-5">Create a Test</h1>
-        <Link to="/mentor/my-Test">
-          <Button variant="contained" color="primary">
-            Get mentor's Test
-          </Button>
-        </Link>
-        <form>
+      
+      <div className="base-container py-[5vh] ">
+        <h1 className="text-3xl  font-merri ">Create a Test</h1>
+        <div className="base-container py-[5vh] w-3/4 ">
+        <form className="font-comf">
           <TextField
             name="title"
             label="Test Name"
@@ -93,16 +86,16 @@ function CreateTest() {
             required
             margin="normal"
           />
-          <Button
+          <button
             onClick={createTestHandler}
-            variant="contained"
-            color="primary"
+            className="primary-btn text-md"
           >
             Create Test
-          </Button>
+          </button>
         </form>
+        </div>
       </div>
-    </div>
+  
   );
 }
 
