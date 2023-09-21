@@ -17,7 +17,6 @@ function Material() {
   }, [data?.data]);
   return (
     <div className="">
-      
       <div className="base-container py-[5vh]">
         <h2 className="text-3xl font-merri">Subjects for class 11</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 my-5">
@@ -25,7 +24,7 @@ function Material() {
             subjects?.map((course) => (
               <div
                 onClick={() => {
-                  navigate(`${user.role=="student"?'user':'mentor'}/material/${course.name}`);
+                  navigate(`/user/material/${course.name}`);
                 }}
                 key={course.id}
                 className="border rounded-lg shadow-lg bg-white p-4"

@@ -33,11 +33,8 @@ function MaterialSubject() {
   }, [id]);
 
   return (
-    <div className="max-w-screen max-h-screen flex overflow-hidden">
-      {/* <div className="w-1/4 h-screen">
-        <Leftbar />
-      </div> */}
-      <div className="p-4 w-3/4 overflow-y-auto">
+    <div className="max-w-screen max-h-screen ">
+      <div className="p-4  ">
         <h2 className="text-2xl font-semibold mb-4">Material for {id}</h2>
         <div className="">
           {loading ? (
