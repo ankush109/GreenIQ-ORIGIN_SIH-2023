@@ -151,7 +151,7 @@ const Leftbar = () => {
                 <span className="inline-flex justify-center items-center ml-4"></span>
                 <FaNewspaper className="text-xl" />
                 <span className="ml-2 text-sm tracking-wide truncate">
-                  <Link to="">News Feed</Link>
+                  <Link to="/user/newsfeed">News Feed</Link>
                 </span>
               </div>
             </li>

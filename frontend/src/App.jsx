@@ -16,7 +16,7 @@ import Mentortest from "./Components/mentor/mentor-test";
 import Report from "./Components/student/Report";
 import Discuss from "./Components/student/Discuss";
 import Leaderboard from "./Components/student/Leaderboard";
-import Newsfeed from "./Components/student/Newsfeed";
+
 import Profile from "./Components/student/Profile";
 import Settings from "./Components/student/Settings";
 import Protectedroute1 from "./Components/Protectedroute1";
@@ -25,6 +25,7 @@ import Material from "./Components/materials/materials";
 import MaterialSubject from "./Components/materials/MaterialSubject";
 import CreateMaterial from "./Components/mentor/CreateMaterial";
 import Sathi from "./Components/virtual-mentor/Sathi";
+import Newsfeed from "./Components/Newsfeed";
 function App() {
   function isJWTValid() {
     const token = localStorage.getItem("token");
