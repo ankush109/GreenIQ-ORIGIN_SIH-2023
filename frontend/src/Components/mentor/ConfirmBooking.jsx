@@ -37,9 +37,9 @@ function ConfirmBooking() {
 
   return (
     <div className="max-w-screen max-h-screen flex overflow-hidden">
-      <div className="w-1/4 h-screen">
+      {/* <div className="w-1/4 h-screen">
        <Leftbar/>
-      </div>
+      </div> */}
       <div className="bg-gray-200 w-full p-5  justify-center items-center">
         <h1 className="text-2xl font-bold my-5 ">Please give the dates </h1>
         <DateTime onData={handleChildData} />

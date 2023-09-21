@@ -14,6 +14,7 @@ import { GoGlobe } from "react-icons/go";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import MapCommunities from "./Mapbox/MapCommunities";
 
 const Landing = () => {
   const [dropDown, setDropDown] = useState(false);
@@ -79,7 +80,7 @@ const Landing = () => {
               <NavLinks obj={obj} />
             ))}
 
-            <li className="flex flex-row items-center hover:text-theme cursor-pointer ">
+            {/* <li className="flex flex-row items-center hover:text-theme cursor-pointer ">
               &nbsp;
               <span>
                 {data?.data?.role === "mentor" ? (
@@ -88,7 +89,7 @@ const Landing = () => {
                   <Link to="/user/book-meeting">Book a call</Link>
                 )}
               </span>
-            </li>
+            </li> */}
             {user ? (
               <li className="flex flex-row items-center hover:text-theme cursor-pointer ">
                 &nbsp;<span>Hello, {data?.data?.name}</span>
@@ -228,7 +229,8 @@ const Landing = () => {
         <h1 className=" heading ">User Reviews</h1>
 
         <div className="flex-row-center  w-full">
-          <img src="" className="w-full h-[400px]" />
+          {/* <img src="" className="w-full h-[400px]" /> */}
+          <MapCommunities />
         </div>
       </section>
       <section className="primary-container  text-black">

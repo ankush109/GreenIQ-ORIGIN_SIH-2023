@@ -29,34 +29,20 @@ function CommunityMap({
   const [popupInfo, setPopupInfo] = useState(null);
   const [communities, setCommunities] = useState();
   const [viewPort, setViewPort] = useState({
-    latitude: 56,
-    longitude: 23,
+    latitude: 22.57,
+    longitude: 88.414,
 
     zoom: 10,
   });
 
-  useEffect(() => {
-    const loadContents = async () => {
-      try {
-        const getArray = await axios.get(
-          "http://localhost:8080/community/communities",
-          { withCredentials: true }
-        );
-
-        setCommunities(getArray.data.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    loadContents();
-  }, []);
+  
 
   if (!viewPort) return null;
 
   return (
-    <div className="relative">
+    <div className="">
       <Map
-        mapboxAccessToken={import.meta.env.VITE_APP_GEOCODER_ACCESS_TOKEN}
+        mapboxAccessToken='pk.eyJ1Ijoia2F1c2hhbi01NDA5IiwiYSI6ImNsamxsbnN6cTBwY2kzZnNkbGl4MzN3d28ifQ.Z5eT8YhsfauPp6lGLbYT8w'
         initialViewState={viewPort}
         onViewportChange={(viewPort) => {
           setViewPort(viewPort);
@@ -74,12 +60,12 @@ function CommunityMap({
         <NavigationControl position="top-right" />
         <ScaleControl />
 
-        {communities?.map((location, index) => (
+        {parkDate.features?.map((location, index) => (
           <Marker
             className="cursor-pointer"
             key={index}
-            longitude={location.location.latitude}
-            latitude={location.location.longitude}
+            longitude={23}
+            latitude={45}
             onClick={(e) => {
               e.originalEvent.stopPropagation();
               setPopupInfo(location);
@@ -97,11 +83,11 @@ function CommunityMap({
             anchor="right"
             onClose={() => setPopupInfo(null)}
           >
-            <div className="text-lg">
+            {/* <div className="text-lg">
               <img src={popupInfo.image} width="100px" />
               <h2>{popupInfo.communityName}</h2>
               <p>{popupInfo.description}</p>
-            </div>
+            </div> */}
           </Popup>
         )}
       </Map>

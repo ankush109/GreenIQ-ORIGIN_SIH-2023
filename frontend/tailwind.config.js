@@ -11,6 +11,7 @@ export default {
         primary:'#12181e',
         temporary:'#85fe78',
         medium:'#fff',
+        
         background:'#fbfbfb'
       },
       fontFamily:{
