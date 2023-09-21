@@ -37,35 +37,23 @@ function Sathi() {
   }, []);
 
   return (
-    <div className="flex">
-      {/* <div className="w-1/4 h-screen">
-        <Leftbar />
-      </div> */}
-      <div className="p-4 w-3/4">
-        <header className="bg-green-500 text-white py-4 text-center">
-          <h1 className="text-2xl font-semibold">Sathi Chatbot</h1>
-        </header>
+    <div className="base-container py-[5vh] flex flex-col justify-center items-center ">
+     
+      
+          <h1 className="text-5xl font-merri text-theme">Sathi Chatbot</h1>
+          <p className="my-5 font-comf">Welcome to sathi, your personalized chatbot. Ask any question and get the instant reply</p>
+        
         <div className="flex-grow flex flex-col items-center justify-center my-10">
-          <div
-            className="border p-4 rounded-lg shadow-lg max-w-[900px] w-full"
-            ref={messagesEndRef}
-          >
-            <div
-              className="border p-2 min-h-10 overflow-y-auto"
-              style={{ maxHeight: "400px" }}
-            >
+          <div  className="border p-4 rounded-lg shadow-lg w-[900px] h-full"  ref={messagesEndRef} >
+
+            <div className="border p-2 h-[50vh] overflow-y-auto "  style={{ maxHeight: "400px" }} >
               {messages.map((message, index) => (
                 <div
                   key={index}
-                  className={`mb-2 ${
-                    message.role === "user" ? "text-right" : ""
-                  }`}
-                >
+                  className={`mb-2 ${ message.role === "user" ? "text-right" : "" }`}  >
                   <div
-                    className={`bg-${
-                      message.role === "user" ? "blue" : "green"
-                    }-200 p-2 rounded-lg inline-block`}
-                  >
+                    className={`bg-${ message.role === "user" ? "blue" : "green" }-200 p-2 rounded-lg inline-block`}>
+
                     {message.role === "chatbot" ? (
                       <div className="flex items-center">
                         <img
@@ -84,33 +72,31 @@ function Sathi() {
                   </div>
                 </div>
               ))}
-              <div></div>
+              <div>
+              
+              </div>
             </div>
-            <div className="mt-4 flex">
-              <input
-                type="text"
-                className="flex-grow border rounded p-2 mr-2"
+
+            <div className="mt-4 flex ">
+
+              <input type="text" className="flex-grow border rounded p-2 mr-2 outline-none"
                 placeholder="Type a message..."
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
-                onKeyUp={handleKeyPress}
-              />
-              <SendIcon
-                size={20}
-                style={{
-                  marginTop: "10px",
-                  color: "green",
-                }}
-                color="green"
-                onClick={sendMessage}
-              >
-                Send
-              </SendIcon>
+                onKeyUp={handleKeyPress} />
+              
+                <SendIcon size={20}  style={{marginTop: "10px", color: "green", }}
+                  color="green"
+                  onClick={sendMessage}
+                >
+                  Send
+                </SendIcon>
             </div>
+
           </div>
         </div>
       </div>
-    </div>
+  
   );
 }
 
