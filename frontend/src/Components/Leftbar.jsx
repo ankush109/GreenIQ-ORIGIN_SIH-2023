@@ -32,7 +32,7 @@ const Leftbar = () => {
   }, [selectedTab]);
   return (
     <>
-      <div className=" hidden lg:block h-full  bg-white border-r">
+      <div className=" hidden lg:block h-full  bg-white border-r fixed w-[300px] overflow-y-auto">
         <div className="flex items-center justify-center h-14 border-b">
           <div>
             {user ? (
