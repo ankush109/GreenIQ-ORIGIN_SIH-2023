@@ -24,6 +24,7 @@ import Dashboard from "./Components/Dashboard";
 import Material from "./Components/materials/materials";
 import MaterialSubject from "./Components/materials/MaterialSubject";
 import CreateMaterial from "./Components/mentor/CreateMaterial";
+import Sathi from "./Components/virtual-mentor/Sathi";
 function App() {
   function isJWTValid() {
     const token = localStorage.getItem("token");
@@ -69,25 +70,28 @@ function App() {
             <Route path="/login" element={<Login />} />
           </Route>
 
-          <Route path="/user">
-            <Route path="courses" element={<Courses />} />
-            <Route path="material/:id" element={<MaterialSubject />} />
-            <Route path="test" element={<Test />} />
-            <Route path="material" element={<Material />} />
-            <Route path="book-meeting" element={<Meeting />} />
-            <Route path="discuss" element={<Discuss />} />
-            <Route path="report" element={<Report />} />
-            <Route path="leaderboard" element={<Leaderboard />} />
-            <Route path="newsfeed" element={<Newsfeed />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="settings" element={<Settings />} />
-            <Route path="confirm-booking/:id" element={<ConfirmBooking />} />
+          <Route path="/user" element={<Dashboard/>}>
+              <Route path="courses" element={<Courses />} />
+              <Route path="sathi" element={<Sathi />} />
+              <Route path="material/:id" element={<MaterialSubject />} />
+              <Route path="test" element={<Test />} />
+              <Route path="material" element={<Material />} />
+              <Route path="book-meeting" element={<Meeting />} />
+              <Route path="discuss" element={<Discuss />} />
+              <Route path="report" element={<Report />} />
+              <Route path="leaderboard" element={<Leaderboard />} />
+              <Route path="newsfeed" element={<Newsfeed />} />
+              <Route path="profile" element={<Profile />} />
+              <Route path="settings" element={<Settings />} />
+              <Route path="confirm-booking/:id" element={<ConfirmBooking />} />
           </Route>
-          <Route path="/mentor">
-            <Route path="my-Test" element={<Mentortest />} />
-            <Route path="createtest" element={<CreateTest />} />
-            <Route path="Meetings" element={<Meetings />} />
-            <Route path="createMaterial" element={<CreateMaterial />} />
+          <Route path="/mentor" element={<Dashboard/>}>
+              <Route path="my-Test" element={<Mentortest />} />
+              <Route path="createtest" element={<CreateTest />} />
+              <Route path="Meetings" element={<Meetings />} />
+              <Route path="createMaterial" element={<CreateMaterial />} />
+              <Route path="material" element={<Material />} />
+              <Route path="material/:id" element={<MaterialSubject />} />
           </Route>
         </Routes>
       </BrowserRouter>

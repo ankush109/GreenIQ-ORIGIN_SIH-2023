@@ -22,22 +22,17 @@ function CreateMaterial() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(formData);
     const data = await createMaterial(formData);
     if (data.success) {
       toast.success("material added");
     }
-    console.log(data, "data");
   };
 
   return (
-    <div className="max-w-screen max-h-screen flex overflow-hidden">
-      <div className="w-1/4 h-screen">
-        <Leftbar />
-      </div>
-      <div className="p-4 w-3/4 overflow-y-auto">
-        <h2 className="text-2xl font-semibold mb-4">Create Material</h2>
-        <form onSubmit={handleSubmit}>
+  
+      <div className="base-container py-[5vh]">
+        <h2 className="text-3xl font-merri">Create Material</h2>
+        <form onSubmit={handleSubmit} className="base-container py-[5vh] w-3/4 font-comf ">
           <div className="mb-4">
             <label
               htmlFor="title"
@@ -109,14 +104,14 @@ function CreateMaterial() {
           <div className="mt-4">
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              className="primary-btn text-sm"
             >
               Create Material
             </button>
           </div>
         </form>
       </div>
-    </div>
+ 
   );
 }
 

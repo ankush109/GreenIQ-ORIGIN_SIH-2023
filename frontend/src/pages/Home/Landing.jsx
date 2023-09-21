@@ -14,6 +14,7 @@ import { GoGlobe } from "react-icons/go";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import MapCommunities from './Mapbox/MapCommunities';
 
 const Landing = () => {
   const [dropDown, setDropDown] = useState(false);
@@ -40,14 +41,12 @@ const Landing = () => {
   };
 
   useEffect(() => {
-    console.log(data.data, "data");
     setuser(data?.data);
   }, [data.data]);
 
   const navigate = useNavigate();
 
   const NavLinks = ({ obj }) => {
-    console.log(obj);
     return !obj.protected ? (
       <Link
         to={obj.path}
@@ -81,7 +80,7 @@ const Landing = () => {
               <NavLinks obj={obj} />
             ))}
 
-            <li className="flex flex-row items-center hover:text-theme cursor-pointer ">
+            {/* <li className="flex flex-row items-center hover:text-theme cursor-pointer ">
               &nbsp;
               <span>
                 {data?.data?.role === "mentor" ? (
@@ -90,7 +89,7 @@ const Landing = () => {
                   <Link to="/user/book-meeting">Book a call</Link>
                 )}
               </span>
-            </li>
+            </li> */}
             {user ? (
               <li className="flex flex-row items-center hover:text-theme cursor-pointer ">
                 &nbsp;<span>Hello, {data?.data?.name}</span>
@@ -158,8 +157,11 @@ const Landing = () => {
             <span>
               <Typewriter
                 words={[
-                  "Learn Concepts","Find Resources",
-                  "Appear For Tests","Daily Monitoring","Track Progress",
+                  "Learn Concepts",
+                  "Find Resources",
+                  "Appear For Tests",
+                  "Daily Monitoring",
+                  "Track Progress",
                   "1:1 Mentorship",
                   "Resolve Doubts",
                 ]}
@@ -172,9 +174,7 @@ const Landing = () => {
               />
             </span>
           </div>
-          <p className="md:text-lg text-sm font-comf">
-            
-          </p>
+          <p className="md:text-lg text-sm font-comf"></p>
           <button className=" primary-btn ">DASHBOARD</button>
         </div>
       </section>
@@ -227,9 +227,10 @@ const Landing = () => {
 
       <section className=" my-5 text-left h-[80vh] flex-col-center items-center gap-8 mt-[20vh]">
         <h1 className=" heading ">User Reviews</h1>
-
+        
         <div className="flex-row-center  w-full">
-          <img src="" className="w-full h-[400px]" />
+          {/* <img src="" className="w-full h-[400px]" /> */}
+          <MapCommunities/>
         </div>
       </section>
       <section className="primary-container  text-black">
@@ -269,7 +270,9 @@ const Landing = () => {
             Your School at your Doorstep!
           </h1>
           <p className="leading-7 my-5 font-comf">
-            Inform your friends and join us on this journey of self-discovery. Learn, build, create and innovate all under one roof. GreenIQ is here for everyone.
+            Inform your friends and join us on this journey of self-discovery.
+            Learn, build, create and innovate all under one roof. GreenIQ is
+            here for everyone.
           </p>
           <button className="primary-btn">GET STARTED</button>
         </div>

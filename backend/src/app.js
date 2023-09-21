@@ -10,8 +10,12 @@ import favicon from "serve-favicon";
 import "./v1/config/env.config";
 
 import { authRoutes, userRoute } from "./v1/routes";
+// New
+import OpenAI from "openai";
 
-// RateLimitter
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY, // This is also the default, can be omitted
+});
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 1000, // Limit each IP to 1000 requests per `window` (here, per 15 minutes)
@@ -53,6 +57,23 @@ const apiVersion = "v1";
 // Routes
 app.use(`/${apiVersion}/auth`, authRoutes);
 app.use(`/${apiVersion}/user`, userRoute);
+app.post(`/find-complexity`, async (req, res) => {
+  try {
+    const { prompt } = req.body;
+    const chatCompletion = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo-0301",
+      messages: [{ role: "user", content: prompt }],
+      max_tokens: 30,
+    });
+
+    return res.status(200).json({
+      success: true,
+      data: chatCompletion.choices[0].message,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 // 404 Handler
 app.use((req, res, next) => {

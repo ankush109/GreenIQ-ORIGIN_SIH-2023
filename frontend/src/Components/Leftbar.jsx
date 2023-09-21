@@ -12,12 +12,12 @@ import { PiExamFill } from "react-icons/pi";
 import { BiSolidReport, BiSolidLogOut } from "react-icons/bi";
 import { FaNewspaper } from "react-icons/fa";
 import { AiFillSetting } from "react-icons/ai";
+import AssistantIcon from "@mui/icons-material/Assistant";
 import HomeIcon from "@mui/icons-material/Home";
 const Leftbar = () => {
   const data = GetUserQuery();
   const [user, setuser] = useState();
   useEffect(() => {
-    console.log(data.data, "data");
     setuser(data.data);
   }, [data.data]);
 
@@ -27,13 +27,12 @@ const Leftbar = () => {
 
   useEffect(() => {
     const path = window.location.pathname;
-    console.log(path);
 
     setSelectedTab(path);
   }, [selectedTab]);
   return (
     <>
-      <div className=" hidden lg:block h-full  bg-white border-r">
+      <div className=" hidden lg:block h-full  bg-white border-r fixed w-[300px] overflow-y-auto">
         <div className="flex items-center justify-center h-14 border-b">
           <div>
             {user ? (
@@ -52,6 +51,17 @@ const Leftbar = () => {
                 </div>
               </div>
             </li>
+            {user?.role == "student" && (
+              <li>
+                <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                  <span className="inline-flex justify-center items-center ml-4"></span>
+                  <AssistantIcon className="text-xl" />
+                  <span className="ml-2 text-sm tracking-wide truncate">
+                    <Link to="/user/sathi">Virtual Mentor</Link>
+                  </span>
+                </div>
+              </li>
+            )}
             <li>
               <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
                 <span className="inline-flex justify-center items-center ml-4"></span>
@@ -112,7 +122,7 @@ const Leftbar = () => {
                 <span className="inline-flex justify-center items-center ml-4"></span>
                 <BiSolidReport className="text-xl" />
                 <span className="ml-2 text-sm tracking-wide truncate">
-                  <Link to="/user/report">Reports</Link>
+                  <Link to="">Reports</Link>
                 </span>
               </div>
             </li>
@@ -125,28 +135,41 @@ const Leftbar = () => {
                 </span>
               </div>
             </li>
-            <li>
-              <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
-                <span className="inline-flex justify-center items-center ml-4"></span>
-                <MdLeaderboard className="text-xl" />
-                <span className="ml-2 text-sm tracking-wide truncate">
-                  <Link to="/user/leaderboard">Leaderboard</Link>
-                </span>
-                <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-500 bg-red-50 rounded-full">
-                  1.2k
-                </span>
-              </div>
-            </li>
+            {user?.role == "student" && (
+              <li>
+                <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                  <span className="inline-flex justify-center items-center ml-4"></span>
+                  <MdLeaderboard className="text-xl" />
+                  <span className="ml-2 text-sm tracking-wide truncate">
+                    <Link to="/user/leaderboard">Leaderboard</Link>
+                  </span>
+                  <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-500 bg-red-50 rounded-full">
+                    1.2k
+                  </span>
+                </div>
+              </li>
+            )}
 
             <li>
               <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
                 <span className="inline-flex justify-center items-center ml-4"></span>
                 <FaNewspaper className="text-xl" />
                 <span className="ml-2 text-sm tracking-wide truncate">
-                  <Link to="/user/newsfeed">News Feed</Link>
+                  <Link to="">News Feed</Link>
                 </span>
               </div>
             </li>
+            {user?.role == "mentor" && (
+              <li>
+                <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                  <span className="inline-flex justify-center items-center ml-4"></span>
+                  <FaNewspaper className="text-xl" />
+                  <span className="ml-2 text-sm tracking-wide truncate">
+                    <Link to="/mentor/Meetings">Meetings</Link>
+                  </span>
+                </div>
+              </li>
+            )}
             <li>
               <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
                 <span className="inline-flex justify-center items-center ml-4"></span>
@@ -156,13 +179,32 @@ const Leftbar = () => {
                 </span>
               </div>
             </li>
+            {user?.role == "student" && (
+              <li>
+                <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                  <span className="inline-flex justify-center items-center ml-4"></span>
+                  <RiDiscussFill className="text-xl" />
+                  <span className="ml-2 text-sm tracking-wide truncate">
+                    <Link to="/user/book-meeting">Book Meeting</Link>
+                  </span>
+                </div>
+              </li>
+            )}
             <li>
               <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
                 <span className="inline-flex justify-center items-center ml-4"></span>
                 <MdAssignmentAdd className="text-xl" />
 
                 <span className="ml-2 text-sm tracking-wide truncate">
-                  <Link to="/user/material">Materials</Link>
+                  <Link
+                    to={`${
+                      user?.role == "student"
+                        ? "/user/material"
+                        : "/mentor/material"
+                    }`}
+                  >
+                    Materials
+                  </Link>
                 </span>
                 <span className="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-green-500 bg-green-50 rounded-full">
                   15
@@ -195,15 +237,17 @@ const Leftbar = () => {
                 </span>
               </div>
             </li>
-            <li>
-              <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
-                <span className="inline-flex justify-center items-center ml-4"></span>
-                <AiFillSetting className="text-xl" />
-                <span className="ml-2 text-sm tracking-wide truncate">
-                  <Link to="/mentor/createMaterial">Create Material</Link>
-                </span>
-              </div>
-            </li>
+            {user?.role == "mentor" && (
+              <li>
+                <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                  <span className="inline-flex justify-center items-center ml-4"></span>
+                  <AiFillSetting className="text-xl" />
+                  <span className="ml-2 text-sm tracking-wide truncate">
+                    <Link to="/mentor/createMaterial">Create Material</Link>
+                  </span>
+                </div>
+              </li>
+            )}
             <li>
               <div className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
                 <span className="inline-flex justify-center items-center ml-4"></span>
@@ -212,9 +256,8 @@ const Leftbar = () => {
                   <Link
                     onClick={() => {
                       localStorage.removeItem("token");
-                      navigate("/login");
                     }}
-                    to=""
+                    to="/login"
                   >
                     Logout
                   </Link>

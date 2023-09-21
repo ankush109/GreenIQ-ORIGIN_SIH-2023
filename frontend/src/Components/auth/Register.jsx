@@ -5,9 +5,11 @@ import toast from "react-hot-toast";
 import { registerUser } from "../../api";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useNavigate } from "react-router";
+import Loading from "../Loading";
 function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const [button, setbutton] = useState(false);
   const [apiError, setApiError] = useState(null);
   const {
     reset,
@@ -30,11 +32,11 @@ function Register() {
 
 
   const onSubmit = async (formData) => {
+    setbutton(true);
     try {
-      console.log(formData);
       const { data } = await registerUser(formData);
       toast.success(data.message, { id: data.message });
-      navigate("/Login");
+      navigate("/login");
       reset();
       setApiError(null);
       setValue("name", "");
@@ -42,6 +44,7 @@ function Register() {
       setValue("picture", null);
     } catch (err) {
       setApiError(err.response.data.message);
+      setbutton(false);
     }
   };
   return (
@@ -53,7 +56,7 @@ function Register() {
         />
       </div>
       <div className="flex lg:w-1/2  sm:w-full h-screen justify-center p-20">
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col ">
           <p className="text-gray-500">New User? </p>
           <h1 className="font-bold text-3xl font-mono">Register</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -147,9 +150,13 @@ function Register() {
                 Sign In
               </p>
             </div>
-            <button className="py-2 px-10 mx-24 my-4 bg-blue-400  text-white  rounded-xl hover:bg-blue-500 hover:text-white hover:scale-110 duration-300">
-              Register
-            </button>
+            {!button ? (
+              <button className="py-2 px-10 mx-24 my-4 bg-blue-400  text-white  rounded-xl hover:bg-blue-500 hover:text-white hover:scale-110 duration-300">
+                Register
+              </button>
+            ) : (
+              <Loading />
+            )}
           </form>
         </div>
       </div>
