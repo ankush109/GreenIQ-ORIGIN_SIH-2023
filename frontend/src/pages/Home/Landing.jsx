@@ -5,22 +5,33 @@ import { useNavigate } from "react-router";
 
 import primaryImage from "../../assets/primary-background.png";
 import Demo from "../../assets/demo.jpg";
+import Chatbot from "../../assets/chatbot.png"
 
 import * as Links from "./Links";
 import Container from "./Container";
 import { GetUserQuery } from "../../api/user";
 
+import { BiRightArrow } from "react-icons/bi";
+
 import { GoGlobe } from "react-icons/go";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import { ImCross } from "react-icons/im";
+
 import MapCommunities from './Mapbox/MapCommunities';
+import Searchbox from "../../Components/SearchBox";
 
 const Landing = () => {
   const [dropDown, setDropDown] = useState(false);
   const data = GetUserQuery();
   const [user, setuser] = useState();
   const [scrollLeft, setScrollLeft] = useState(0);
+  const [chatbot,setChatbot]=useState(false);
+  const [chatquestion,setChatquestion]=useState([{bot:'Hi this is Sathi Bot how may i help u?'},
+    {user:'Hi i want some answer'}   
+])
+  
 
   const array = [1, 2, 3, 4, 5, 6, 7, 8, 90, 10];
   const arr = [1, 2, 3];
@@ -68,7 +79,28 @@ const Landing = () => {
 
   return (
     <div className=" bg-background text-center">
-      <section className="fixed inset-x-0 mx-auto w-full custom-navbar-width z-10 py-5">
+      <section>
+        <div className="cursor-pointer w-[120px] h-[120px] rounded-full  fixed bottom-1" onClick={()=>{setChatbot(true)}}>
+            <button><img className="w-full" src={Chatbot}/></button>
+        </div>
+        <div className={`${chatbot?'':'hidden'} w-[300px] h-[300px] bg-green-100 rounded-lg fixed bottom-24 p-3 left-24`}>
+            <div className="">
+                <ImCross className="" onClick={()=>{setChatbot(false)}}/>
+            </div>
+            <div className="px-5 w-full h-3/4 my-2 border-2 border-gray-500 p-2 overflow-y-auto gap-2">
+                  {chatquestion.map((obj)=>
+                   (
+                    obj?.bot?<p className="text-left bg-slate-200 rounded-lg p-2 my-1">{obj.bot}</p>:<p className="text-right bg-rose-100 w-fit  rounded-lg my-1 p-2">{obj.user}</p>
+                  ))}
+            </div>
+            <div className="space-x-2  font-comf flex-row-between border-2 border-gray-500 px-2 py-1 rounded-md">
+                <input type="text" placeholder="Search for the meeting..." className="w-full outline-none  bg-green-100"/>
+                <button className=""><BiRightArrow/></button>
+            </div>
+        </div>
+      </section>
+
+      <section className="fixed inset-x-0 mx-auto w-full custom-navbar-width z-10 py-5 ">
         <nav className="bg-white text-primary  lg:flex hidden flex-row justify-between px-5 py-1  rounded-2xl shadow-md items-center text-para  z-10 border-nav">
           <div className="mx-2 w-[200px]">
             <Link to="" className="text-5xl font-right ">
@@ -97,7 +129,15 @@ const Landing = () => {
             ) : (
               ""
             )}
-
+            {user?.role=="student" ? (
+              <Link to="/user/courses">
+                <button className="  ">DASHBOARD</button>
+              </Link>
+            ) : (
+              <Link to="/user/courses">
+                <button className=" ">DASHBOARD</button>
+              </Link>
+            )}
             {user ? (
               <button
                 className=" primary-btn "

@@ -69,10 +69,6 @@ export const Navbar_Links = [
     protected: false,
   },
  
-  {
-    name: "DASHBOARD",
-    path: "/dashboard",
-    protected: true,
-  },
+  
 ];
 

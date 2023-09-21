@@ -25,6 +25,8 @@ import Material from "./Components/materials/materials";
 import MaterialSubject from "./Components/materials/MaterialSubject";
 import CreateMaterial from "./Components/mentor/CreateMaterial";
 import Sathi from "./Components/virtual-mentor/Sathi";
+import Classroom from "./Components/mentor/Classroom";
+
 function App() {
   function isJWTValid() {
     const token = localStorage.getItem("token");
@@ -83,6 +85,7 @@ function App() {
               <Route path="newsfeed" element={<Newsfeed />} />
               <Route path="profile" element={<Profile />} />
               <Route path="settings" element={<Settings />} />
+              
               <Route path="confirm-booking/:id" element={<ConfirmBooking />} />
           </Route>
           <Route path="/mentor" element={<Dashboard/>}>
@@ -91,6 +94,8 @@ function App() {
               <Route path="Meetings" element={<Meetings />} />
               <Route path="createMaterial" element={<CreateMaterial />} />
               <Route path="material" element={<Material />} />
+              <Route path="classroom" element={<Classroom />} />
+
               <Route path="material/:id" element={<MaterialSubject />} />
           </Route>
         </Routes>
