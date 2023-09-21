@@ -7,17 +7,17 @@ import Loading from "../Loading";
 import Error from "../Error";
 
 function Mentortest() {
-  const {  myTest, isLoading, isError } =  mentorTestQuery();
+  const {  data, isLoading, isError } =  mentorTestQuery();
 
   const [test, setTest] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    if (myTest) {
-      setTest(myTest.data);
+    if (data) {
+      setTest(data);
     }
-  }, [myTest]);
-
+  }, [data]);
+console.log("MyTest:",data);
   const filteredTests = test?.filter((item) =>
     item.subject.name.toLowerCase().includes(searchQuery.toLowerCase())
   );

@@ -49,8 +49,6 @@ function Login() {
       reset();
       setApiError(null);
 
-      // As reset will fallback to defaultValues
-      // so they have to be cleared explicitly
       setValue("email", "");
       setShowPassword(false);
     } catch (err) {
@@ -58,8 +56,7 @@ function Login() {
       toast.error("Invalid Credentials");
     }
     reset();
-    // As reset will fallback to defaultValues
-    // so they have to be cleared explicitly
+    
     setValue("email", "");
     setShowPassword(false);
   };
@@ -88,7 +85,7 @@ function Login() {
                 />
               </div>
               <div className="relative">
-                {/* p-2 mt-3 rounded-2xl border w-full */}
+               
                 <TextField
                   required
                   id="outlined-basic"

@@ -6,17 +6,7 @@ import Loading from "../Loading";
 function Courses() {
   const { data, isLoading, isError } = getCoursesQuery("11");
 
-  // if (isLoading) {
-  //   return <div className="p-4 bg-gray-200">Loading...</div>;
-  // }
-
-  // if (isError) {
-  //   return (
-  //     <div className="p-4 bg-red-500 text-white">Error loading courses.</div>
-  //   );
-  // }
-
-  // Check if data is empty
+ 
   if(isError){
     return <div><Error/></div>
   }

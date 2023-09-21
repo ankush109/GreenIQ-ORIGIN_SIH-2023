@@ -28,7 +28,6 @@ function Register() {
     },
   });
 
-  // making the api call for registering user
 
   const onSubmit = async (formData) => {
     try {

@@ -76,7 +76,7 @@ function Discuss() {
     if (res.success) {
       toast.success("Post made successfully");
       refetch();
-      setNewQuestion(""); // Clear the input field
+      setNewQuestion("");
     }
   };
 

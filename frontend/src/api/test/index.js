@@ -29,11 +29,7 @@ const getMyTest = async () => {
   const { data } = await AuthAPI().get("/user/get-my-test", "11");
   return data;
 };
-// const getTests = async (subjectId, classId) => {
-//   const params = { subjectId, classId };
-//   const { data } = await AuthAPI().get("/user/get-test", { params });
-//   return data;
-// };
+
 const getMentorTest = async () => {
   const { data } = await AuthAPI().get("/user/get-test");
   return data;

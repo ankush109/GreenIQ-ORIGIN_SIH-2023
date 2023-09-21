@@ -21,7 +21,6 @@ import Profile from "./Components/student/Profile";
 import Settings from "./Components/student/Settings";
 import Protectedroute1 from "./Components/Protectedroute1";
 import Dashboard from "./Components/Dashboard";
-import ProtectedRoute1 from "./Components/Protectedroute1";
 import Material from "./Components/materials/materials";
 import MaterialSubject from "./Components/materials/MaterialSubject";
 import CreateMaterial from "./Components/mentor/CreateMaterial";

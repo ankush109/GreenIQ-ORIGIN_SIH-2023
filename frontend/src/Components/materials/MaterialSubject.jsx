@@ -22,10 +22,10 @@ function MaterialSubject() {
         setMaterial(response.message);
         console.log(response.message, "me");
       }
-      setLoading(false); // Set loading to false once data is received
+      setLoading(false); 
     } catch (error) {
       console.error("Error fetching material:", error);
-      setLoading(false); // Set loading to false in case of an error
+      setLoading(false); 
     }
   };
 
@@ -41,7 +41,7 @@ function MaterialSubject() {
       <div className="p-4 w-3/4 overflow-y-auto">
         <h2 className="text-2xl font-semibold mb-4">Material for {id}</h2>
         <div className="">
-          {loading ? ( // Display loading state while fetching data
+          {loading ? (
             <div>Loading...</div>
           ) : material?.length > 0 ? (
             material?.map((mat) => (
