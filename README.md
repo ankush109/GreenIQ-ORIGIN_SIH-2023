@@ -8,7 +8,7 @@
  - [Extended Presentation](https://drive.google.com/file/d/1xNwzGtiieqZwzYC5U4W0HB58LIma95Yh/view?usp=sharing)
  - [Short Presentation (SIH'23 Format)](https://drive.google.com/file/d/1cwVDkRmixy_FCWVtnHVEghMNNnBtruZz/view?usp=drive_link)
  - [User Manual/Booklet](https://drive.google.com/file/d/1fvZosK-_YNBq-w5U0tY9OKI5UwF2h0t1/view?usp=sharing)
-#### How to Run:
+### How to Run:
 To start the project do the following:
  - Clone this repository.
  - Open terminal in **MS Visual Studio Code** and run.
