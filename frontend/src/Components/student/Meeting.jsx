@@ -72,10 +72,6 @@ function Meeting() {
         </div>
         </div>
        
-        
-       
-         
-        
       </div>
   );
 }

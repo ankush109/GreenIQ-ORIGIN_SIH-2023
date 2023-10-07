@@ -27,34 +27,21 @@
 .primary-btn {
   @apply my-5 px-10 tracking-wider text-medium text-sm  py-3 w-[200px] bg-theme rounded-full;
 }
-.mini-btn {
-  @apply my-5 px-10 tracking-wider text-medium text-sm flex-row-center  py-3 w-[100px] bg-theme rounded-full;
+.mini-btn{
+    @apply my-5 px-10 tracking-wider text-medium text-sm flex-row-center  py-3 w-[100px] bg-theme rounded-full
 }
-.curved {
-  border-radius: 100px 100px 0px 0px;
+.curved{
+    border-radius: 100px 100px 0px 0px;
 }
-.curved-right {
-  border-radius: 0px 100px 100px 0px;
+.curved-right{
+    border-radius: 0px 100px 100px 0px;
 }
-.heading {
-  @apply md:text-5xl text-4xl font-merri py-[5vh];
+.heading{
+    @apply md:text-5xl text-4xl font-merri py-[5vh]
 }
-.border-nav {
-  border: 1px solid rgb(200, 198, 198);
+.border-nav{
+    border:1px solid rgb(200, 198, 198);
 }
-.border-below {
-  border-bottom: 2px solid black;
-}
-tr {
-  border-bottom: 1px solid #ddd;
-}
-tr:nth-child(n + 2) {
-  @apply hover:bg-emerald-100 cursor-pointer;
-}
-td,
-th {
-  width: 20%;
-  text-align: center;
-
-  height: 40px;
+.border-below{
+    border-bottom: 2px solid black;
 }

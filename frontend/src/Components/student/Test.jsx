@@ -13,8 +13,9 @@ const Test = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    setTest(data);
-  }, [data]);
+    console.log("????????????????///",myTest)
+    setTest(myTest.data);
+  }, [myTest]);
 
   const filteredTests = test?.filter((item) =>
     item.subject.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -30,58 +31,22 @@ const Test = () => {
     </div>;
   }
   return (
-    <div>
-      {isLoading ? (
-        <div>
-          <Loading />
-        </div>
-      ) : (
-        <div className="base-container py-[5vh]">
-          <h1 className="font-merri text-3xl">Tests Available for You</h1>
-
-          <Searchbox
-            test="Search your test.."
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-          />
-          <hr className="my-5" />
-          <div className="overflow-auto rounded-lg bg-green-100 text-center text-sm p-5 ">
-            <table className="font-comf w-full">
-              <tr className="font-mono">
-                <th>Subject</th>
-                <th>Description</th>
-                <th>Date</th>
-                <th>Created By</th>
-                <th>Options</th>
-              </tr>
-              {filteredTests?.map((item) => (
-                <tr>
-                  <td>{item.subject.name}</td>
-                  <td>{item.description}</td>
-                  <td>
-                    {new Date(item?.createdAt).toLocaleDateString(
-                      "en-US",
-                      options
-                    )}
-                  </td>
-                  <td>{item.owner.name}</td>
-                  <td className="flex-row-center mx-auto text-lg">
-                    <AiFillEye />
-                  </td>
-                </tr>
-              ))}
-            </table>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default Test;
-
-{
-  /* <div className="overflow-auto rounded-lg bg-gray-200">
+    <>
+      <div className="flex flex-col lg:flex-row h-screen">
+        {/* <div className="w-1/4 h-screen">
+          <Leftbar />
+        </div> */}
+        <div className="w-full lg:w-3/4">
+          <div className="px-4 py-6">
+            <h1 className="text-4xl font-bold mb-6">Tests Available for You</h1>
+            <input
+              type="text"
+              placeholder="Search subjects..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full p-2 mb-4 rounded-lg border border-gray-300"
+            />
+            <div className="overflow-auto rounded-lg bg-gray-200">
               <div className="grid grid-cols-1 lg:grid-cols-5 gap-2 px-4 py-2 font-semibold bg-gray-300">
                 <div>Subject</div>
                 <div>Description</div>

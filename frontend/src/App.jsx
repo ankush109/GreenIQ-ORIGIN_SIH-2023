@@ -21,14 +21,9 @@ import Profile from "./Components/student/Profile";
 import Settings from "./Components/student/Settings";
 import Protectedroute1 from "./Components/Protectedroute1";
 import Dashboard from "./Components/Dashboard";
-import Material from "./Components/materials/materials";
-import MaterialSubject from "./Components/materials/MaterialSubject";
-import CreateMaterial from "./Components/mentor/CreateMaterial";
-import Sathi from "./Components/virtual-mentor/Sathi";
-import Classroom from "./Components/mentor/Classroom";
+import ProtectedRoute1 from "./Components/Protectedroute1";
 
-import Newsfeed from "./Components/Newsfeed";
-import Chatbot from "./Components/virtual-mentor/chatbot";
+import Leftbar from "./Components/Leftbar";
 function App() {
   function isJWTValid() {
     const token = localStorage.getItem("token");
@@ -60,47 +55,47 @@ function App() {
 
   return (
     <div className="App">
-      <Toaster
-        position="bottom-right"
-        reverseOrder={false}
-        toastOptions={{ duration: 5000 }}
-      />
-      <BrowserRouter>
+      
         <Routes>
           <Route path="/">
             <Route path="/" element={<Landing />} />
-            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
           </Route>
-
-          <Route path="/user" element={<Dashboard />}>
-            <Route path="chatbot" element={<Chatbot />} />
-            <Route path="courses" element={<Courses />} />
-            <Route path="sathi" element={<Sathi />} />
-            <Route path="material/:id" element={<MaterialSubject />} />
-            <Route path="test" element={<Test />} />
-            <Route path="material" element={<Material />} />
-            <Route path="book-meeting" element={<Meeting />} />
-            <Route path="discuss" element={<Discuss />} />
-            <Route path="report" element={<Report />} />
-            <Route path="leaderboard" element={<Leaderboard />} />
-            <Route path="newsfeed" element={<Newsfeed />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="settings" element={<Settings />} />
-            <Route path="confirm-booking/:id" element={<ConfirmBooking />} />
-          </Route>
-          <Route path="/mentor" element={<Dashboard />}>
-            <Route path="my-Test" element={<Mentortest />} />
-            <Route path="createtest" element={<CreateTest />} />
-            <Route path="Meetings" element={<Meetings />} />
-            <Route path="createMaterial" element={<CreateMaterial />} />
-            <Route path="material" element={<Material />} />
-            <Route path="material/:id" element={<MaterialSubject />} />
-            <Route path="classroom" element={<Classroom />} />
-          </Route>
         </Routes>
-      </BrowserRouter>
+        <div className="flex flex-row justify-between ">  
+        <div className=" md:w-1/4 sm:1/6 h-screen">
+          <Leftbar/>
+        </div>  
+        <div className=" md:w-3/4 sm:5/6 h-screen">
+ 
+          <Routes>
+              <Route path="/user" element={<ProtectedRoute />}>
+                
+                  <Route path="courses" element={<Courses />} />
+                  <Route path="test" element={<Test />} />
+
+                  <Route path="book-meeting" element={<Meeting />} />
+                  <Route path="discuss" element={<Discuss />} />
+                  <Route path="report" element={<Report />} />
+                  <Route path="leaderboard" element={<Leaderboard />} />
+                  <Route path="newsfeed" element={<Newsfeed />} />
+                  <Route path="profile" element={<Profile />} />
+                  <Route path="settings" element={<Settings />} />
+                  <Route path="confirm-booking/:id" element={<ConfirmBooking />} />
+              </Route>
+         
+          
+              <Route path="/mentor" element={<ProtectedRoute1 />}>
+                  
+                  <Route path="my-Test" element={<Mentortest />} />
+                  <Route path="createtest" element={<CreateTest />} />
+                  <Route path="Meetings" element={<Meetings />} />
+              </Route>
+          </Routes>
+          </div>
+        </div>
+        
     </div>
   );
 }

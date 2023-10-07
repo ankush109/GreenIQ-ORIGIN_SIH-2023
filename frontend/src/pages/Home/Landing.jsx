@@ -85,6 +85,8 @@ const Landing = () => {
   const navigate = useNavigate();
 
   const NavLinks = ({ obj }) => {
+    console.log(obj);
+    
     return !obj.protected ? (
       <Link
         to={obj.path}

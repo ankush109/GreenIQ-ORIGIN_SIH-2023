@@ -5,9 +5,7 @@ import {
 } from "../../api/meetings";
 import { format } from "date-fns";
 import { Button } from "@mui/material";
-import Searchbox from "../SearchBox";
-import Error from "../Error";
-import Loading from "../Loading";
+import Searchbox from "../Searchbox";
 
 function Meetings() {
   const {  isLoading, isError } =  getMentorMeetingsQuery();
@@ -27,10 +25,6 @@ function Meetings() {
   }
 
   return (
-    <>
-    {isLoading?(
-      <div> <Loading/></div>
-    ):(
     <div className="base-container py-[5vh] ">
 
       <div className="my-5 font-merri text-3xl ">
@@ -45,24 +39,43 @@ function Meetings() {
               key={meeting.id}
               className={`p-5 rounded-lg font-comf  w-5/6 ${meeting.status=="confirmed"?'bg-green-200':'bg-orange-100'} text-sm flex-row-between`}
             >
-                <div className=" font-semibold gap-2">
-                  <p>Student Name : {meeting.host.name}</p>
-                  <p>Meeting ID: {meeting.id}</p>
-                  <p>Status: {meeting.status}</p>
+              <div className=" font-semibold gap-2">
+                <p>Student Name : {meeting.host.name}</p>
+                <p>Meeting ID: {meeting.id}</p>
+                <p>Status: {meeting.status}</p>
 
-                </div>
+              </div>
               
-                <div>
-                  {meeting?.dates?.map((date, index) => (
-                    <p key={index} className="mt-2">
-                      Date: {format(new Date(date.date)," yyyy-MM-dd',' HH:mm")}
-                    </p>
-                  ))}
-                </div>
-              {meeting.status === "confirmed" ? 
-                  <Button  style={{ marginTop: "12px", }}   variant="contained" color="error" > Cancel </Button> : 
-                  <Button  onClick={() => {  confirmMeeting(meeting.id);  } } style={{ marginTop: "12px",  }} variant="contained" >  Accept </Button>
-              }
+              <div>
+                {meeting?.dates?.map((date, index) => (
+                  <p key={index} className="mt-2">
+                    Date: {format(new Date(date.date)," yyyy-MM-dd',' HH:mm")}
+                  </p>
+                ))}
+              </div>
+              {meeting.status === "confirmed" ? (
+                <Button
+                  style={{
+                    marginTop: "12px",
+                  }}
+                  variant="contained"
+                  color="error"
+                >
+                  Cancel
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => {
+                    confirmMeeting(meeting.id);
+                  }}
+                  style={{
+                    marginTop: "12px",
+                  }}
+                  variant="contained"
+                >
+                  Accept
+                </Button>
+              )}
             </div>
             ))):
                 <h1>No meetings found</h1>
