@@ -49,4 +49,5 @@ router.delete(
 router.get("/get-course", authMiddleware, courseController.getcourse);
 router.get("/get-material", authMiddleware, materialController.getmaterials);
 router.post("/open-ai", authMiddleware, virtualMentor.openAianswer);
+router.delete("/delete-subject/:id", materialController.deleteSubject);
 export default router;

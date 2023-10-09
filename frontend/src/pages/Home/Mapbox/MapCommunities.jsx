@@ -60,12 +60,15 @@ function CommunityMap({
         <NavigationControl position="top-right" />
         <ScaleControl />
 
-        {parkDate.features?.map((location, index) => (
+        {parkDate.features?.map((location, index) => {
+          //console.log(location.geometry.coordinates[1]);
+          return(
+          
           <Marker
             className="cursor-pointer"
             key={index}
-            longitude={23}
-            latitude={45}
+            longitude={location.geometry.coordinates[0]}
+            latitude={location.geometry.coordinates[1]}
             onClick={(e) => {
               e.originalEvent.stopPropagation();
               setPopupInfo(location);
@@ -75,21 +78,21 @@ function CommunityMap({
               <img src={Pin} width={30} alt="Skate Park Icon" />
             </button>
           </Marker>
-        ))}
-        {popupInfo && (
+        )})}
+      {/*   {popupInfo && (
           <Popup
             longitude={popupInfo.location.latitude}
             latitude={popupInfo.location.longitude}
             anchor="right"
             onClose={() => setPopupInfo(null)}
           >
-            {/* <div className="text-lg">
+           <div className="text-lg">
               <img src={popupInfo.image} width="100px" />
               <h2>{popupInfo.communityName}</h2>
               <p>{popupInfo.description}</p>
-            </div> */}
+            </div> 
           </Popup>
-        )}
+        )} */}
       </Map>
     </div>
   );

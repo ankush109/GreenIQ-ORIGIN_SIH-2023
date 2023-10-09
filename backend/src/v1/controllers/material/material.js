@@ -4,6 +4,25 @@ import { customResponse } from "../../../utils/Response";
 const prisma = new PrismaClient();
 
 const materialController = {
+  async deleteSubject(req, res, next) {
+    try {
+      const subjectId = req.params.id;
+      console.log(subjectId, "subj");
+
+      // Delete the subject
+      await prisma.subject.delete({
+        where: {
+          id: subjectId,
+        },
+      });
+
+      res.json({ success: true, message: "Subject deleted successfully." });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  },
+
   async getmaterials(req, res, next) {
     try {
       if (!req.user) {

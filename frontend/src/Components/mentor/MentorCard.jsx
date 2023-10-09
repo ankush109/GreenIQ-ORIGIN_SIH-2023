@@ -1,31 +1,27 @@
 import React from "react";
 import { Button } from "@mui/material";
-import * as Dialog from "@radix-ui/react-dialog";
-import { DialogActions, TextField, TextareaAutosize } from "@mui/material";
-import DateTime from "../DateTime";
 import { useNavigate } from "react-router";
-import ConfirmBooking from "./ConfirmBooking";
 
 function MentorCard({ id, name, phonenumber, email }) {
   const navigate = useNavigate();
+
   return (
-    <div className="flex-row-between w-full bg-green-200 rounded-lg text-sm font-comf px-5 py-3">
-      <div className="gap-3">
-        <p>Name: {name}</p>
-        <p>Phone Number: {phonenumber}</p>
-        <p>Email: {email}</p>
-        
+    <div className="bg-lime-200 flex flex-col shadow-lg rounded-lg w-full h-[150px] items-center transition ease-in hover:-translate-y-1 ">
+      <div className="px-5 py-2 font-comf gap-2 text-md ">
+        <p className="">{name}</p>
+        <p className="">Phone Number: {phonenumber}</p>
+        <p className="">Email: {email}</p>
       </div>
-      <div className="">
-          <Button
-            variant="contained"
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-            onClick={() => {
-              navigate(`/user/confirm-booking/${id}`);
-            }}
-          >
-            Book a Call
-          </Button>
+      <div className="px-6 py-4 flex justify-center">
+        <Button
+          variant="contained"
+          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full"
+          onClick={() => {
+            navigate(`/user/confirm-booking/${id}`);
+          }}
+        >
+          Book a Call
+        </Button>
       </div>
     </div>
   );
