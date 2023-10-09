@@ -1,7 +1,37 @@
 # GreenIQ - An E-learning Platform for Rural Areas  - [Project Summary ](https://www.youtube.com/watch?v=9pKMHoUljrI)
 ### PROJECT FOR SMART INDIA HACKATHON 2023
 ### Developed by Team Cyber Elites
+### Home 
 ![](https://raw.githubusercontent.com/ankush109/GreenIQ-ORIGIN_SIH-2023/main/frontend/assets/l.png)
+## STUDENT VIEW - 
+### Dashboard 
+![](https://raw.githubusercontent.com/ankush109/GreenIQ-ORIGIN_SIH-2023/main/frontend/assets/dashboard.png)
+### Multi-lang Support 
+![](https://raw.githubusercontent.com/ankush109/GreenIQ-ORIGIN_SIH-2023/main/frontend/assets/multi_lang.png)
+
+### Discuss Forum 
+![](https://raw.githubusercontent.com/ankush109/GreenIQ-ORIGIN_SIH-2023/main/frontend/assets/discuss_forum.png)
+### Book a 1:1 Call with mentors 
+![](https://raw.githubusercontent.com/ankush109/GreenIQ-ORIGIN_SIH-2023/main/frontend/assets/booked-meeting.png)
+![](https://raw.githubusercontent.com/ankush109/GreenIQ-ORIGIN_SIH-2023/main/frontend/assets/book_meeting.png)
+
+### Courses & Materials 
+![](https://raw.githubusercontent.com/ankush109/GreenIQ-ORIGIN_SIH-2023/main/frontend/assets/courses.png)
+![](https://raw.githubusercontent.com/ankush109/GreenIQ-ORIGIN_SIH-2023/main/frontend/assets/material.png)
+
+### Test 
+![](https://raw.githubusercontent.com/ankush109/GreenIQ-ORIGIN_SIH-2023/main/frontend/assets/test.png)
+
+### Virtual Mentor - AI CHATBOT
+![](https://raw.githubusercontent.com/ankush109/GreenIQ-ORIGIN_SIH-2023/main/frontend/assets/virtual_mentor.png)
+
+## MENTOR  VIEW - 
+### Accept & View Meetings 
+![](https://raw.githubusercontent.com/ankush109/GreenIQ-ORIGIN_SIH-2023/main/frontend/assets/accept-meeting.png)
+### Create Materials & Tests 
+![](https://raw.githubusercontent.com/ankush109/GreenIQ-ORIGIN_SIH-2023/main/frontend/assets/create-material.png)
+![](https://raw.githubusercontent.com/ankush109/GreenIQ-ORIGIN_SIH-2023/main/frontend/assets/create-test.png)
+
 ### All Documentation Related to Project GreenIQ:
  - [Use-Case Diagram](https://drive.google.com/file/d/11qCXCMgyq33itaPXaRwQx7hqOhkgTZ2y/view?usp=sharing)
  - [Data Flow Diagram (DFD)](https://drive.google.com/file/d/1ZbHHs-9YZClF7W5be4G5Db9tabNy_aEE/view?usp=sharing)
