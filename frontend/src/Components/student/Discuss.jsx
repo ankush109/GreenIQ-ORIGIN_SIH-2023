@@ -142,10 +142,9 @@ function Discuss() {
     });
 
   return (
-    <div className="base-container">
-      
-      <div className="p-4 w-full lg:w-3/4 bg-white shadow-md rounded-lg">
-        <div class="w-full max-w-xs">
+    <div className="flex justify-center">
+      <div className=" w-full p-2 m-2 bg-white shadow-md rounded-lg">
+        <div class="w-full flex justify-center items-center">
           <div class="relative">
             <input
               type="text"
@@ -155,7 +154,7 @@ function Discuss() {
                 e.preventDefault();
                 setSearchText(e.target.value);
               }}
-              class="w-full py-2 pr-10 pl-4 rounded-full border border-gray-300 focus:outline-none focus:border-blue-500"
+              class="w-[500px] py-2 pr-10 pl-4 rounded-full border border-gray-300 focus:outline-none focus:border-blue-500"
             />
             <button
               onClick={() => {

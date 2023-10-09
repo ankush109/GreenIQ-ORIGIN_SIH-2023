@@ -2,12 +2,20 @@ import React from "react";
 
 function BookedMeeting({ notes, name, status }) {
   return (
-    <div className="bg-stone-300 m-10 w-96 p-5 h-full flex flex-col justify-center items-baseline rounded-md shadow-lg">
-      <div className="text-xl font-bold mb-3">Name of the mentor: {name}</div>
-      <div className="text-lg text-green-500 font-semibold">
-        Status: {status}
+    <div className="bg-green-100 m-10 w-96  p-5 rounded-md shadow-md transition ease-out hover:-translate-y-1">
+      <div className="mb-4 font-merri text-md">
+        <p className=" font-semibold">Mentor: {name}</p>
+        <p
+          className={` ${
+            status === "Confirmed" ? "text-green-500" : "text-red-500"
+          }`}
+        >
+          Status: {status}
+        </p>
       </div>
-      <h1>{notes}</h1>
+      <div className="text-gray-700 font-comf">
+        <p className="text-lg">{notes}</p>
+      </div>
     </div>
   );
 }

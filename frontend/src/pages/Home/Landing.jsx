@@ -3,10 +3,18 @@ import { Link } from "react-router-dom";
 import { Typewriter } from "react-simple-typewriter";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
+import i18n from "../../Language/i18n";
 
 import primaryImage from "../../assets/primary-background.png";
 import Demo from "../../assets/demo.jpg";
 import Chatbot from "../../assets/chatbot.png";
+import Banner from "../../assets/banner.jpg";
+import SIH from "../../assets/sih.jpg";
+import Techno from "../../assets/techno.png";
+import Physics from "../../assets/physics.jpg";
+import Chemistry from "../../assets/chemistry.jpg";
+import Certificate from "../../assets/certificate.jpg";
 
 import * as Links from "./Links";
 import Container from "./Container";
@@ -22,6 +30,7 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 import MapCommunities from "./Mapbox/MapCommunities";
 import Searchbox from "../../Components/SearchBox";
 import { ImCross } from "react-icons/im";
+import { LoaderIcon } from "react-hot-toast";
 
 const Landing = () => {
   const [dropDown, setDropDown] = useState(false);
@@ -31,6 +40,7 @@ const Landing = () => {
   const [chatbot, setChatbot] = useState(false);
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
+  const [loading, setloading] = useState(false);
   const [chatquestion, setChatquestion] = useState([
     { bot: "Hi this is Sathi Bot how may i help u?" },
     { user: "Hi i want some answer" },
@@ -38,38 +48,47 @@ const Landing = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setloading(true);
     console.log(question);
     try {
       const response = await axios.post(
         "http://127.0.0.1:5000/predict",
-        `question=${encodeURIComponent(question)}`, // Serialize the question as form data
+        `question=${encodeURIComponent(question)}`,
         {
           headers: {
-            "Content-Type": "application/x-www-form-urlencoded", // Set the Content-Type header
+            "Content-Type": "application/x-www-form-urlencoded",
           },
         }
       );
-      setAnswer(response.data.answer);
+      if (response) {
+        setloading(false);
+        setAnswer(response.data.answer);
+      }
+
       console.log(response);
     } catch (error) {
       console.error(error);
     }
   };
+  const { t, i18n } = useTranslation();
 
-  const array = [1, 2, 3, 4, 5, 6, 7, 8, 90, 10];
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
+
+  const array = [1, 2, 3, 4, 5, 6];
   const arr = [1, 2, 3];
 
-  // Function to scroll left
   const scrollLeftHandler = () => {
     const scrollContainer = document.getElementById("scroll-container");
-    const scrollStep = 100; // Adjust this value as needed
+    const scrollStep = 100;
     scrollContainer.scrollLeft -= scrollStep;
 
     setScrollLeft(scrollContainer.scrollLeft);
   };
   const scrollRightHandler = () => {
     const scrollContainer = document.getElementById("scroll-container");
-    const scrollStep = 100; // Adjust this value as needed
+    const scrollStep = 100;
     scrollContainer.scrollLeft += scrollStep;
     setScrollLeft(scrollContainer.scrollLeft);
   };
@@ -103,7 +122,11 @@ const Landing = () => {
       ""
     );
   };
-
+  const handleChange = (e) => {
+    e.preventDefault();
+    const value = document.getElementById("language").value;
+    console.log(value);
+  };
   return (
     <div className=" bg-background text-center">
       <section>
@@ -133,12 +156,7 @@ const Landing = () => {
           <div className="px-5 w-full h-3/4 my-2 border-2 border-gray-500 p-2 overflow-y-auto gap-2">
             {answer && (
               <div className="chat-message">
-                <strong>User:</strong> {question}
-              </div>
-            )}
-            {answer && (
-              <div className="chat-message">
-                <strong>Chatbot:</strong> {answer}
+                <strong>Saathi:</strong> {answer}
               </div>
             )}
           </div>
@@ -153,11 +171,15 @@ const Landing = () => {
               value={question}
               onChange={handleQuestionChange}
             />
-            <button
-              type="submit"
-              className="hover:bg-slate-700 text-3xl cursor-pointer"
-            >
-              <BiRightArrow />
+
+            <button type="submit" className="">
+              {loading ? (
+                <h1>
+                  <LoaderIcon />
+                </h1>
+              ) : (
+                <BiRightArrow />
+              )}
             </button>
           </form>
         </div>
@@ -190,17 +212,38 @@ const Landing = () => {
                 &nbsp;<span>Hello, {data?.data?.name}</span>
               </li>
             ) : (
-              ""
+              <LoaderIcon />
             )}
-            {user?.role == "student" ? (
+            {user && user?.role == "student" ? (
               <Link to="/user/leaderboard">
                 <button className="  ">DASHBOARD</button>
               </Link>
             ) : (
-              <Link to="/mentor/classroom">
-                <button className=" ">DASHBOARD</button>
-              </Link>
+              user && (
+                <Link to="/mentor/classroom">
+                  <button className=" ">DASHBOARD</button>
+                </Link>
+              )
             )}
+
+            <select
+              name="language"
+              className="outline-none"
+              id="language"
+              onChange={() => {
+                changeLanguage(document.getElementById("language").value);
+              }}
+            >
+              <option value="en">English</option>
+              <option value="be">বাংলা</option>
+              <option value="hi">हिंदी</option>
+              <option value="ta">தமிழ்</option>
+              {/*Tamil*/}
+              <option value="ka">ಕನ್ನಡ</option>
+              {/*Kannada*/}
+              <option value="pu">ਪੰਜਾਬੀ</option>
+              {/*Punjabi*/}
+            </select>
             {user ? (
               <button
                 className=" primary-btn "
@@ -278,23 +321,40 @@ const Landing = () => {
             </span>
           </div>
           <p className="md:text-lg text-sm font-comf"></p>
-          <button className=" primary-btn ">DASHBOARD</button>
+          {user && (
+            <Link to="/user" className=" primary-btn ">
+              DASHBOARD
+            </Link>
+          )}
         </div>
       </section>
 
       <section>
-        <Container palette="" text="text-primary" />
+        <div
+          className={`primary-container flex flex-row flex-wrap items-center justify-between  text-primary`}
+        >
+          <div className="md:w-full lg:w-2/5 text-left my-5">
+            <h1 className="md:text-5xl text-3xl font-merri">{t("title_1")}</h1>
+            <p className="leading-7 my-5 font-comf">{t("description_1")}</p>
+            <button className="primary-btn">{t("button")}</button>
+          </div>
+          <div className="lg:w-[500px] md:w-full   my-5">
+            <img src={Demo} alt="demo video" className="rounded-lg " />
+          </div>
+        </div>
       </section>
       <section className="primary-container text-left flex-col-center  bg-primary text-white curved ">
-        <h1 className="heading">Hand-picked Courses for You</h1>
+        <h1 className="heading">{t("heading_1")}</h1>
         <div
           className="my-5 py-10 flex overflow-x-auto space-x-8 w-full  overflow-y-visible horizontal-scroll "
           id="scroll-container"
         >
           {array.map((obj, id) => (
             <div
-              className=" w-[300px] h-[300px] rounded-2xl shadow-md cursor-pointer group flex-shrink-0"
-              style={{ backgroundImage: `url(${Demo})` }}
+              className=" w-[300px] h-[300px] rounded-2xl shadow-md cursor-pointer group flex-shrink-0 bg-contain"
+              style={{
+                backgroundImage: `url(${id % 2 == 0 ? Physics : Chemistry})`,
+              }}
             >
               <div className="group-hover:opacity-100  opacity-0  bg-theme text-center flex-col-center w-full h-full rounded-2xl gap-5">
                 <h1 className="font-merri text-3xl">Mathematics</h1>
@@ -324,12 +384,23 @@ const Landing = () => {
         </div>
       </section>
 
-      <section className="">
-        <Container palette="bg-primary" text="text-white" />
+      <section>
+        <div
+          className={`primary-container flex flex-row flex-wrap items-center justify-between bg-primary text-white`}
+        >
+          <div className="md:w-full lg:w-2/5 text-left my-5">
+            <h1 className="md:text-5xl text-3xl font-merri">{t("title_1")}</h1>
+            <p className="leading-7 my-5 font-comf">{t("description_1")}</p>
+            <button className="primary-btn">{t("button")}</button>
+          </div>
+          <div className="lg:w-[500px] md:w-full   my-5">
+            <img src={Demo} alt="demo video" className="rounded-lg " />
+          </div>
+        </div>
       </section>
 
       <section className=" my-5 text-left h-[80vh] flex-col-center items-center gap-8 mt-[20vh]">
-        <h1 className=" heading ">User Reviews</h1>
+        <h1 className=" heading ">{t("heading_2")}</h1>
 
         <div className="flex-row-center  w-full">
           {/* <img src="" className="w-full h-[400px]" /> */}
@@ -337,47 +408,39 @@ const Landing = () => {
         </div>
       </section>
       <section className="primary-container  text-black">
-        <h1 className="heading text-left">Our Accomplishments</h1>
+        <h1 className="heading text-left">{t("heading_3")}</h1>
 
         <div className="py-10 flex overflow-x-auto space-x-8 w-full  overflow-y-visible horizontal-scroll ">
           {array.map((obj, id) => (
-            <div className=" w-[400px] h-[200px] rounded-2xl shadow-md  flex-shrink-0 border-2 border-theme">
-              <div className="group-hover:opacity-100 opacity-0 bg-temporary text-center flex-col-center w-full h-full rounded-2xl">
-                <h1 className="text-theme">Mathematics</h1>
-                <p className="text-white">10+ Assignments | 20+ Test Modules</p>
-              </div>
-            </div>
+            <div
+              className=" w-[400px] h-[200px] rounded-2xl shadow-md  flex-shrink-0 border-2 border-theme bg-contain bg-no-repeat bg-center"
+              style={{ backgroundImage: `url(${Certificate})` }}
+            ></div>
           ))}
         </div>
-        <h1 className=" heading ">Partners & Sponsors</h1>
+        <h1 className=" heading ">{t("heading_4")}</h1>
         <div className="py-10 flex-row-center flex-wrap text-center">
           {arr.map((obj, id) => (
             <div
-              className=" w-[300px] h-[200px] rounded-2xl shadow-md cursor-pointer group m-5 bg-contain"
-              style={{ backgroundImage: `url(${Demo})` }}
+              className=" w-[300px] h-[200px] rounded-2xl shadow-md cursor-pointer group m-5 bg-contain bg-no-repeat bg-center"
+              style={{ backgroundImage: `url(${id % 2 == 0 ? Techno : SIH})` }}
             >
-              <div className="group-hover:opacity-100 opacity-0 bg-primary text-center flex-col-center w-full h-full rounded-2xl">
+              {/* <div className="group-hover:opacity-100 opacity-0 bg-primary text-center flex-col-center w-full h-full rounded-2xl">
                 <h1 className="text-theme">English</h1>
                 <p className="text-white">20+ Assignments | 40+Test Module</p>
-              </div>
+              </div> */}
             </div>
           ))}
         </div>
       </section>
       <section className=" curved-right md:h-[80vh] bg-green-200 my-[10vh] flex-row-between flex-wrap primary-container">
         <div className="lg:w-[500px] md:w-full border-2  my-5">
-          <img src={Demo} alt="demo video" className="rounded-lg " />
+          <img src={Banner} alt="demo video" className="rounded-lg " />
         </div>
         <div className="md:w-full lg:w-2/5 text-left my-5">
-          <h1 className="md:text-5xl text-3xl font-merri">
-            Your School at your Doorstep!
-          </h1>
-          <p className="leading-7 my-5 font-comf">
-            Inform your friends and join us on this journey of self-discovery.
-            Learn, build, create and innovate all under one roof. GreenIQ is
-            here for everyone.
-          </p>
-          <button className="primary-btn">GET STARTED</button>
+          <h1 className="md:text-5xl text-3xl font-merri">{t("title_2")}</h1>
+          <p className="leading-7 my-5 font-comf">{t("description_2")}</p>
+          <button className="primary-btn">{t("button")}</button>
         </div>
       </section>
       <footer className="primary-container flex-col-center list-none text-white bg-cover bg-no-repeat bg-primary font-comf">

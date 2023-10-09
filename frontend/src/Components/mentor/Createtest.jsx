@@ -21,7 +21,8 @@ function CreateTest() {
     }));
   };
 
-  const createTestHandler = async () => {
+  const createTestHandler = async (event) => {
+    event.preventDefault();
     try {
       const response = await createTest(testInfo);
 
@@ -44,10 +45,9 @@ function CreateTest() {
   };
 
   return (
-      
-      <div className="base-container py-[5vh] ">
-        <h1 className="text-3xl  font-merri ">Create a Test</h1>
-        <div className="base-container py-[5vh] w-3/4 ">
+    <div className="base-container py-[5vh] ">
+      <h1 className="text-3xl  font-merri ">Create a Test</h1>
+      <div className="base-container py-[5vh] w-3/4 ">
         <form className="font-comf">
           <TextField
             name="title"
@@ -86,16 +86,12 @@ function CreateTest() {
             required
             margin="normal"
           />
-          <button
-            onClick={createTestHandler}
-            className="primary-btn text-md"
-          >
+          <button onClick={createTestHandler} className="primary-btn text-md">
             Create Test
           </button>
         </form>
-        </div>
       </div>
-  
+    </div>
   );
 }
 
