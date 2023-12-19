@@ -29,6 +29,7 @@ import Classroom from "./Components/mentor/Classroom";
 
 import Newsfeed from "./Components/Newsfeed";
 import Chatbot from "./Components/virtual-mentor/chatbot";
+import About from "./Components/About";
 function App() {
   function isJWTValid() {
     const token = localStorage.getItem("token");
@@ -69,6 +70,7 @@ function App() {
         <Routes>
           <Route path="/">
             <Route path="/" element={<Landing />} />
+            <Route path="/about" element={<About />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />

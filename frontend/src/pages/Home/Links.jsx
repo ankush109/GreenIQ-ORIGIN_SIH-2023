@@ -64,11 +64,8 @@ export const Navbar_Links = [
     protected: false,
   },
   {
-    name: "CONTACT",
-    path: "",
+    name: "ABOUT",
+    path: "/about",
     protected: false,
   },
- 
-  
 ];
-

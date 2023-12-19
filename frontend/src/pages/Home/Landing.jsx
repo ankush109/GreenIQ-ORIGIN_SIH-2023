@@ -192,6 +192,7 @@ const Landing = () => {
               Green<span className="text-theme">IQ</span>
             </Link>
           </div>
+
           <div className=" mx-2  list-none space-x-10  flex-row-center text-lg text-primary font-comf">
             {Links.Navbar_Links.map((obj, id) => (
               <NavLinks obj={obj} />
@@ -206,13 +207,14 @@ const Landing = () => {
                   <Link to="/user/book-meeting">Book a call</Link>
                 )}
               </span>
+              d
             </li> */}
             {user ? (
               <li className="flex flex-row items-center hover:text-theme cursor-pointer ">
                 &nbsp;<span>Hello, {data?.data?.name}</span>
               </li>
             ) : (
-              <LoaderIcon />
+              ""
             )}
             {user && user?.role == "student" ? (
               <Link to="/user/leaderboard">
