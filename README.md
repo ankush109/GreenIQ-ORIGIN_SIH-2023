@@ -4,10 +4,6 @@
 
 ### Developed by Team Cyber Elites
 
-### Home
-
-![](https://raw.githubusercontent.com/ankush109/GreenIQ-ORIGIN_SIH-2023/main/frontend/assets/l.png)
-
 ### All Documentation Related to Project GreenIQ:
 
 - [Use-Case Diagram](https://drive.google.com/file/d/11qCXCMgyq33itaPXaRwQx7hqOhkgTZ2y/view?usp=sharing)
@@ -23,6 +19,10 @@
 - Make sure **node.js** is installed.
 - Install **Postgres** as we will be using it locally.
 - The database will migrated later on to **MongoDB Atlas**.
+
+### Home
+
+![](https://raw.githubusercontent.com/ankush109/GreenIQ-ORIGIN_SIH-2023/main/frontend/assets/l.png)
 
 ### About
 
