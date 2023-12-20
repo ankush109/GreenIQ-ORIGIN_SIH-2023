@@ -110,7 +110,7 @@ function About() {
         </nav>
 
         <nav className="text-primary flex lg:hidden flex-row justify-between px-5 py-2 my-4 rounded-lg shadow-md items-center text-para z-10 border-nav bg-white space-x-5">
-          <div className="mx-2 w-[100px]">
+          <div className="mx-2  w-[100px]">
             <Link to="" className="text-4xl font-right ">
               Green<span className="text-theme">IQ</span>
             </Link>
@@ -130,13 +130,19 @@ function About() {
         <h1 className="text-2xl font-semibold my-3 text-center">
           Developed GreenIQ
         </h1>
-        <p className="text-md text-center text-green-900 font-semibold mb-8">
-          GreenIQ represents a transformative solution to the pressing
-          challenges faced by rural education in Kerala. Through its innovative
-          features and holistic approach, GreenIQ has the potential to
-          significantly enhance the quality of education in rural areas,
-          empowering students with knowledge and skills for a brighter future.
-        </p>
+        <div className="flex items-center mx-auto ">
+          <p className="text-md text-center text-green-900 font-semibold mb-8">
+            GreenIQ represents a transformative solution to the pressing
+            challenges faced by rural education in Kerala. Through its
+            innovative features and holistic approach, GreenIQ has the potential
+            to significantly enhance the quality of education in rural areas,
+            empowering students with knowledge and skills for a brighter future.
+          </p>
+          <img
+            className="w-56 mx-6  object-cover  rounded-full "
+            src="https://i0.wp.com/opportunitycell.com/wp-content/uploads/2022/03/SIH2.png?fit=327%2C345&ssl=1"
+          />
+        </div>
         <h1 className="text-3xl font-bold mb-5">Team - Cyber Elites</h1>
         <p className="text-xl text-center">
           PS: 1326 || Ideate and Implement Education in Rural Areas ||
@@ -158,6 +164,9 @@ function About() {
             />
           </Link>
         </p>
+        <div>
+          <p>Note</p>
+        </div>
       </div>
       <div className="flex flex-wrap justify-center">
         {teamMembers.map((member, index) => (
