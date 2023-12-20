@@ -20,7 +20,7 @@ const teamMembers = [
     gihubLink: "https://github.com/Ankush109",
   },
   {
-    name: "Anuvab",
+    name: "Anuvab Chakravarty",
     role: "Design and Analysis",
     responsibilities:
       "Responsible for improvising ideas and features for improving the overall system",
@@ -29,7 +29,7 @@ const teamMembers = [
     githubLink: "https://github.com/Vanaub22",
   },
   {
-    name: "Bristi",
+    name: "Bristi Maity",
     role: "ML",
     responsibilities: "Responsible for building the machine learning prospects",
     image: bristi,
@@ -37,7 +37,7 @@ const teamMembers = [
     githubLink: "https://github.com/bristi03",
   },
   {
-    name: "Souvik",
+    name: "Souvik Sen",
     role: "Full Stack Developer",
     responsibilities:
       "Responsible for implementing the overall architecture and the system end to end",
@@ -46,7 +46,7 @@ const teamMembers = [
     githubLink: "https://github.com/Souvik3469",
   },
   {
-    name: "Kaushan",
+    name: "Kaushan Dutta",
     role: "Frontend Developer",
     responsibilities:
       "Responsible for designing the entire frontend UI and making enhancing the frontend ",
@@ -165,7 +165,10 @@ function About() {
           </Link>
         </p>
         <div>
-          <p>Note</p>
+          <p className="bg-green-300 p-2 rounded-lg font-semibold m-3">
+            (You would not be able to clone this Project as this project
+            intentionally includes known faults throughout its codebase. )
+          </p>
         </div>
       </div>
       <div className="flex flex-wrap justify-center">
