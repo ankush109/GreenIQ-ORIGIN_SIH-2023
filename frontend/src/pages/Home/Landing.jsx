@@ -223,13 +223,7 @@ const Landing = () => {
               </span>
               d
             </li> */}
-            {user ? (
-              <li className="flex flex-row items-center hover:text-theme cursor-pointer ">
-                &nbsp;<span>Hello, {data?.data?.name}</span>
-              </li>
-            ) : (
-              ""
-            )}
+
             {user && user?.role == "student" ? (
               <Link to="/user/leaderboard">
                 <button className="  ">DASHBOARD</button>
@@ -241,7 +235,13 @@ const Landing = () => {
                 </Link>
               )
             )}
-
+            {user ? (
+              <li className="flex flex-row items-center hover:text-theme cursor-pointer ">
+                &nbsp;<span>Hello, {data?.data?.name}</span>
+              </li>
+            ) : (
+              ""
+            )}
             <select
               name="language"
               className="outline-none"
@@ -280,7 +280,7 @@ const Landing = () => {
 
         <nav className="text-primary flex lg:hidden flex-row justify-between px-5 py-2 my-4 rounded-lg shadow-md items-center text-para   z-10  border-nav bg-white space-x-5">
           <div className="mx-2 w-[100px]">
-            <Link to="" className="text-4xl font-right ">
+            <Link to="/" className="text-4xl font-right ">
               Green<span className="text-theme">IQ</span>
             </Link>
           </div>
@@ -306,9 +306,12 @@ const Landing = () => {
               <GoGlobe />
             </li>
 
-            <button className=" my-5 px-10 text-medium font-theme py-1 w-full bg-theme rounded-full z-10">
+            <Link
+              to="/user/leaderboard"
+              className=" my-5 px-10 text-medium font-theme py-1 w-full bg-theme rounded-full z-10"
+            >
               GET STARTED
-            </button>
+            </Link>
           </div>
         </section>
       )}
@@ -522,6 +525,9 @@ const Landing = () => {
             ))}
           </div>
           <p>© GreenIQ 2023 | All rights reserved</p>
+          <p className=" text-center font-bold mx-auto p-10">
+            Maintained By Ankush Banerjee ❤️
+          </p>
         </div>
       </footer>
     </div>

@@ -22,10 +22,12 @@ const loginController = {
       if (!user) {
         return next(createError.Unauthorized("Verify your Credentials"));
       }
+
       const isPasswordMatch = await bcrypt.compare(password, user.password);
       if (!isPasswordMatch) {
         return next(createError.Unauthorized("Verify your Credentials1"));
       }
+
 
       // generating jwt tokens for the logged in user
 
@@ -75,6 +77,7 @@ const loginController = {
       // normal salting and hashing password
 
       const salt = await bcrypt.genSalt(10);
+
       const hashedPassword = await bcrypt.hash(resp.password, salt);
       const data = {
         ...resp,

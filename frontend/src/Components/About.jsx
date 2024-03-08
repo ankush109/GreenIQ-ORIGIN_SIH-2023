@@ -1,9 +1,10 @@
 import React from "react";
-import ankush from "../assets/ankush.png";
+import ankush from "../assets/ankush.jpeg";
 import anuvab from "../assets/anuvab.png";
 import bristi from "../assets/bristi.png";
 import kaushan from "../assets/kaushan.png";
-import souvik from "../assets/souvik.png";
+import debanjan from "../assets/debanjan.png";
+import souvik from "../assets/souvik.jpeg";
 import { Link } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -21,7 +22,7 @@ const teamMembers = [
   },
   {
     name: "Anuvab Chakravarty",
-    role: "Design and Analysis",
+    role: "Design and Ideation",
     responsibilities:
       "Responsible for improvising ideas and features for improving the overall system",
     image: anuvab,
@@ -54,6 +55,14 @@ const teamMembers = [
     linkedinLink: "https://www.linkedin.com/in/kaushan-dutta-bb68b021a/",
     githubLink: "https://github.com/Kaushan-Dutta",
   },
+  {
+    name: "Debanjan Konar",
+    role: "AI/ML",
+    responsibilities: "Responsible for AI integrations in our platform ",
+    image: debanjan,
+    linkedinLink: "https://www.linkedin.com/in/debanjan-konar/",
+    githubLink: "https://github.com/Uni-Bo",
+  },
 ];
 
 function TeamMember({
@@ -73,7 +82,7 @@ function TeamMember({
       />
       <div className="text-center">
         <h1 className="text-xl font-bold mb-2">{name}</h1>
-        <h2 className="text-sm text-gray-600 mb-2">{role}</h2>
+        <h2 className="text-sm text-gray-500 mb-2 font-bold">{role}</h2>
         {responsibilities && (
           <p className="text-sm text-gray-700">{responsibilities}</p>
         )}
@@ -96,7 +105,7 @@ function About() {
       <section className="fixed inset-x-0 mx-auto w-full custom-navbar-width z-10 py-5 ">
         <nav className="bg-white text-primary lg:flex hidden flex-row justify-between px-5 py-1 rounded-2xl shadow-md items-center text-para z-10 border-nav">
           <div className="mx-2 w-[200px]">
-            <Link to="" className="text-5xl font-right ">
+            <Link to="/" className="text-5xl font-right ">
               Green<span className="text-theme">IQ</span>
             </Link>
           </div>
@@ -130,7 +139,11 @@ function About() {
         <h1 className="text-2xl font-semibold my-3 text-center">
           Developed GreenIQ
         </h1>
-        <div className="flex items-center mx-auto ">
+        <img
+          class=" sm:block w-56 mx-6 object-cover rounded-full mb-5"
+          src="https://i0.wp.com/opportunitycell.com/wp-content/uploads/2022/03/SIH2.png?fit=327%2C345&ssl=1"
+        />
+        <div className="flex items-center mx-auto  ">
           <p className="text-md text-center text-green-900 font-semibold mb-8">
             GreenIQ represents a transformative solution to the pressing
             challenges faced by rural education in Kerala. Through its
@@ -138,10 +151,6 @@ function About() {
             to significantly enhance the quality of education in rural areas,
             empowering students with knowledge and skills for a brighter future.
           </p>
-          <img
-            className="w-56 mx-6  object-cover  rounded-full "
-            src="https://i0.wp.com/opportunitycell.com/wp-content/uploads/2022/03/SIH2.png?fit=327%2C345&ssl=1"
-          />
         </div>
         <h1 className="text-3xl font-bold mb-5">Team - Cyber Elites</h1>
         <p className="text-xl text-center">
@@ -176,6 +185,9 @@ function About() {
           <TeamMember key={index} {...member} />
         ))}
       </div>
+      <p className=" text-center font-bold mx-auto p-10">
+        Maintained By Ankush Banerjee ❤️
+      </p>
     </div>
   );
 }
