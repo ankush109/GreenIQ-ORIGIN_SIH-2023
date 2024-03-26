@@ -175,8 +175,8 @@ function About() {
         </p>
         <div>
           <p className="bg-green-300 p-2 rounded-lg font-semibold m-3">
-            (You would not be able to clone this Project as this project
-            intentionally includes known faults throughout its codebase. )
+            ( Database migrated to Mongodb from Postgresql on 26/03/2024 due to
+            the expiration of sql db on render's free tier )
           </p>
         </div>
       </div>

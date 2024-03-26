@@ -18,7 +18,7 @@
 
 - Make sure **node.js** is installed.
 - Install **Postgres** as we will be using it locally.
-- The database will migrated later on to **MongoDB Atlas**.
+- The database has been migrated to **MongoDB Atlas** from PosgreSql due to free tier on render db expires on every 3 months for postgreSql.
 
 ### Home
 

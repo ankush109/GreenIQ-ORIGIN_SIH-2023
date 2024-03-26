@@ -96,7 +96,7 @@ const Landing = () => {
   const code = "ERR_NETWORK";
   const checkstatus = async () => {
     await axios
-      .get("https://green-iq-backend.onrender.com/v1/user/get-allquestions")
+      .get(`${import.meta.env.VITE_BASE_URL}/v1/user/get-allquestions`)
       .then((res) => {
         console.log(res.data, "status site");
         setsitestatus(true);

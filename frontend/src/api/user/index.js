@@ -1,12 +1,10 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
-
-
 const AuthAPI = () => {
   if (typeof window !== "undefined") {
     return axios.create({
-      baseURL: `https://green-iq-backend.onrender.com/v1/`,
+      baseURL: `${import.meta.env.VITE_BASE_URL}/v1/`,
       headers: {
         authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
@@ -14,7 +12,7 @@ const AuthAPI = () => {
     });
   } else {
     return axios.create({
-      baseURL: `https://green-iq-backend.onrender.com/v1/`,
+      baseURL: `${import.meta.env.VITE_BASE_URL}/v1/`,
       headers: {
         authorization: `Bearer }`,
         "Content-Type": "application/json",
@@ -32,9 +30,8 @@ const GetUserQuery = () =>
     queryFn: () => GetUser(),
     select: (data) => {
       const res = data.message;
-      console.log("Res:",res);
+      console.log("Res:", res);
       return res;
-
     },
   });
 

@@ -25,7 +25,6 @@ const userController = {
               owner: true,
             },
           },
-          User: true,
         },
       });
 
@@ -55,7 +54,7 @@ const userController = {
         },
       });
       if (user) {
-        // fetch all the questions along with theier answer
+        // fetch all the questions along with their answers
         const questions = await prisma.question.findMany({
           where: {
             userId: userId,
@@ -76,12 +75,21 @@ const userController = {
         } else {
           res.json({
             success: true,
-            message: "no question found",
+            message: "No questions found for this user",
           });
         }
+      } else {
+        res.json({
+          success: false,
+          message: "User not found",
+        });
       }
-    } catch (err) {}
+    } catch (err) {
+      console.error("Error fetching user's questions:", err);
+      next(err); // Pass the error to the error handling middleware
+    }
   },
+
   async deleteQuestion(req, res, next) {
     try {
       const userId = req.user.id;
@@ -109,7 +117,7 @@ const userController = {
       console.log(req.params, "request");
       const question = await prisma.question.findFirst({
         where: {
-          id: parseInt(req.params.id),
+          id: req.params.id,
         },
       });
       console.log(question);
@@ -131,7 +139,7 @@ const userController = {
 
       await prisma.question.delete({
         where: {
-          id: parseInt(req.params.id),
+          id: req.params.id,
         },
       });
 
@@ -182,7 +190,7 @@ const userController = {
 
       const existingQuestion = await prisma.question.findUnique({
         where: {
-          id: parseInt(questionId),
+          id: questionId,
         },
       });
 
@@ -193,7 +201,7 @@ const userController = {
       const answer = await prisma.answer.create({
         data: {
           text: text,
-          questionId: parseInt(questionId),
+          questionId: questionId,
           userId: userId,
         },
       });

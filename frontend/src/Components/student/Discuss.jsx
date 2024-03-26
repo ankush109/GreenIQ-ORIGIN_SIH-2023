@@ -331,6 +331,10 @@ function Discuss() {
                                 {answer?.owner?.name}
                               </div>
                               <div> {answer?.text} </div>
+                              {new Date(question.createdAt).toLocaleDateString(
+                                "en-US",
+                                options
+                              )}
                             </div>
                           ))}
                         </div>
