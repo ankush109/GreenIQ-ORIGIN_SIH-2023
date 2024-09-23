@@ -515,14 +515,14 @@ const Landing = () => {
         <hr className="my-10" />
         <div className="">
           <div className="flex-row-center space-x-5 my-5">
-            {Links.SocialLinks.map((obj, id) => (
+            {/* {Links.SocialLinks.map((obj, id) => (
               <Link
                 to=""
                 className="w-[40px] h-[40px] rounded-full border-2 border-white text-white hover:scale-125 text-2xl flex-row-center"
               >
                 {obj.icon}
               </Link>
-            ))}
+            ))} */}
           </div>
           <p>© GreenIQ 2023 | All rights reserved</p>
           <p className=" text-center font-bold mx-auto p-10">

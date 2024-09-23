@@ -1,7 +1,7 @@
 import { FaFacebookF } from "react-icons/fa";
 import { FiInstagram } from "react-icons/fi";
 import { AiOutlineTwitter } from "react-icons/ai";
-
+import React from "react";
 export const SocialLinks = [
   {
     icon: <AiOutlineTwitter />,

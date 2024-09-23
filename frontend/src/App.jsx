@@ -30,6 +30,8 @@ import Classroom from "./Components/mentor/Classroom";
 import Newsfeed from "./Components/Newsfeed";
 import Chatbot from "./Components/virtual-mentor/chatbot";
 import About from "./Components/About";
+import Meet from "./Components/videocall/Meeting";
+import PersonalBookings from "./Components/student/PersonalBookings";
 function App() {
   function isJWTValid() {
     const token = localStorage.getItem("token");
@@ -74,16 +76,19 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+        
           </Route>
 
           <Route path="/user" element={<Dashboard />}>
             <Route path="chatbot" element={<Chatbot />} />
             <Route path="courses" element={<Courses />} />
+             <Route path="meet" element={<Meet />} />
             <Route path="sathi" element={<Sathi />} />
             <Route path="material/:id" element={<MaterialSubject />} />
             <Route path="test" element={<Test />} />
             <Route path="material" element={<Material />} />
             <Route path="book-meeting" element={<Meeting />} />
+             <Route path="personal-meeting" element={<PersonalBookings />} />
             <Route path="discuss" element={<Discuss />} />
             <Route path="report" element={<Report />} />
             <Route path="leaderboard" element={<Leaderboard />} />
