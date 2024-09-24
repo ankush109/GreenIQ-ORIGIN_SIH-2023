@@ -32,6 +32,7 @@ import Chatbot from "./Components/virtual-mentor/chatbot";
 import About from "./Components/About";
 import Meet from "./Components/videocall/Meeting";
 import PersonalBookings from "./Components/student/PersonalBookings";
+import Chat from "./Components/student/Chat";
 function App() {
   function isJWTValid() {
     const token = localStorage.getItem("token");
@@ -81,6 +82,7 @@ function App() {
 
           <Route path="/user" element={<Dashboard />}>
             <Route path="chatbot" element={<Chatbot />} />
+              <Route path="chat" element={<Chat />} />
             <Route path="courses" element={<Courses />} />
              <Route path="meet" element={<Meet />} />
             <Route path="sathi" element={<Sathi />} />

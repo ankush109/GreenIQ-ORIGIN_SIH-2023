@@ -16,12 +16,12 @@ const queryClient = new QueryClient({
   },
 });
 root.render(
-  <React.StrictMode>
+ 
     <QueryClientProvider client={queryClient}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <App />
       </LocalizationProvider>
       <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
     </QueryClientProvider>
-  </React.StrictMode>
+  
 );

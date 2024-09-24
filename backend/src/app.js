@@ -5,13 +5,17 @@ import helmet from "helmet";
 import createError from "http-errors";
 import morgan from "morgan";
 import path from "path";
-import favicon from "serve-favicon";
 
+import favicon from "serve-favicon";
+import  { Server }from 'socket.io';
 import "./v1/config/env.config";
 
 import { authRoutes, userRoute } from "./v1/routes";
 // New
 import OpenAI from "openai";
+
+import { PrismaClient } from "@prisma/client";
+import { app, server } from "./socket";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY, // This is also the default, can be omitted
@@ -26,14 +30,24 @@ const limiter = rateLimit({
     message: createError.TooManyRequests().message,
   },
 });
-
+const prisma = new PrismaClient();
+async function sendMessage(senderId, receiverId, message) {
+  const chatMessage = await prisma.chat.create({
+    data: {
+      senderId,
+      receiverId,
+      message,
+    },
+  });
+  return chatMessage;
+}
 const corsOptions = {
   origin: ["http://localhost:3000", "https://green-iq-deployed.vercel.app"],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
 
-const app = express();
+
 app.use(cors(corsOptions));
 // Global variable appRoot with base dirname
 global.appRoot = path.resolve(__dirname);
@@ -89,9 +103,10 @@ app.use((err, req, res, next) => {
   });
 });
 
+
 // Server Configs
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`🚀 @ http://localhost:${PORT}`);
   console.log(`connected to ${process.env.DATABASE_URL}`);
 });

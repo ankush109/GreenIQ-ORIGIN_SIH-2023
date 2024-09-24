@@ -44,6 +44,66 @@ const userController = {
       res.status(500).json({ error: err });
     }
   },
+  async getAllUser(req,res){
+ try{
+  const users = await prisma.user.findMany()
+  res.status(200).json({
+    success:true,
+    message:users
+  })
+ }catch(err){
+res.status(400).json({
+    success:false,
+    message:"failed to"
+  })
+ }
+  },
+  async  getMessages(req, res, next) {
+  try{
+    const messages = await prisma.chat.findMany({
+    where:{
+      senderId:req.user.id
+    }
+  })
+  res.json({
+          success: true,
+          message:messages,
+        });
+ 
+  }
+  catch(err){
+    const messages = await prisma.chat.findMany({
+    where:{
+      senderId:req.user.id
+    }
+  })
+  res.status(400).json({
+          success: false,
+          message:err,
+     });
+ 
+  }
+},
+async getUserById(req,res){
+try{
+const {id} =req.params;
+const user = await prisma.user.findFirst({
+  where:{
+    id:id
+  }
+  
+})
+res.status(200).json({
+    success:true,
+    message:user
+  })
+}catch(err){
+res.status(400).json({
+    success:false,
+    message:err
+  })
+}
+},
 
   async getQuestionOfUser(req, res, next) {
     try {

@@ -8,6 +8,7 @@ import {
   virtualMentor,
 } from "../controllers";
 import authMiddleware from "../middlewares/Auth.middleware";
+import messageController from "../controllers/message/message";
 //import testController from "../controllers/test/test";
 
 const router = express.Router();
@@ -50,4 +51,10 @@ router.get("/get-course", authMiddleware, courseController.getcourse);
 router.get("/get-material", authMiddleware, materialController.getmaterials);
 router.post("/open-ai", authMiddleware, virtualMentor.openAianswer);
 router.delete("/delete-subject/:id", materialController.deleteSubject);
+router.post("/create-conversation",authMiddleware,messageController.sendMessage)
+router.get("/get-conversation/:id",authMiddleware,messageController.getMessage)
+router.get("/get-all-users",authMiddleware,userController.getAllUser)
+router.get("/all-convo",authMiddleware,messageController.getAllConversations)
+router.get("/getuserbyid/:id",authMiddleware,userController.getUserById)
 export default router;
+
