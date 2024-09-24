@@ -10,7 +10,7 @@ const Dashboard = () => {
    <div className=" w-1/4 h-screen">
         <Leftbar />
       </div>
-    </div>
+  
   )
 }
 

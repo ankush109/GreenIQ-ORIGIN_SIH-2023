@@ -5,7 +5,7 @@ import {
 } from "../../api/meetings";
 import { format } from "date-fns";
 import { Button } from "@mui/material";
-import Searchbox from "../Searchbox";
+import Searchbox from "../SearchBox";
 
 function Meetings() {
   const {  isLoading, isError } =  getMentorMeetingsQuery();
@@ -83,8 +83,7 @@ function Meetings() {
         </div>
       
     </div>)}
-    </>
-  );
-}
+   
+
 
 export default Meetings;

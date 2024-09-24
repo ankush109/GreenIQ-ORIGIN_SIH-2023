@@ -16,6 +16,7 @@ import Mentortest from "./Components/mentor/mentor-test";
 import Report from "./Components/student/Report";
 import Discuss from "./Components/student/Discuss";
 import Leaderboard from "./Components/student/Leaderboard";
+import Newsfeed from "./Components/Newsfeed"
 
 import Profile from "./Components/student/Profile";
 import Settings from "./Components/student/Settings";
@@ -79,7 +80,7 @@ function App() {
                   <Route path="discuss" element={<Discuss />} />
                   <Route path="report" element={<Report />} />
                   <Route path="leaderboard" element={<Leaderboard />} />
-                  <Route path="newsfeed" element={<Newsfeed />} />
+                  <Route path="newsfeed" element={<Newsfeed/>} />
                   <Route path="profile" element={<Profile />} />
                   <Route path="settings" element={<Settings />} />
                   <Route path="confirm-booking/:id" element={<ConfirmBooking />} />
