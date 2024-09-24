@@ -83,6 +83,10 @@ function Login() {
           </h1>
 
           <p className="text-gray-500 ">Existing User? </p>
+          <p className="text-red-500 font-semibold">
+            You can Use " banerjeeankush184@gmail.com " for email as well as
+            password or you can register new account
+          </p>
           <h1 className="font-bold text-3xl font-mono">Login</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-8  my-10">

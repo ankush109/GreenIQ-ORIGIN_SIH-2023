@@ -6,16 +6,25 @@ function MentorCard({ id, name, phonenumber, email }) {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-lime-200 flex flex-col shadow-lg rounded-lg w-full h-[150px] items-center transition ease-in hover:-translate-y-1 ">
-      <div className="px-5 py-2 font-comf gap-2 text-md ">
-        <p className="">{name}</p>
-        <p className="">Phone Number: {phonenumber}</p>
-        <p className="">Email: {email}</p>
-      </div>
+    <div className="grid grid-cols-4 ">
+    
+        <div className="flex flex-col">
+          <div className="font-semibold">Name</div>
+          {name}
+        </div>
+        <p >
+          <div className="font-semibold">
+            Phone Number
+          </div>
+           {phonenumber}</p>
+        <p >
+          <div className="font-semibold">
+            Email</div> {email}</p>
+  
       <div className="px-6 py-4 flex justify-center">
-        <Button
+          <Button
           variant="contained"
-          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full"
+          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold  rounded-full"
           onClick={() => {
             navigate(`/user/confirm-booking/${id}`);
           }}

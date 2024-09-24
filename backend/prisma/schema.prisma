@@ -1,73 +1,63 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model Class {
-  id           String     @id @default(cuid())
-  name         String
-  subjects     Subject[]
-  extraCourses Course[]
-  tests        Test[]
-  users        User[]
-  Material     Material[]
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  subjects Subject[] // One-to-many relationship
+  Course   Course[]
+  Test     Test[]
 }
 
 model Subject {
-  id      String @id @default(cuid())
-  name    String
-  classId String
-  class   Class  @relation(fields: [classId], references: [id])
-
-  tests     Test[]
-  users     User[]
-  materials Material[]
+  id       String     @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  class    Class      @relation(fields: [classId], references: [id])
+  classId  String     @db.ObjectId
+  tests    Test[] // One-to-many relationship
+  Material Material[]
 }
 
 model Material {
-  id        String  @id @default(cuid())
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
   title     String
   content   String
   owner     User    @relation(fields: [userId], references: [id])
   subject   Subject @relation(fields: [subjectId], references: [id])
-  subjectId String
+  subjectId String  @db.ObjectId
   classId   String
-  class     Class   @relation(fields: [classId], references: [id])
-  userId    String
+  userId    String  @db.ObjectId
 }
 
 model User {
-  id              String     @id @default(cuid())
+  id              String     @id @default(auto()) @map("_id") @db.ObjectId
   name            String
   email           String     @unique
   classname       String
   password        String
   phonenumber     String     @unique
   role            String     @default("student")
-  classes         Class[]
-  subjects        Subject[]
-  Course          Course[]
-  Test            Test[]
+  courses         Course[] // Many-to-many relationship via junction collection
+  tests           Test[] // Many-to-many relationship via junction collection
   meetingsAsHost  Meeting[]  @relation("host")
   meetingsAsGuest Meeting[]  @relation("guest")
-  questions       Question[]
-  Answer          Answer[]
   Material        Material[]
+  Question        Question[]
+  Answer          Answer[]
 }
 
 model Meeting {
-  id       String  @id @default(cuid())
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
   host     User    @relation("host", fields: [hostId], references: [id])
   guest    User    @relation("guest", fields: [guestId], references: [id])
-  hostId   String
-  guestId  String
+  hostId   String  @db.ObjectId
+  guestId  String  @db.ObjectId
   status   String
   notes    String?
   duration Int?
@@ -77,55 +67,55 @@ model Meeting {
 }
 
 model Date {
-  id        String   @id @default(cuid())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   date      DateTime
   meeting   Meeting  @relation(fields: [meetingId], references: [id])
-  meetingId String
+  meetingId String   @db.ObjectId
 }
 
 model Question {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   text      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  answers   Answer[]
-  User      User?    @relation(fields: [userId], references: [id])
-  userId    String?
+  answers   Answer[] // One-to-many relationship
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @db.ObjectId
 }
 
 model Answer {
-  id         Int       @id @default(autoincrement())
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
   text       String
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
   owner      User      @relation(fields: [userId], references: [id])
   question   Question? @relation(fields: [questionId], references: [id])
-  questionId Int?
-  userId     String
+  questionId String?   @db.ObjectId
+  userId     String    @db.ObjectId
 }
 
 model Course {
-  id          String @id @default(cuid())
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   owner       User   @relation(fields: [userId], references: [id])
-  userId      String
+  userId      String @db.ObjectId
   description String
   img         String
   class       Class  @relation(fields: [classId], references: [id])
-  classId     String
+  classId     String @db.ObjectId
 }
 
 model Test {
-  id          String   @id @default(cuid())
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   description String
   title       String   @unique
-  mentorId    String
+  mentorId    String   @db.ObjectId
   assetUrl    String[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   owner       User     @relation(fields: [mentorId], references: [id])
   class       Class    @relation(fields: [classId], references: [id])
-  classId     String
+  classId     String   @db.ObjectId
   subject     Subject  @relation(fields: [subjectId], references: [id])
-  subjectId   String
+  subjectId   String   @db.ObjectId
 }

@@ -293,10 +293,7 @@ function Discuss() {
                     
                     mi-bold mx-12"
                           >
-                            Posted by{" "}
-                            {question?.User?.name === q?.data?.name
-                              ? "you"
-                              : question?.User?.name}
+                            Posted by you
                           </h1>
                           <h1
                             className="text-md font-se
@@ -331,6 +328,10 @@ function Discuss() {
                                 {answer?.owner?.name}
                               </div>
                               <div> {answer?.text} </div>
+                              {new Date(question.createdAt).toLocaleDateString(
+                                "en-US",
+                                options
+                              )}
                             </div>
                           ))}
                         </div>

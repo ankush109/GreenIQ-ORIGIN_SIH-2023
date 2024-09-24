@@ -24,7 +24,15 @@ import Protectedroute1 from "./Components/Protectedroute1";
 import Dashboard from "./Components/Dashboard";
 import ProtectedRoute1 from "./Components/Protectedroute1";
 
+<<<<<<< HEAD
 import Leftbar from "./Components/Leftbar";
+=======
+import Newsfeed from "./Components/Newsfeed";
+import Chatbot from "./Components/virtual-mentor/chatbot";
+import About from "./Components/About";
+import Meet from "./Components/videocall/Meeting";
+import PersonalBookings from "./Components/student/PersonalBookings";
+>>>>>>> 9a0b193c0e47dcd6d46ed193a43dd6c5d616ede1
 function App() {
   function isJWTValid() {
     const token = localStorage.getItem("token");
@@ -60,9 +68,46 @@ function App() {
         <Routes>
           <Route path="/">
             <Route path="/" element={<Landing />} />
+<<<<<<< HEAD
+=======
+            <Route path="/about" element={<About />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+>>>>>>> 9a0b193c0e47dcd6d46ed193a43dd6c5d616ede1
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+        
           </Route>
+<<<<<<< HEAD
+=======
+
+          <Route path="/user" element={<Dashboard />}>
+            <Route path="chatbot" element={<Chatbot />} />
+            <Route path="courses" element={<Courses />} />
+             <Route path="meet" element={<Meet />} />
+            <Route path="sathi" element={<Sathi />} />
+            <Route path="material/:id" element={<MaterialSubject />} />
+            <Route path="test" element={<Test />} />
+            <Route path="material" element={<Material />} />
+            <Route path="book-meeting" element={<Meeting />} />
+             <Route path="personal-meeting" element={<PersonalBookings />} />
+            <Route path="discuss" element={<Discuss />} />
+            <Route path="report" element={<Report />} />
+            <Route path="leaderboard" element={<Leaderboard />} />
+            <Route path="newsfeed" element={<Newsfeed />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="settings" element={<Settings />} />
+            <Route path="confirm-booking/:id" element={<ConfirmBooking />} />
+          </Route>
+          <Route path="/mentor" element={<Dashboard />}>
+            <Route path="my-Test" element={<Mentortest />} />
+            <Route path="createtest" element={<CreateTest />} />
+            <Route path="Meetings" element={<Meetings />} />
+            <Route path="createMaterial" element={<CreateMaterial />} />
+            <Route path="material" element={<Material />} />
+            <Route path="material/:id" element={<MaterialSubject />} />
+            <Route path="classroom" element={<Classroom />} />
+          </Route>
+>>>>>>> 9a0b193c0e47dcd6d46ed193a43dd6c5d616ede1
         </Routes>
         <div className="flex flex-row justify-between ">  
         <div className=" md:w-1/4 sm:1/6 h-screen">

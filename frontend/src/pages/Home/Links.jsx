@@ -1,7 +1,7 @@
 import { FaFacebookF } from "react-icons/fa";
 import { FiInstagram } from "react-icons/fi";
 import { AiOutlineTwitter } from "react-icons/ai";
-
+import React from "react";
 export const SocialLinks = [
   {
     icon: <AiOutlineTwitter />,
@@ -59,16 +59,8 @@ export const Footer_2_Links = [
 ];
 export const Navbar_Links = [
   {
-    name: "HOME",
-    path: "/",
+    name: "ABOUT",
+    path: "/about",
     protected: false,
   },
-  {
-    name: "CONTACT",
-    path: "",
-    protected: false,
-  },
- 
-  
 ];
-

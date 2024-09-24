@@ -30,7 +30,6 @@ function Register() {
     },
   });
 
-
   const onSubmit = async (formData) => {
     setbutton(true);
     try {
@@ -43,6 +42,7 @@ function Register() {
       setValue("email", "");
       setValue("picture", null);
     } catch (err) {
+      console.log(err);
       setApiError(err.response.data.message);
       setbutton(false);
     }

@@ -101,6 +101,43 @@ const Leftbar = () => {
                     </Link>
                   </span>
                 </div>
+              </li>  <li>
+                <div
+                  className={
+                    selected === "/user/meet"
+                      ? "border-zinc-700  bg-gray-50 relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent"
+                      : "relative flex flex-row items-center h-11 focus:outline-none hover-bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
+                  }
+                >
+                  <span className="inline-flex justify-center items-center ml-4"></span>
+                  <SiBookstack className="text-xl" />
+                  <span className="ml-2 text-sm tracking-wide truncate">
+                    <Link
+                      to="/user/meet"
+                      onClick={() => setSelected("/user/meet")}
+                    >
+                      Create Meet
+                    </Link>
+                  </span>
+                </div>
+                  <div
+                  className={
+                    selected === "/user/personal-meeting"
+                      ? "border-zinc-700  bg-gray-50 relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent"
+                      : "relative flex flex-row items-center h-11 focus:outline-none hover-bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
+                  }
+                >
+                  <span className="inline-flex justify-center items-center ml-4"></span>
+                  <SiBookstack className="text-xl" />
+                  <span className="ml-2 text-sm tracking-wide truncate">
+                    <Link
+                      to="/user/personal-meeting"
+                      onClick={() => setSelected("/user/personal-meeting")}
+                    >
+                     Personal Meetings
+                    </Link>
+                  </span>
+                </div>
               </li>
               {user?.role === "mentor" ? (
                 <li>

@@ -16,17 +16,13 @@ function Material() {
 
   useEffect(() => {
     if (data.isSuccess) {
+      console.log(data.data);
       // Filter out the "Physics" subject from the data if it exists
-      const filteredSubjects = (data.data || []).filter(
-        (course) => course.name !== "physics"
-      );
-      setSubjects(filteredSubjects.reverse()); // Reverse the array here
-    } else {
-      setSubjects([]);
+
+      setSubjects(data.data); // Reverse the array here
     }
   }, [data?.data]);
 
-  const subjectImages = [geo, phy, maths, history, chemistry, phy];
   const cardStyle = {
     height: "320px",
   };
@@ -47,7 +43,7 @@ function Material() {
                 style={cardStyle}
               >
                 <img
-                  src={subjectImages[index]}
+                  src="https://qph.cf2.quoracdn.net/main-qimg-9e96b92ec2e1d42f8cb5378f9c7540c7-pjlq"
                   alt={course.name}
                   className="w-[400px] h-[250px]"
                 />

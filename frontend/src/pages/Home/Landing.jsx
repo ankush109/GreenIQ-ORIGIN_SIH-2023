@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import i18n from "../../Language/i18n";
-
+import CancelIcon from "@mui/icons-material/Cancel";
 import primaryImage from "../../assets/primary-background.png";
 import Demo from "../../assets/demo.jpg";
 import Chatbot from "../../assets/chatbot.png";
@@ -19,7 +19,7 @@ import Certificate from "../../assets/certificate.jpg";
 import * as Links from "./Links";
 import Container from "./Container";
 import { GetUserQuery } from "../../api/user";
-
+import OutboundIcon from "@mui/icons-material/Outbound";
 import { BiRightArrow } from "react-icons/bi";
 
 import { GoGlobe } from "react-icons/go";
@@ -34,6 +34,7 @@ import { LoaderIcon } from "react-hot-toast";
 
 const Landing = () => {
   const [dropDown, setDropDown] = useState(false);
+  const [sitestatus, setsitestatus] = useState(true);
   const data = GetUserQuery();
   const [user, setuser] = useState();
   const [scrollLeft, setScrollLeft] = useState(0);
@@ -92,9 +93,22 @@ const Landing = () => {
     scrollContainer.scrollLeft += scrollStep;
     setScrollLeft(scrollContainer.scrollLeft);
   };
-
+  const code = "ERR_NETWORK";
+  const checkstatus = async () => {
+    await axios
+      .get(`${import.meta.env.VITE_BASE_URL}/v1/user/get-allquestions`)
+      .then((res) => {
+        console.log(res.data, "status site");
+        setsitestatus(true);
+      })
+      .catch((err) => {
+        console.log(err.code);
+        setsitestatus(false);
+      });
+  };
   useEffect(() => {
     setuser(data?.data);
+    checkstatus();
   }, [data.data]);
 
   const handleQuestionChange = (e) => {
@@ -194,6 +208,7 @@ const Landing = () => {
               Green<span className="text-theme">IQ</span>
             </Link>
           </div>
+
           <div className=" mx-2  list-none space-x-10  flex-row-center text-lg text-primary font-comf">
             {Links.Navbar_Links.map((obj, id) => (
               <NavLinks obj={obj} />
@@ -208,14 +223,9 @@ const Landing = () => {
                   <Link to="/user/book-meeting">Book a call</Link>
                 )}
               </span>
+              d
             </li> */}
-            {user ? (
-              <li className="flex flex-row items-center hover:text-theme cursor-pointer ">
-                &nbsp;<span>Hello, {data?.data?.name}</span>
-              </li>
-            ) : (
-              <LoaderIcon />
-            )}
+
             {user && user?.role == "student" ? (
               <Link to="/user/leaderboard">
                 <button className="  ">DASHBOARD</button>
@@ -227,7 +237,13 @@ const Landing = () => {
                 </Link>
               )
             )}
-
+            {user ? (
+              <li className="flex flex-row items-center hover:text-theme cursor-pointer ">
+                &nbsp;<span>Hello, {data?.data?.name}</span>
+              </li>
+            ) : (
+              ""
+            )}
             <select
               name="language"
               className="outline-none"
@@ -266,7 +282,7 @@ const Landing = () => {
 
         <nav className="text-primary flex lg:hidden flex-row justify-between px-5 py-2 my-4 rounded-lg shadow-md items-center text-para   z-10  border-nav bg-white space-x-5">
           <div className="mx-2 w-[100px]">
-            <Link to="" className="text-4xl font-right ">
+            <Link to="/" className="text-4xl font-right ">
               Green<span className="text-theme">IQ</span>
             </Link>
           </div>
@@ -292,15 +308,43 @@ const Landing = () => {
               <GoGlobe />
             </li>
 
-            <button className=" my-5 px-10 text-medium font-theme py-1 w-full bg-theme rounded-full z-10">
+            <Link
+              to="/user/leaderboard"
+              className=" my-5 px-10 text-medium font-theme py-1 w-full bg-theme rounded-full z-10"
+            >
               GET STARTED
-            </button>
+            </Link>
           </div>
         </section>
       )}
 
       <section style={{ backgroundImage: `url(${primaryImage})` }}>
         <div className="primary-container md:w-2/3 mx-auto gap-5 md:leading-10 leading-7 text-center  flex flex-col items-center justify-center h-[100vh] translate-y-14 relative ">
+          {!sitestatus ? (
+            <div className="bg-red-500 p-3 w-45 flex flex-row items-center justify-center rounded-xl">
+              <CancelIcon
+                style={{
+                  color: "white",
+                  margin: "2px",
+                }}
+              />
+              <h1 className="text-lg font-semibold text-white">
+                Site is under Maintainance
+              </h1>
+            </div>
+          ) : (
+            <div className="bg-green-500  p-3 w-45 flex flex-row items-center justify-center rounded-xl">
+              <OutboundIcon
+                style={{
+                  color: "white",
+                  marginLeft: "2px",
+                }}
+              />
+              <h1 className="text-lg font-semibold text-white">
+                Site is up and Running
+              </h1>
+            </div>
+          )}
           <div className="md:text-7xl text-3xl md:my-5 my-3 font-merri">
             <span>
               <Typewriter
@@ -322,6 +366,7 @@ const Landing = () => {
               />
             </span>
           </div>
+
           <p className="md:text-lg text-sm font-comf"></p>
           {user && (
             <Link to="/user" className=" primary-btn ">
@@ -472,16 +517,19 @@ const Landing = () => {
         <hr className="my-10" />
         <div className="">
           <div className="flex-row-center space-x-5 my-5">
-            {Links.SocialLinks.map((obj, id) => (
+            {/* {Links.SocialLinks.map((obj, id) => (
               <Link
                 to=""
                 className="w-[40px] h-[40px] rounded-full border-2 border-white text-white hover:scale-125 text-2xl flex-row-center"
               >
                 {obj.icon}
               </Link>
-            ))}
+            ))} */}
           </div>
           <p>© GreenIQ 2023 | All rights reserved</p>
+          <p className=" text-center font-bold mx-auto p-10">
+            Maintained By Ankush Banerjee ❤️
+          </p>
         </div>
       </footer>
     </div>
