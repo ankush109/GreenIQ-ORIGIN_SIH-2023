@@ -154,6 +154,7 @@ const Chat = () => {
 
         <div className="flex-1 p-4 overflow-y-auto">
           {selectedConvo?.messages?.map((msg) => (
+         
             <div
               key={msg.id}
               className={`max-w-md p-2 rounded-lg mb-2 text-white ${
@@ -162,7 +163,17 @@ const Chat = () => {
                   : "bg-green-500"
               }`}
             >
-              {msg.message}
+              
+              <div className="flex justify-between w-full">
+<div>   {msg.message} </div> <div className="text-xs mt-6">  {new Date(msg?.timestamp).toLocaleDateString(
+                    "en-US",
+                    {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    }
+                  )}</div>
+                </div>
             </div>
           ))}
         </div>

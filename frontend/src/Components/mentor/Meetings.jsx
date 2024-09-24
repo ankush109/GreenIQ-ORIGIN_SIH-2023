@@ -8,6 +8,7 @@ import { Button } from "@mui/material";
 import Searchbox from "../SearchBox";
 import Error from "../Error";
 import Loading from "../Loading";
+import { Badge } from "../ui/badge";
 
 function Meetings() {
   const {  isLoading, isError } =  getMentorMeetingsQuery();
@@ -36,37 +37,59 @@ function Meetings() {
       <div className="my-5 font-merri text-3xl ">
         Your Meetings ({meet?.length})
       </div>
-      <Searchbox/>
+      
       <hr className="gap-10"/>
       <div className="my-5 gap-5 flex-col flex justify-center items-center">
-        {meet?.length > 0 ? (
-          meet?.map((meeting) => (
-            <div
-              key={meeting.id}
-              className={`p-5 rounded-lg font-comf  w-5/6 ${meeting.status=="confirmed"?'bg-green-200':'bg-orange-100'} text-sm flex-row-between`}
-            >
-                <div className=" font-semibold gap-2">
-                  <p>Student Name : {meeting.host.name}</p>
-                  <p>Meeting ID: {meeting.id}</p>
-                  <p>Status: {meeting.status}</p>
+    <div className="w-full" >
+  {meet?.length > 0 ? (
+    meet?.map((meeting) => (
+      <div
+        key={meeting.id}
+        className="grid grid-cols-4 gap-4 p-5 w-full items-center bg-gray-100 rounded-lg"
+      >
+        <div>
+          <div className="font-semibold">Student Name</div>
+          <p>{meeting.host.name}</p>
+        </div>
+        
+        <div>
+          <div className="font-semibold">Status</div>
+          <p>{meeting.status}</p>
+        </div>
 
-                </div>
-              
-                <div>
-                  {meeting?.dates?.map((date, index) => (
-                    <p key={index} className="mt-2">
-                      Date: {format(new Date(date.date)," yyyy-MM-dd',' HH:mm")}
-                    </p>
-                  ))}
-                </div>
-              {meeting.status === "confirmed" ? 
-                  <Button  style={{ marginTop: "12px", }}   variant="contained" color="error" > Cancel </Button> : 
-                  <Button  onClick={() => {  confirmMeeting(meeting.id);  } } style={{ marginTop: "12px",  }} variant="contained" >  Accept </Button>
-              }
-            </div>
-            ))):
-                <h1>No meetings found</h1>
-          }
+        <div>
+          <div className="font-semibold">Dates</div>
+          {meeting?.dates?.map((date, index) => (
+            <p key={index} className="mt-2">
+              <Badge>{format(new Date(date.date), " yyyy-MM-dd',' HH:mm")}</Badge>
+            </p>
+          ))}
+        </div>
+
+        <div className="flex justify-end">
+          {meeting.status === "confirmed" ? (
+            <Button className="w-full" variant="contained" color="error">
+              Cancel
+            </Button>
+          ) : (
+            <Button
+              onClick={() => {
+                confirmMeeting(meeting.id);
+              }}
+              className="w-full"
+              variant="contained"
+            >
+              Accept
+            </Button>
+          )}
+        </div>
+      </div>
+    ))
+  ) : (
+    <h1>No meetings found</h1>
+  )}
+</div>
+
         </div>
       
     </div>)}
