@@ -21,6 +21,7 @@ function DateTime({ onData }) {
     second: "2-digit",
   };
   const deleteDate = (date) => {
+    console.log(date,"d")
     const updatedlist = selectedDates.filter((time) => {
       time !== date;
     });

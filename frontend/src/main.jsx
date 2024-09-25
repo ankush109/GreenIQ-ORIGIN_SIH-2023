@@ -18,7 +18,7 @@ const queryClient = new QueryClient({
   },
 });
 root.render(
-  <React.StrictMode>
+ 
     <QueryClientProvider client={queryClient}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <BrowserRouter>
@@ -32,5 +32,5 @@ root.render(
       </LocalizationProvider>
       <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
     </QueryClientProvider>
-  </React.StrictMode>
+  
 );

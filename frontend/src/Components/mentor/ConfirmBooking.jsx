@@ -38,8 +38,8 @@ function ConfirmBooking() {
   };
 
   return (
-    <div className="flex justify-center m-10 bg-gray-50">
-      <div className=" w-full p-5 flex flex-col justify-center items-center">
+    <div className="flex  ">
+      <div className="p-5">
         <h1 className="text-2xl font-bold my-5">Please select the dates</h1>
         <DateTime onData={handleChildData} />
         <div className="my-10">

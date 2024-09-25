@@ -7,6 +7,29 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Conversation {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  participantIds String[]
+  messages       Chat[]   @relation("ConversationToChat")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([participantIds])
+}
+
+model Chat {
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  senderId       String // ID of the user sending the message
+  receiverId     String // ID of the user receiving the message
+  message        String // The chat message content
+  timestamp      DateTime     @default(now()) // When the message was sent
+  conversationId String       @db.ObjectId // Corrected to use ObjectId for MongoDB
+  conversation   Conversation @relation("ConversationToChat", fields: [conversationId], references: [id])
+
+  @@index([senderId, receiverId])
+  @@index([conversationId]) // Index for faster lookups based on the conversation
+}
+
 model Class {
   id       String    @id @default(auto()) @map("_id") @db.ObjectId
   name     String
