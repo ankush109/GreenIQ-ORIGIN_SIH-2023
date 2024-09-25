@@ -124,8 +124,8 @@ function Login() {
             </div>
            
                {
-              !isSubmitting ? (
-            <div className="bg-blue-500  text-white flex items-center h-16 rounded-lg">
+              isSubmitting ? (
+            <div className="bg-blue-500  text-white flex items-center h-16">
   <span className="text-center ml-2">Verifying Credentials ... </span>
   <Loading />
 </div>
