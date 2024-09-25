@@ -4,7 +4,25 @@ import { customResponse } from "../../../utils/Response";
 const prisma = new PrismaClient();
 
 const testController = {
-  
+  async getQuestions(req,res){
+    try{
+        const { id } =req.params;
+        const questions= await prisma.testQuestion.findMany({
+          where:{
+            testId:id
+          }
+        })
+        res.status(200).json({
+          success:true,
+          message:questions
+        })
+    }catch(err){
+  res.status(400).json({
+          success:false,
+          message:err
+        })
+    }
+  },
    async createTest(req, res) {
     try {
       const { subjectname, classname, description, title, questions } = req.body;

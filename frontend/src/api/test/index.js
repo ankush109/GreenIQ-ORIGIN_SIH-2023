@@ -25,6 +25,37 @@ const createTest = async (testInfo) => {
   const { data } = await AuthAPI().post("/user/create-test", testInfo);
   return data;
 };
+
+const submitIndividual = async (testId,questionId,answer)=>{
+  const {data} =await AuthAPI().post("/user/submit-answer", {
+    testId,
+    questionId,
+    answer
+  });
+  return data;
+}
+
+
+const startTest = async (testId)=>{
+  const {data} =await AuthAPI().post("/user/start-test", {
+    testId,
+    
+  });
+  return data;
+}
+const finishTest = async (testId)=>{
+  const {data} =await AuthAPI().post("/user/finish-test", {
+    testId,
+    
+  });
+  return data;
+}
+
+
+const getQuestionByTestId =async(testId)=>{
+  const { data } = await AuthAPI().get(`/user/get-questions/${testId}`);
+  return data;
+}
 const getMyTest = async () => {
   const { data } = await AuthAPI().get("/user/get-my-test", "11");
   return data;
@@ -57,4 +88,4 @@ const mentorTestQuery = () =>
     },
   });
 
-export { createTest, mentorTestQuery, deleteTest, getTestsQuery };
+export { createTest, mentorTestQuery, deleteTest,finishTest, getTestsQuery ,getQuestionByTestId ,submitIndividual,startTest};

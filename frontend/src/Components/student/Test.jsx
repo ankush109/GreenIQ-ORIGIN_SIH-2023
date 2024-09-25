@@ -5,6 +5,7 @@ import Error from "../Error";
 import Loading from "../Loading";
 import Searchbox from "../SearchBox";
 import { AiFillEye } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const Test = () => {
   const { data } = getTestsQuery();
@@ -75,7 +76,8 @@ const Test = () => {
                     </td>
                     <td>{item.owner.name}</td>
                     <td className="flex-row-center mx-auto text-lg">
-                      <AiFillEye />
+                      <Link to={`/user/test/${item.id}`}>
+                      <AiFillEye /></Link>
                     </td>
                   </tr>
                 ))

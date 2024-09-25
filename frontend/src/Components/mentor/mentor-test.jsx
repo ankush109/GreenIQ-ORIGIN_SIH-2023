@@ -69,7 +69,7 @@ function Mentortest() {
                     {item?.subject?.name ? item?.subject?.name : "Physics"}
                   </td>
                   <td>
-                    {item?.description ? item?.description : "test on heat"}
+                    {item?.title ? item?.title : "test on heat"}
                   </td>
                   <td>
                     {new Date(item?.createdAt).toLocaleDateString(
