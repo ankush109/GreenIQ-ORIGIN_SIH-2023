@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { AskSathiChatBot } from "../../api/virtual-mentor";
+import ReactMarkdown from 'react-markdown';
 import Leftbar from "../Leftbar";
 import SendIcon from "@mui/icons-material/Send";
 function Sathi() {
@@ -21,7 +22,7 @@ function Sathi() {
     const response = await AskSathiChatBot(inputMessage);
     const updatedMessagesWithChatbot = [
       ...updatedMessages,
-      { role: "chatbot", content: response.data.content },
+      { role: "chatbot", content: response.data },
     ];
     setMessages(updatedMessagesWithChatbot);
   };
@@ -39,8 +40,8 @@ function Sathi() {
   return (
     <div className="base-container py-[5vh] flex flex-col justify-center items-center ">
       <i className="text-5xl font-merri text-theme">Virtual Mentor</i>
-      <p className="my-5 font-comf">
-        Ask any Questions and get instant Replies
+      <p className="my-5  text-blue-700  text-2xl font-semibold">
+      Powered By Google Gemini
       </p>
 
       <div className="flex-grow flex flex-col items-center justify-center my-10">
@@ -74,7 +75,7 @@ function Sathi() {
                         src="https://www.iconarchive.com/download/i143625/iconarchive/robot-avatar/Blue-1-Robot-Avatar.1024.png"
                         alt="Chatbot Avatar"
                       />
-                      <span className="ml-2">{message.content}</span>
+                      <span className="ml-2"><ReactMarkdown>{message.content}</ReactMarkdown></span>
                     </div>
                   ) : (
                     message.content
