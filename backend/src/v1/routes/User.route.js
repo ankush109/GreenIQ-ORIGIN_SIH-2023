@@ -23,6 +23,9 @@ router.get(
   materialController.getMaterialByClass
 );
 router.post("/create-test", authMiddleware, testController.createTest);
+router.post("/start-test", authMiddleware, testController.startTestAttempt);
+router.post("/submit-answer", authMiddleware, testController.submitAnswer);
+router.post("/finish-test", authMiddleware, testController.finishTestAttempt);
 router.post("/create-course", authMiddleware, courseController.creatCourse);
 router.get(
   "/get-test",
