@@ -133,10 +133,11 @@ function Discuss() {
   const filteredData =
     data.length > 0 &&
     data?.filter((question) => {
+      
       const textMatch = question.text.includes(searchText);
       const tabMatch =
         activeTab === "all" ||
-        (activeTab === "my" && question.User.id === q?.data.id);
+        (activeTab === "my" && question?.userId === q?.data.id);
 
       return textMatch && tabMatch;
     });
@@ -144,28 +145,7 @@ function Discuss() {
   return (
     <div className="flex justify-center">
       <div className=" w-full p-2 m-2 bg-white shadow-md rounded-lg">
-        <div class="w-full flex justify-center items-center">
-          <div class="relative">
-            <input
-              type="text"
-              value={searchText}
-              placeholder="Search..."
-              onChange={(e) => {
-                e.preventDefault();
-                setSearchText(e.target.value);
-              }}
-              class="w-[500px] py-2 pr-10 pl-4 rounded-full border border-gray-300 focus:outline-none focus:border-blue-500"
-            />
-            <button
-              onClick={() => {
-                searchQuestion();
-              }}
-              class="absolute top-0 right-0 mt-2 mr-3"
-            >
-              search
-            </button>
-          </div>
-        </div>
+      
 
         <h1 className="text-2xl font-semibold mb-6">
           Frequently Asked Questions
@@ -229,7 +209,7 @@ function Discuss() {
         ) : (
           <div>
             {filteredData.length > 0 &&
-              filteredData?.map((question) => (
+              filteredData?.map((question,idx) => (
                 <>
                   <div
                     key={question.id}
@@ -237,7 +217,7 @@ function Discuss() {
                   >
                     <div className="flex gap-2">
                       <h1 className="text-xl font-semi-bold mb-2">
-                        #{question?.id}
+                        #{idx+1}
                         {")"}
                       </h1>
                       <h3 className="text-lg font-bold mb-2">
@@ -293,7 +273,7 @@ function Discuss() {
                     
                     mi-bold mx-12"
                           >
-                            Posted by you
+                           Posted By {question?.user.id == q?.data.id ? "You" :question?.user?.name}
                           </h1>
                           <h1
                             className="text-md font-se

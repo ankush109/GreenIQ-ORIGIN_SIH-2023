@@ -1,42 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
-import {
-  GetAllConvoQuery,
-  GetAllUsersQuery,
-  GetUserQuery,
-  sendMessage,
-} from "../../api/user";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { GetAllConvoQuery, GetAllUsersQuery, GetUserQuery, sendMessage } from "../../api/user";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import toast from "react-hot-toast";
 import { Send, VerifiedUserRounded } from "@mui/icons-material";
 import { BiUserCircle } from "react-icons/bi";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../../Components/ui/dialog";
 
 const Chat = () => {
+  const [open, setOpen] = useState(false);
+  const [wantTo, setWantto] = useState();
   const { data: mydetails } = GetUserQuery();
   const [onlineUsers, setOnlineUser] = useState([]);
-  const { data: AllconvoData, isLoading: conversationsLoading } =
-    GetAllConvoQuery();
+  const { data: AllconvoData, isLoading: conversationsLoading, refetch } = GetAllConvoQuery();
   const { data: allusers, isLoading: usersLoading } = GetAllUsersQuery();
   const [selectedConvo, setSelectedConvo] = useState("");
   const [selected, setSelected] = useState(null);
   const [message, setMessage] = useState("");
-  const checkOnline = (id) => {
-    const finduserstatus = onlineUsers.find((x) => x == id);
-    return finduserstatus;
-  };
+  const messagesEndRef = useRef(null);
+
+
   useEffect(() => {
     if (!mydetails?.id) return;
 
     const socket = io("http://localhost:5000", {
       query: {
-        userId: mydetails.id,
+        userId: mydetails?.id,
       },
     });
 
@@ -67,10 +56,14 @@ const Chat = () => {
     };
   }, [mydetails?.id]);
 
-  if (usersLoading) {
-    return <div>Loading users...</div>;
-  }
-  if (conversationsLoading) return "Loading conversations...";
+  
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [selectedConvo?.messages]);
+
+  
   const sendmessageto = async () => {
     if (!message) {
       toast.error("Message cannot be empty!");
@@ -85,20 +78,34 @@ const Chat = () => {
           { message: message, senderId: mydetails?.id },
         ],
       }));
-      const data = await sendMessage(
-        message,
-        selectedConvo.participants[0].id,
-        selectedConvo.id
-      );
+      const data = await sendMessage(message, selectedConvo.participants[0].id, selectedConvo.id);
       console.log(data, "data");
       toast.success("Chat Successful");
-
       setMessage("");
     } catch (err) {
       console.log(err);
       toast.error("Failed to send message");
     }
   };
+
+ 
+  const createConveration = async () => {
+    try {
+      const data = await sendMessage("hi ", wantTo?.id, selectedConvo.id);
+      setWantto(null);
+      setOpen(false);
+      refetch();
+      toast.success("Chat started successfully");
+    } catch (err) {
+      toast.error("Failed to start conversation");
+    }
+  };
+
+const deleteConveration = async ()=>{
+  
+}
+  if (usersLoading) return <div>Loading users...</div>;
+  if (conversationsLoading) return "Loading conversations...";
 
   return (
     <div className="flex h-screen">
@@ -107,16 +114,17 @@ const Chat = () => {
           <DropdownMenuTrigger className="bg-stone-500 hover:bg-stone-600 text-white py-2 px-4 rounded-lg w-full">
             Create Chat
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="bg-white text-black">
-            <DropdownMenuLabel className="font-bold">
-              Select User
-            </DropdownMenuLabel>
+          <DropdownMenuContent className="bg-white ">
+            <DropdownMenuLabel className="font-bold">Select User</DropdownMenuLabel>
             <DropdownMenuSeparator />
             {allusers?.map((x) => (
               <DropdownMenuItem
                 key={x.id}
-                onClick={() => setSelected(x)}
-                className="cursor-pointer hover:bg-gray-200 px-4 py-2"
+                onClick={() => {
+                  setOpen(true); 
+                  setWantto(x);
+                }}
+                className="cursor-pointer hover:bg-gray-200 hover:text-white px-4 py-2"
               >
                 {x.name}
               </DropdownMenuItem>
@@ -127,79 +135,85 @@ const Chat = () => {
           {AllconvoData?.map((convo) => (
             <div
               key={convo.id}
-              className={`cursor-pointer py-2 px-3 rounded-lg mb-2 hover:bg-stone-700 ${
-                selectedConvo.id === convo.id ? "bg-stone-500 text-white" : ""
-              }`}
+              className={`cursor-pointer py-2 px-3 rounded-lg mb-2 hover:bg-stone-700 hover:text-white ${selectedConvo.id === convo.id ? "bg-stone-500 text-white" : ""}`}
               onClick={() => setSelectedConvo(convo)}
             >
               <div className="flex items-center gap-4">
                 {convo.participants[0].name}{" "}
-                {checkOnline(convo.participants[0].id) ? (
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                ) : (
-                  ""
-                )}
+             
               </div>
             </div>
           ))}
         </div>
       </div>
 
-  {selectedConvo ? (
+      {selectedConvo ? (
         <div className="bg-gray-100 w-3/4 flex flex-col">
-        <div className="bg-stone-500 text-white p-4 flex items-center gap-2">
-          <BiUserCircle className="text-2xl" />{" "}
-          {selectedConvo ? ` ${selectedConvo.participants[0].name}  ` : ""}
-        </div>
+          <div className="bg-stone-500 text-white p-4 flex items-center gap-2">
+            <BiUserCircle className="text-2xl" />{" "}
+            {selectedConvo ? ` ${selectedConvo.participants[0].name}  ` : ""}
+          </div>
 
-        <div className="flex-1 p-4 overflow-y-auto">
-          {selectedConvo?.messages?.map((msg) => (
-         
-            <div
-              key={msg.id}
-              className={`max-w-md p-2 rounded-lg mb-2 text-white ${
-                mydetails.id === msg.senderId
-                  ? "bg-blue-500 flex ml-[400px]"
-                  : "bg-green-500"
-              }`}
-            >
-              
-              <div className="flex justify-between w-full">
-<div>   {msg.message} </div> <div className="text-xs mt-6">  {new Date(msg?.timestamp).toLocaleDateString(
-                    "en-US",
-                    {
+          <div className="flex-1 p-4 overflow-y-auto">
+            {selectedConvo?.messages?.map((msg) => (
+              <div
+                key={msg.id}
+                className={`max-w-md p-2 rounded-lg mb-2 text-white ${
+                  mydetails.id === msg.senderId
+                    ? "bg-blue-500 flex ml-[400px]"
+                    : "bg-green-500"
+                }`}
+              >
+                <div className="flex justify-between w-full">
+                  <div>{msg.message}</div>{" "}
+                  <div className="text-xs mt-6">
+                    {new Date(msg?.timestamp).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",
                       day: "numeric",
-                    }
-                  )}</div>
+                    })}
+                  </div>
                 </div>
-            </div>
-          ))}
-        </div>
+              </div>
+            ))}
+            <div ref={messagesEndRef} />
+          </div>
 
-        <div className="p-4 bg-white shadow-lg flex">
-          <input
-            type="text"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            className="flex-1 border rounded-lg p-2 mr-2 focus:outline-none"
-            placeholder="Type a message..."
-          />
-          <button
-            onClick={sendmessageto}
-            className="bg-blue-600 text-white py-2 px-4 rounded-lg"
-          >
-            <Send />
-          </button>
+          <div className="p-4 bg-white shadow-lg flex">
+            <input
+              type="text"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              className="flex-1 border rounded-lg p-2 mr-2 focus:outline-none"
+              placeholder="Type a message..."
+            />
+            <button
+              onClick={sendmessageto}
+              className="bg-blue-600 text-white py-2 px-4 rounded-lg"
+            >
+              <Send />
+            </button>
+          </div>
         </div>
-      </div>
-  ):(
-    <div>
+      ) : (
+        <div />
+      )}
 
-        Click on the user You want to Chat.
-        </div>
-  )}
+      <Dialog open={open} onOpenChange={() => setOpen(!open)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Start a chat with {wantTo?.name}</DialogTitle>
+            <DialogDescription>
+              <button
+                onClick={() => createConveration()}
+                className="bg-blue-600 text-white py-2 px-4 rounded-lg"
+              >
+                Start Chat
+              </button>
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

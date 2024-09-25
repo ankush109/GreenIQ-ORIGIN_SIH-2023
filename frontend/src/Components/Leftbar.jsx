@@ -17,6 +17,7 @@ import AssistantIcon from "@mui/icons-material/Assistant";
 import HomeIcon from "@mui/icons-material/Home";
 import ClassIcon from "@mui/icons-material/Class";
 import { LoaderIcon } from "react-hot-toast";
+import { VideoCall } from "@mui/icons-material";
 
 const Leftbar = () => {
   const data = GetUserQuery();
@@ -83,24 +84,7 @@ const Leftbar = () => {
                 </li>
               )}
               <li>
-                <div
-                  className={
-                    selected === "/user/courses"
-                      ? "border-zinc-700  bg-gray-50 relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent"
-                      : "relative flex flex-row items-center h-11 focus:outline-none hover-bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
-                  }
-                >
-                  <span className="inline-flex justify-center items-center ml-4"></span>
-                  <SiBookstack className="text-xl" />
-                  <span className="ml-2 text-sm tracking-wide truncate">
-                    <Link
-                      to="/user/courses"
-                      onClick={() => setSelected("/user/courses")}
-                    >
-                      Courses
-                    </Link>
-                  </span>
-                </div>
+              
               </li>  <li>
                 <div
                   className={
@@ -110,13 +94,13 @@ const Leftbar = () => {
                   }
                 >
                   <span className="inline-flex justify-center items-center ml-4"></span>
-                  <SiBookstack className="text-xl" />
+                  <VideoCall className="text-xl" />
                   <span className="ml-2 text-sm tracking-wide truncate">
                     <Link
                       to="/user/meet"
                       onClick={() => setSelected("/user/meet")}
                     >
-                      Create Meet
+                      Video Call
                     </Link>
                   </span>
                 </div>

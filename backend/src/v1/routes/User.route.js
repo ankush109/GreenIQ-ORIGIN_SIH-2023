@@ -9,6 +9,7 @@ import {
 } from "../controllers";
 import authMiddleware from "../middlewares/Auth.middleware";
 import messageController from "../controllers/message/message";
+import videoCallController from "../controllers/videocall/videocall";
 //import testController from "../controllers/test/test";
 
 const router = express.Router();
@@ -32,6 +33,7 @@ router.get(
   authMiddleware,
   testController.getAllTestsCreatedByUser
 );
+router.get("/create-video-token",authMiddleware,videoCallController.createToken)
 router.get("/get-subjects", authMiddleware, materialController.getallSubjects);
 router.delete("/delete-test", authMiddleware, testController.deleteTest);
 router.get("/get-my-test", authMiddleware, testController.getUserTestByClass);

@@ -20,6 +20,7 @@ const userController = {
           },
         },
         include: {
+          user:true,
           answers: {
             include: {
               owner: true,
