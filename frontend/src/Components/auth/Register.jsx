@@ -25,7 +25,7 @@ function Register() {
       name: "",
       email: "",
       password: "",
-      classname: "",
+      classname: "11",
       phonenumber: "",
     },
   });
@@ -48,17 +48,18 @@ function Register() {
     }
   };
   return (
-    <div className="flex">
+    <div className="flex h-screen">
       <div className=" hidden lg:block w-1/2 h-screen bg-blue-400">
         <img
           className="object-cover h-full w-full"
           src="https://newlookschool.com/wp-content/uploads/2021/08/Knolage-and-Learning.jpg"
         />
       </div>
-      <div className="flex lg:w-1/2  sm:w-full h-screen justify-center p-20">
-        <div className="flex flex-col ">
-          <p className="text-gray-500">New User? </p>
+      <div className=" mx-auto ml-auto mt-auto mb-auto  lg:w-1/5 ">
+        <div className="flex  mx-auto  flex-col gap-4 h-1/2  ">
+         
           <h1 className="font-bold text-3xl font-mono">Register</h1>
+          <div>Already have an Account ?  <a href="/login" className="text-blue-700 font-bold" >Login</a></div>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-5 my-10">
               <div className="">
@@ -70,7 +71,7 @@ function Register() {
                   {...register("name")}
                 />
               </div>
-              <div className="">
+              <div className="hidden">
                 <TextField
                   id="outlined-basic"
                   label="class"
@@ -131,32 +132,22 @@ function Register() {
                 )}
               </div>
             </div>
-            <div className="flex mx-10 p-5">
-              <p
-                className="
-            text-gray-500 
+           
           
-            "
-              >
-                Already have an account?{" "}
-              </p>
-              <p
-                className="text-blue-500 hover: cursor-pointer"
-                onClick={() => {
-                  navigate("/Login");
-                }}
-              >
-                {"  "}
-                Sign In
-              </p>
-            </div>
-            {!button ? (
-              <button className="py-2 px-10 mx-24 my-4 bg-blue-400  text-white  rounded-xl hover:bg-blue-500 hover:text-white hover:scale-110 duration-300">
+             {
+              isSubmitting ? (
+            <div className="bg-blue-500  text-white flex items-center h-16 rounded-lg">
+  <span className="text-center ml-2">Creating Your Account...</span>
+  <Loading />
+</div>
+
+              ) : (
+                 <button  className="bg-blue-500 p-3 rounded-xl w-full text-white">
                 Register
               </button>
-            ) : (
-              <Loading />
-            )}
+              )
+             }
+            
           </form>
         </div>
       </div>
