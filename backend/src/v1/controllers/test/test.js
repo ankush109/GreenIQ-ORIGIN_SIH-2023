@@ -4,6 +4,51 @@ import { customResponse } from "../../../utils/Response";
 const prisma = new PrismaClient();
 
 const testController = {
+
+  async getSubmissionsByTestId(req,res){
+try{
+ const {id} =req.params;
+ const submissions = await prisma.testAttempt.findMany({
+  where:{
+    testId:id
+  },
+  include:{
+    user:true
+  }
+ })
+ res.status(200).json({
+  success:true,
+  message:submissions
+ })
+}catch(err){
+res.status(400).json({
+  success:false,
+  message:err
+ })
+}
+  },
+ async getSubmissionDetails(req,res){
+try{
+ const {id} =req.params;
+ const submissions = await prisma.testSubmission.findMany({
+  where:{
+    attemptId:id
+  },
+  include:{
+    question:true
+  }
+ })
+ res.status(200).json({
+  success:true,
+  message:submissions
+ })
+}catch(err){
+res.status(400).json({
+  success:false,
+  message:err
+ })
+}
+  },
   async getQuestions(req,res){
     try{
         const { id } =req.params;

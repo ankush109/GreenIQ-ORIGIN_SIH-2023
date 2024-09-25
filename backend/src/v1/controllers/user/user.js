@@ -286,7 +286,9 @@ res.status(400).json({
           id: req.user.id,
         },
         include:{
+          
           tests:{
+          
             include:{
               attempts:{
                 include:{
@@ -298,8 +300,11 @@ res.status(400).json({
                 }
               }
             }
-          }
-        }
+          },
+          TestAttempt:true
+        
+        },
+      
       });
       res.json(customResponse(200, user));
     } catch (err) {

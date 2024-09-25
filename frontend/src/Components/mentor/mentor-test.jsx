@@ -6,6 +6,8 @@ import { mentorTestQuery } from "../../api/test";
 import Loading from "../Loading";
 import Error from "../Error";
 import Searchbox from "../SearchBox";
+import { Link } from "react-router-dom";
+import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 
 function Mentortest() {
   const { data, isLoading, isError } = mentorTestQuery();
@@ -79,7 +81,8 @@ function Mentortest() {
                   </td>
                   <td>{item.class.name}</td>
                   <td className="flex-row-center mx-auto text-lg">
-                    <AiFillEye />
+                  <Link to={`/mentor/submission/${item.id}`}>
+                  <EyeOpenIcon/></Link>
                   </td>
                 </tr>
               ))}

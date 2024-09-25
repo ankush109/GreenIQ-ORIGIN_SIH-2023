@@ -24,8 +24,10 @@ router.get(
   materialController.getMaterialByClass
 );
 router.post("/create-test", authMiddleware, testController.createTest);
+router.get("/get-sub/:id",authMiddleware,testController.getSubmissionsByTestId)
 router.post("/start-test", authMiddleware, testController.startTestAttempt);
 router.post("/submit-answer", authMiddleware, testController.submitAnswer);
+router.get("/get-sub-details/:id",authMiddleware,testController.getSubmissionDetails)
 router.post("/finish-test", authMiddleware, testController.finishTestAttempt);
 router.post("/create-course", authMiddleware, courseController.creatCourse);
 router.get("/get-questions/:id",authMiddleware,testController.getQuestions)

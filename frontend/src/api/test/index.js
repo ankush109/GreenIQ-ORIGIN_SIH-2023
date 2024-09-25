@@ -50,7 +50,14 @@ const finishTest = async (testId)=>{
   });
   return data;
 }
-
+const getSubmissionsByTestId = async (testId) =>{
+   const { data } = await AuthAPI().get(`/user/get-sub/${testId}`);
+  return data;
+}
+const getSubmissionDetails = async (attemptId) =>{
+   const { data } = await AuthAPI().get(`/user/get-sub-details/${attemptId}`);
+  return data;
+}
 
 const getQuestionByTestId =async(testId)=>{
   const { data } = await AuthAPI().get(`/user/get-questions/${testId}`);
@@ -88,4 +95,4 @@ const mentorTestQuery = () =>
     },
   });
 
-export { createTest, mentorTestQuery, deleteTest,finishTest, getTestsQuery ,getQuestionByTestId ,submitIndividual,startTest};
+export {getSubmissionDetails,getSubmissionsByTestId, createTest, mentorTestQuery, deleteTest,finishTest, getTestsQuery ,getQuestionByTestId ,submitIndividual,startTest};

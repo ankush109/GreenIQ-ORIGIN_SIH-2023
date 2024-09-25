@@ -6,9 +6,11 @@ import Loading from "../Loading";
 import Searchbox from "../SearchBox";
 import { AiFillEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { GetUserQuery } from "../../api/user";
 
 const Test = () => {
   const { data } = getTestsQuery();
+  const {data:userdata} = GetUserQuery()
   const { isLoading, isError } = getTestsQuery();
   const [test, setTest] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -33,6 +35,10 @@ const Test = () => {
     <div>
       <Error />
     </div>;
+  }
+  const renderSuccess = (testId) =>{
+      const issome = userdata.TestAttempt.some((x)=>x.testId==testId)
+      return issome
   }
   return (
     <div>
@@ -77,7 +83,11 @@ const Test = () => {
                     <td>{item.owner.name}</td>
                     <td className="flex-row-center mx-auto text-lg">
                       <Link to={`/user/test/${item.id}`}>
-                      <AiFillEye /></Link>
+                     </Link> {
+                       renderSuccess(item.id) ? "submitted" : (
+                         <AiFillEye />
+                       )
+                      }
                     </td>
                   </tr>
                 ))
