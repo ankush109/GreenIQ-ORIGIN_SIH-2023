@@ -59,20 +59,21 @@ model Material {
 }
 
 model User {
-  id              String     @id @default(auto()) @map("_id") @db.ObjectId
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
   name            String
-  email           String     @unique
+  email           String        @unique
   classname       String
   password        String
-  phonenumber     String     @unique
-  role            String     @default("student")
+  phonenumber     String        @unique
+  role            String        @default("student")
   courses         Course[] // Many-to-many relationship via junction collection
   tests           Test[] // Many-to-many relationship via junction collection
-  meetingsAsHost  Meeting[]  @relation("host")
-  meetingsAsGuest Meeting[]  @relation("guest")
+  meetingsAsHost  Meeting[]     @relation("host")
+  meetingsAsGuest Meeting[]     @relation("guest")
   Material        Material[]
   Question        Question[]
   Answer          Answer[]
+  TestAttempt     TestAttempt[]
 }
 
 model Meeting {
@@ -101,7 +102,7 @@ model Question {
   text      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  answers   Answer[] // One-to-many relationship
+  answers   Answer[]
   user      User     @relation(fields: [userId], references: [id])
   userId    String   @db.ObjectId
 }
@@ -141,4 +142,41 @@ model Test {
   classId     String   @db.ObjectId
   subject     Subject  @relation(fields: [subjectId], references: [id])
   subjectId   String   @db.ObjectId
+
+  attempts  TestAttempt[]
+  questions TestQuestion[]
+}
+
+model TestQuestion {
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
+  testId      String           @db.ObjectId
+  question    String
+  // options     String[]
+  test        Test             @relation(fields: [testId], references: [id])
+  submissions TestSubmission[]
+}
+
+model TestSubmission {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  attemptId   String   @db.ObjectId
+  questionId  String   @db.ObjectId
+  answer      String
+  submittedAt DateTime @default(now())
+
+  attempt  TestAttempt  @relation(fields: [attemptId], references: [id])
+  question TestQuestion @relation(fields: [questionId], references: [id])
+}
+
+model TestAttempt {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String    @db.ObjectId
+  testId      String    @db.ObjectId
+  startedAt   DateTime  @default(now())
+  completedAt DateTime?
+  status      String
+  score       Float?
+
+  user        User             @relation(fields: [userId], references: [id])
+  test        Test             @relation(fields: [testId], references: [id])
+  submissions TestSubmission[]
 }

@@ -4,29 +4,23 @@ import { customResponse } from "../../../utils/Response";
 const prisma = new PrismaClient();
 
 const testController = {
-  // allows mentor to create a test by providing a particular class and subject
-  async createTest(req, res, next) {
+  
+   async createTest(req, res) {
     try {
-      const { subjectname, classname, description, title } = req.body;
+      const { subjectname, classname, description, title, questions } = req.body;
 
-      // Find the Class by name
+  
       let classRecord = await prisma.class.findFirst({
-        where: {
-          name: classname,
-        },
+        where: { name: classname },
       });
 
-      // If the class doesn't exist, create a new class
       if (!classRecord) {
         classRecord = await prisma.class.create({
-          data: {
-            name: classname,
-            // Add any other class-related fields here
-          },
+          data: { name: classname },
         });
       }
 
-      // Find the Subject by name within the Class
+ 
       let subjectRecord = await prisma.subject.findFirst({
         where: {
           name: subjectname,
@@ -34,45 +28,210 @@ const testController = {
         },
       });
 
-      // If the subject doesn't exist, create a new subject
       if (!subjectRecord) {
         subjectRecord = await prisma.subject.create({
-          data: {
-            name: subjectname,
-            classId: classRecord.id,
-            // Add any other subject-related fields here
-          },
+          data: { name: subjectname, classId: classRecord.id },
         });
       }
 
-      // Create a new Test associated with the found Class and Subject
+
       const newTest = await prisma.test.create({
         data: {
-          description: description,
-          title: title,
-          owner: { connect: { id: req.user.id } }, // Connect the test to the user
+          description,
+          title,
+          owner: { connect: { id: req.user.id } }, // Mentor creating the test
           class: { connect: { id: classRecord.id } },
           subject: { connect: { id: subjectRecord.id } },
         },
       });
 
-      res.json({
-        success: true,
-        message: newTest,
-      });
+      
+      if (questions && questions.length > 0) {
+        for (const question of questions) {
+          await prisma.testQuestion.create({
+            data: {
+              question: question.question,
+              test: { connect: { id: newTest.id } },
+            },
+          });
+        }
+      }
 
-      console.log("Test created:", newTest);
+      res.json({ success: true, message: "Test created successfully", newTest });
     } catch (error) {
       console.error("Error creating test:", error);
+      res.status(500).json({ success: false, message: error.message });
+    } finally {
+      await prisma.$disconnect();
+    }
+  },
+   async startTestAttempt(req, res) {
+    try {
+      const { testId } = req.body;
+
+      // Check if test exists
+      const test = await prisma.test.findUnique({
+        where: { 
+          id: testId
+         },
+        include: { 
+          questions: true 
+        }, 
+      });
+
+      if (!test) {
+        return res.status(404).json({ success: false, message: "Test not found" });
+      }
+
+   
+      const newAttempt = await prisma.testAttempt.create({
+        data: {
+          user: { connect: { id: req.user.id } },
+          test: { connect: { id: testId } },
+          status: "in_progress",
+        },
+      });
+
       res.json({
+        success: true,
+        message: "Test attempt started",
+        test: {
+          id: test.id,
+          title: test.title,
+          description: test.description,
+          questions: test.questions.map(q => ({
+            id: q.id,
+            question: q.question,
+          })),
+        },
+        attemptId: newAttempt.id,
+      });
+    } catch (error) {
+      console.error("Error starting test attempt:", error);
+      res.status(500).json({ success: false, message: "Error starting test attempt" });
+    } finally {
+      await prisma.$disconnect();
+    }
+  },
+  async submitAnswer(req, res, next) {
+  try {
+    const { testId, questionId, answer } = req.body;
+
+  
+    const attempt = await prisma.testAttempt.findFirst({
+      where: {
+        testId: testId,
+        userId: req.user.id, 
+        status: 'in_progress', 
+      },
+    });
+
+    if (!attempt) {
+      return res.status(404).json({ message: "Test attempt not found" });
+    }
+
+
+    const existingSubmission = await prisma.testSubmission.findFirst({
+      where: {
+        attemptId: attempt.id,
+        questionId: questionId,
+      },
+    });
+
+    let submission;
+
+    if (existingSubmission) {
+
+      submission = await prisma.testSubmission.update({
+        where: {
+          id: existingSubmission.id,
+        },
+        data: {
+          answer,
+          submittedAt: new Date(),
+        },
+      });
+
+      return res.json({
+        success: true,
+        message: "Answer updated successfully",
+        submission,
+      });
+    } else {
+      
+      submission = await prisma.testSubmission.create({
+        data: {
+          attemptId: attempt.id,
+          questionId: questionId,
+          answer,
+          submittedAt: new Date(),
+        },
+      });
+
+      return res.json({
+        success: true,
+        message: "Answer submitted successfully",
+        submission,
+      });
+    }
+  } catch (error) {
+    console.error("Error submitting answer:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error submitting answer",
+    });
+  } finally {
+    await prisma.$disconnect();
+  }
+},
+
+  async finishTestAttempt(req, res, next) {
+    try {
+       const { testId } = req.body;
+    const attempt = await prisma.testAttempt.findFirst({
+      where: {
+        testId: testId,
+        userId: req.user.id, 
+        status: 'in_progress', 
+      },
+      include: {
+        test: {
+          include: {
+            questions: true,
+          },
+        },
+        submissions: true,
+      },
+    });
+
+
+      if (!attempt) {
+        return res.status(404).json({ message: "Test attempt not found" });
+      }
+    
+      const updatedAttempt = await prisma.testAttempt.update({
+        where: { id: attempt.id },
+        data: {
+          completedAt: new Date(),
+          status: "completed",
+        },
+      });
+
+      return res.json({
+        success: true,
+        message: "Test attempt completed successfully",
+        attempt: updatedAttempt,
+      });
+    } catch (error) {
+      console.error("Error finishing test attempt:", error);
+      res.status(500).json({
         success: false,
-        message: error.message,
+        message: "Error finishing test attempt",
       });
     } finally {
       await prisma.$disconnect();
     }
   },
-
   // alows to get mentor all the test he/she has created til yet
   async getAllTestsCreatedByUser(req, res, next) {
     try {
@@ -87,6 +246,7 @@ const testController = {
         include: {
           class: true,
           subject: true,
+           questions: true,
         },
       });
 
