@@ -36,6 +36,7 @@ import Chat from "./Components/student/Chat";
 import IndividualQuestions from "./Components/student/IndividualQuestions";
 import IndividualTest from "./Components/mentor/IndividualTest";
 import SubmissionDetails from "./Components/mentor/SubmissionDetails";
+import MySubmissions from "./Components/student/MySubmissions";
 function App() {
   function isJWTValid() {
     const token = localStorage.getItem("token");
@@ -91,6 +92,7 @@ function App() {
              <Route path="meet" element={<Meet />} />
                
             <Route path="sathi" element={<Sathi />} />
+             <Route path="my-submissions" element={<MySubmissions />} />
             <Route path="material/:id" element={<MaterialSubject />} />
             <Route path="test" element={<Test />} />
             <Route path="material" element={<Material />} />

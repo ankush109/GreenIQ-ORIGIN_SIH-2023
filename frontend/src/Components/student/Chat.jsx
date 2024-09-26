@@ -1,24 +1,47 @@
 import React, { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
-import { GetAllConvoQuery, GetAllUsersQuery, GetUserQuery, sendMessage } from "../../api/user";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  GetAllConvoQuery,
+  GetAllUsersQuery,
+  GetUserQuery,
+  sendMessage,
+} from "../../api/user";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../../Components/ui/dropdown-menu";
 import toast from "react-hot-toast";
 import { Send, VerifiedUserRounded } from "@mui/icons-material";
 import { BiUserCircle } from "react-icons/bi";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../../Components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../../Components/ui/dialog";
+import { Avatar } from "@mui/material";
 
 const Chat = () => {
   const [open, setOpen] = useState(false);
   const [wantTo, setWantto] = useState();
   const { data: mydetails } = GetUserQuery();
   const [onlineUsers, setOnlineUser] = useState([]);
-  const { data: AllconvoData, isLoading: conversationsLoading, refetch } = GetAllConvoQuery();
+  const {
+    data: AllconvoData,
+    isLoading: conversationsLoading,
+    refetch,
+  } = GetAllConvoQuery();
   const { data: allusers, isLoading: usersLoading } = GetAllUsersQuery();
   const [selectedConvo, setSelectedConvo] = useState("");
   const [selected, setSelected] = useState(null);
   const [message, setMessage] = useState("");
   const messagesEndRef = useRef(null);
-
 
   useEffect(() => {
     if (!mydetails?.id) return;
@@ -56,14 +79,12 @@ const Chat = () => {
     };
   }, [mydetails?.id]);
 
-  
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [selectedConvo?.messages]);
 
-  
   const sendmessageto = async () => {
     if (!message) {
       toast.error("Message cannot be empty!");
@@ -75,10 +96,14 @@ const Chat = () => {
         ...prev,
         messages: [
           ...(prev.messages || []),
-          { message: message, senderId: mydetails?.id },
+          { message: message, senderId: mydetails?.id, timestamp: Date.now() },
         ],
       }));
-      const data = await sendMessage(message, selectedConvo.participants[0].id, selectedConvo.id);
+      const data = await sendMessage(
+        message,
+        selectedConvo.participants[0].id,
+        selectedConvo.id
+      );
       console.log(data, "data");
       toast.success("Chat Successful");
       setMessage("");
@@ -88,7 +113,6 @@ const Chat = () => {
     }
   };
 
- 
   const createConveration = async () => {
     try {
       const data = await sendMessage("hi ", wantTo?.id, selectedConvo.id);
@@ -101,9 +125,7 @@ const Chat = () => {
     }
   };
 
-const deleteConveration = async ()=>{
-  
-}
+  const deleteConveration = async () => {};
   if (usersLoading) return <div>Loading users...</div>;
   if (conversationsLoading) return "Loading conversations...";
 
@@ -115,13 +137,15 @@ const deleteConveration = async ()=>{
             Create Chat
           </DropdownMenuTrigger>
           <DropdownMenuContent className="bg-white ">
-            <DropdownMenuLabel className="font-bold">Select User</DropdownMenuLabel>
+            <DropdownMenuLabel className="font-bold">
+              Select User
+            </DropdownMenuLabel>
             <DropdownMenuSeparator />
             {allusers?.map((x) => (
               <DropdownMenuItem
                 key={x.id}
                 onClick={() => {
-                  setOpen(true); 
+                  setOpen(true);
                   setWantto(x);
                 }}
                 className="cursor-pointer hover:bg-gray-200 hover:text-white px-4 py-2"
@@ -131,16 +155,30 @@ const deleteConveration = async ()=>{
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
-        <div className="mt-6">
+        <div className="mt-6 h-[90%] p-2 overflow-auto">
           {AllconvoData?.map((convo) => (
             <div
               key={convo.id}
-              className={`cursor-pointer py-2 px-3 rounded-lg mb-2 hover:bg-stone-700 hover:text-white ${selectedConvo.id === convo.id ? "bg-stone-500 text-white" : ""}`}
+              className={`cursor-pointer py-2 px-3 bg-white rounded-lg mb-2 hover:bg-green-200  ${
+                selectedConvo.id === convo.id ? "bg-lime-300" : ""
+              }`}
               onClick={() => setSelectedConvo(convo)}
             >
-              <div className="flex items-center gap-4">
-                {convo.participants[0].name}{" "}
-             
+              <div className="flex   gap-2  p-2 rounded-md">
+                <div className="flex">
+                  <Avatar />
+                </div>
+                <div className="flex flex-col">
+                  {convo.participants[0].name}{" "}
+                  <div>
+                    {" "}
+                    {convo.messages[convo.messages.length - 1].message}
+                  </div>{" "}
+                </div>
+              </div>
+
+              <div>
+                <div></div>
               </div>
             </div>
           ))}
@@ -168,9 +206,12 @@ const deleteConveration = async ()=>{
                   <div>{msg.message}</div>{" "}
                   <div className="text-xs mt-6">
                     {new Date(msg?.timestamp).toLocaleDateString("en-US", {
-                      year: "numeric",
                       month: "long",
                       day: "numeric",
+                      year: "numeric",
+                      hour: "numeric",
+                      minute: "numeric",
+                      hour12: true,
                     })}
                   </div>
                 </div>
@@ -196,7 +237,10 @@ const deleteConveration = async ()=>{
           </div>
         </div>
       ) : (
-        <div />
+        <div className="text-center font-semibold text-3xl w-1/2 flex h-screen justify-center items-center ml-40">
+          {" "}
+          Click on the User You want to Chat{" "}
+        </div>
       )}
 
       <Dialog open={open} onOpenChange={() => setOpen(!open)}>

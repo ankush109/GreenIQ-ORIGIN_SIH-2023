@@ -33,6 +33,10 @@ const sendMessage =async (message,receiverId,conversationId)=>{
     message,receiverId,conversationId
   })
 }
+const getMySubmissions = async ()=>{
+  const {data}= await AuthAPI().get("/user/get-user-sub")
+  return data;
+}
 const getUserById =async (userId)=>{
   const {data } =await AuthAPI().get("/user/getuserbyid/userId")
   return data
@@ -52,7 +56,16 @@ const GetUserQuery = () =>
     },
   });
 
-
+const getSubmissionQuery =()=>
+useQuery({
+    queryKey: ["get-subs"],
+    queryFn: () => getMySubmissions(),
+    select: (data) => {
+      const res = data.message;
+    
+      return res;
+    },
+})
   const GetAllUsersQuery = () =>
   useQuery({
     queryKey: ["all-users"],
@@ -74,4 +87,4 @@ const GetUserQuery = () =>
     },
   });
 
-export { GetUserQuery,GetAllUsersQuery,GetAllConvoQuery,getUserById,sendMessage };
+export { GetUserQuery,getSubmissionQuery,GetAllUsersQuery,GetAllConvoQuery,getUserById,sendMessage };

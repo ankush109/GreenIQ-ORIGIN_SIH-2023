@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 function IndividualQuestions() {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
+  const [start,setstart]=useState(false)
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
 
@@ -61,20 +62,45 @@ function IndividualQuestions() {
   return (
     <div className="base-container py-[5vh]">
       <h1 className="text-3xl font-merri">Answer Questions</h1>
-      <div onClick={()=>startTest(id)}>start test </div>
-      <div className="questions-container py-[5vh] w-3/4">
+      {!start && (
+         <div className='bg-blue-600 w-[200px] text-center p-2 hover:bg-blue-800 cursor-pointer text-white rounded-lg m-4' onClick={()=>{
+        startTest(id)
+        toast.success("Test Started ")
+        setstart(true)
+      } }>start test </div>
+      ) }
+      {start ? (
+        <div className="questions-container py-[5vh] w-3/4">
         {!loading ? (
           questions.length > 0 ? (
-            questions.map((x) => (
+            questions.map((x,idx) => (
               <div key={x._id} className="question-item mb-4">
-                <div className="question-text mb-2">{x.question}</div>
-                <TextField
-                  label="Your Answer"
-                  value={answers[x.id] || ""} // Ensure the value is specific to this question's ID
-                  onChange={(e) => changeAnswerValue(x.id, e.target.value)} // Update only the specific answer
-                  fullWidth
-                  margin="normal"
-                />
+               <div className='flex gap-4'>
+                <div>Q{idx+1}. </div>  <div className="question-text mb-2">{x.question}</div>
+                </div>
+          <textarea
+  label="Your Answer"
+  value={answers[x.id] || ""}
+  onChange={(e) => changeAnswerValue(x.id, e.target.value)}
+  className="
+    w-full 
+    min-h-[150px] 
+    p-4 
+    text-base 
+    rounded-lg 
+    border 
+    border-gray-300 
+    shadow-md 
+    resize-y 
+    outline-none 
+    transition 
+    focus:border-blue-600 
+    focus:ring-0
+  "
+  placeholder="Type your answer here..."
+/>
+
+
                 <div className='bg-gray-500 w-[150px] text-white p-2' onClick={()=>saveIndiAnswer(x.id,id,answers[x.id])}> Save </div>
               </div>
             ))
@@ -97,6 +123,7 @@ function IndividualQuestions() {
           </Button>
         )}
       </div>
+      ):"Questions will be visible once you start the test .. "}
     </div>
   );
 }

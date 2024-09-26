@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-import Leftbar from "../Leftbar";
 import { getTestsQuery } from "../../api/test";
 import Error from "../Error";
 import Loading from "../Loading";
-import Searchbox from "../SearchBox";
 import { AiFillEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { GetUserQuery } from "../../api/user";
+import { Check, ChecklistOutlined } from "@mui/icons-material";
 
 const Test = () => {
   const { data } = getTestsQuery();
-  const {data:userdata} = GetUserQuery()
+  const { data: userdata } = GetUserQuery();
   const { isLoading, isError } = getTestsQuery();
   const [test, setTest] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -26,78 +25,90 @@ const Test = () => {
   const filteredTests = test?.filter((item) =>
     item.subject.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
-  const options = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
+
+  const formatter = (date) => {
+    return new Date(date).toLocaleString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
   };
+
+  const renderSuccess = (testId) => {
+    const isSubmitted = userdata?.TestAttempt?.some((x) => x.testId === testId);
+    return isSubmitted;
+  };
+
   if (isError) {
-    <div>
-      <Error />
-    </div>;
+    return (
+      <div>
+        <Error />
+      </div>
+    );
   }
-  const renderSuccess = (testId) =>{
-      const issome = userdata.TestAttempt.some((x)=>x.testId==testId)
-      return issome
-  }
+
   return (
-    <div>
+    <div className="max-w-7xl mx-auto p-4">
       {isLoading ? (
-        <div>
+        <div className="text-center py-4">
           <Loading />
         </div>
       ) : (
-        <div className="base-container py-[5vh]">
-          <h1 className="font-merri text-3xl">Tests Available for You</h1>
-
-          <Searchbox
-            test="Search your test.."
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-          />
-          <hr className="my-5" />
-          <div className="overflow-auto rounded-lg bg-green-100 text-center text-sm p-5 ">
-            <table className="font-comf w-full">
-              <tr className="font-mono">
-                <th>Subject</th>
-                <th>Description</th>
-                <th>Date</th>
-                <th>Created By</th>
-                <th>Options</th>
+        <div>
+          <h1 className="text-3xl font-semibold mb-4">Tests Available for You</h1>
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="bg-gray-200 text-center">
+                <th className="p-2 border border-gray-300">Subject</th>
+                <th className="p-2 border border-gray-300">Description</th>
+                <th className="p-2 border border-gray-300">Date</th>
+                <th className="p-2 border border-gray-300">Created By</th>
+                <th className="p-2 border border-gray-300">Options</th>
               </tr>
+            </thead>
+            <tbody>
               {filteredTests.length > 0 ? (
-                filteredTests?.map((item) => (
-                  <tr>
-                    <td>{"Physics"}</td>
-                    <td>
-                      {item.description == "abc"
+                filteredTests.map((item) => (
+                  <tr
+                    key={item.id}
+                    className="even:bg-gray-50 odd:bg-white hover:bg-gray-100 transition duration-200"
+                  >
+                    <td className="p-2 border border-gray-300">
+                      {item.subject.name || "Physics"}
+                    </td>
+                    <td className="p-2 border border-gray-300 text-left">
+                      {item.description === "abc"
                         ? "Vector Calculus"
                         : item.description}
                     </td>
-                    <td>
-                      {new Date(item?.createdAt).toLocaleDateString(
-                        "en-US",
-                        options
-                      )}
+                    <td className="p-2 border border-gray-300">
+                      {formatter(item.createdAt)}
                     </td>
-                    <td>{item.owner.name}</td>
-                    <td className="flex-row-center mx-auto text-lg">
-                      <Link to={`/user/test/${item.id}`}>
-                     </Link> {
-                       renderSuccess(item.id) ? "submitted" : (
-                         <AiFillEye />
-                       )
-                      }
+                    <td className="p-2 border border-gray-300">
+                      {item.owner.name}
+                    </td>
+                    <td className="p-2 border border-gray-300 text-lg">
+                      {renderSuccess(item.id) ? (
+                        <span className="text-green-600 font-semibold">
+                          <Check/>
+                        </span>
+                      ) : (
+                        <Link to={`/user/test/${item.id}`}>
+                          <AiFillEye className="inline-block" />
+                        </Link>
+                      )}
                     </td>
                   </tr>
                 ))
               ) : (
-                <h1 className="bg-green-100 text-center text-sm p-5">
-                  no test found
-                </h1>
+                <tr>
+                  <td colSpan="5" className="bg-green-100 text-center p-5">
+                    No test found
+                  </td>
+                </tr>
               )}
-            </table>
-          </div>
+            </tbody>
+          </table>
         </div>
       )}
     </div>

@@ -1,103 +1,105 @@
+// @ts-nocheck
 import React, { useEffect, useState } from "react";
-import Leftbar from "../Leftbar";
 import { getMentorsQuery, myRequestedMeetingsQuery } from "../../api/meetings";
-import MentorCard from "../mentor/MentorCard";
-import BookedMeeting from "./BookedMeeting";
 import Loading from "../Loading";
 import Error from "../Error";
 import { Badge } from "../../Components/ui/badge";
+
 function PersonalBookings() {
-  const data = getMentorsQuery();
-  const myrequestedmeetings = myRequestedMeetingsQuery();
-  const { isLoading: MeetingLoading, isError: MeetingError } =
-    myRequestedMeetingsQuery();
-  const { isLoading: MentorLoading, isError: MentorError } = getMentorsQuery();
+  const { data: mentorsData } = getMentorsQuery();
+  const {
+    data: myRequestedMeetings,
+    isLoading,
+    isError,
+  } = myRequestedMeetingsQuery();
   const [meetings, setMeetings] = useState([]);
-  const [bookedmeetings, setbookmeetings] = useState([]);
 
   useEffect(() => {
-    if (!MeetingLoading && !MentorLoading) {
-      setMeetings(data?.data);
-      setbookmeetings(myrequestedmeetings?.data);
+    if (mentorsData && myRequestedMeetings) {
+      setMeetings(myRequestedMeetings);
     }
-  }, [myrequestedmeetings, MeetingLoading, MentorLoading, data]);
+  }, [mentorsData, myRequestedMeetings]);
 
-  if (MeetingError || MentorError) {
-    return (
-      <div>
-        <Error />
-      </div>
-    );
+  if (isError) {
+    return <Error />;
   }
 
-  if (MeetingLoading || MentorLoading) {
+  if (isLoading) {
     return <Loading />;
   }
 
+  const formatDate = (date) => {
+    return new Date(date).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
   return (
-    <div>
-      <div className=" font-serif text-4xl mt-10 mb-5">
-        Booked <span className="font-comf text-theme">Calls</span>
+    <div className="max-w-7xl mx-auto p-4">
+      <div className="text-3xl font-semibold mb-5">
+        Booked <span className="text-theme">Calls</span>
       </div>
-      <hr className="m-5 " />
-      {bookedmeetings?.length > 0 ? (
-        bookedmeetings?.map((meeting) => (
-          <div key={meeting?.id} className="grid grid-cols-4 gap-10">
-            <div className="flex flex-col">
-              <div className="font-semibold">Date</div>
-              <p>
-                {meeting?.dates.map((x) => {
-                  const formattedDate = new Date(x.date).toLocaleDateString(
-                    "en-US",
-                    {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    }
-                  );
-                  return (
-                    <Badge variant="outline" className="bg-gray-600 text-white">
-                      {formattedDate}
+      <table className="w-full border-collapse">
+        <thead>
+          <tr className="bg-gray-200 text-center">
+            <th className="p-2 border border-gray-300">Date</th>
+            <th className="p-2 border border-gray-300">Status</th>
+            <th className="p-2 border border-gray-300">Guest Name</th>
+            <th className="p-2 border border-gray-300">Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          {meetings?.length > 0 ? (
+            meetings.map((meeting) => (
+              <tr
+                key={meeting.id}
+                className="even:bg-gray-50 odd:bg-white hover:bg-gray-100 transition duration-200"
+              >
+                <td className="p-2 border border-gray-300 text-center">
+                  {meeting?.dates.map((x) => (
+                    <Badge
+                      key={x.date}
+                      variant="outline"
+                      className="bg-gray-600 text-white mb-1 inline-block"
+                    >
+                      {formatDate(x.date)}
                     </Badge>
-                  );
-                })}
-              </p>
-            </div>
-
-            <div className="flex flex-col">
-              <div className="font-semibold">Status</div>
-
-              {meeting.status == "requested" ? (
-                <Badge
-                  variant="outline"
-                  className="bg-red-600 w-1/3 p-2 flex items-center text-white"
-                >
-                  {meeting.status}
-                </Badge>
-              ) : (
-                <Badge
-                  variant="outline"
-                  className="bg-green-600 w-1/3 p-2 flex items-center text-white"
-                >
-                  {meeting.status}
-                </Badge>
-              )}
-            </div>
-
-            <div className="flex flex-col">
-              <div className="font-semibold">Guest Name</div>
-              <p className="text-lg">{meeting.guest.name}</p>
-            </div>
-
-            <div className="flex flex-col">
-              <div className="font-semibold">Notes</div>
-              <p>{meeting.notes}</p>
-            </div>
-          </div>
-        ))
-      ) : (
-        <h1 className="col-span-4 text-center">No booked meetings found</h1>
-      )}
+                  ))}
+                </td>
+                <td className="p-2 border border-gray-300 text-center">
+                  {meeting.status === "requested" ? (
+                    <Badge
+                      variant="outline"
+                      className="bg-red-600 p-2 text-white"
+                    >
+                      {meeting.status}
+                    </Badge>
+                  ) : (
+                    <Badge
+                      variant="outline"
+                      className="bg-green-600 p-2 text-white"
+                    >
+                      {meeting.status}
+                    </Badge>
+                  )}
+                </td>
+                <td className="p-2 border border-gray-300 text-center">
+                  {meeting.guest.name}
+                </td>
+                <td className="p-2 border border-gray-300">{meeting.notes}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="4" className="bg-green-100 text-center p-5 text-lg">
+                No booked meetings found
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
   );
 }
