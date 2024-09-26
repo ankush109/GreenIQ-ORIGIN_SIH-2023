@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  client:
+    image: backend1
+    ports:
+      - "3001:3001"
+   
+    depends_on:
+      - server
+
+  server:
+    image: client1
+    ports:
+      - "5000:5000"
+    environment:
+      - USER_ACCESS_SECRET=GreenIQ
+      - DATABASE_URL=mongodb+srv://ankush:ankush2003@ankush.9quzp.mongodb.net/greeniq
+      - GEMINI_API_KEY=AIzaSyANHvlVcuTSK4-gJNKT5RwIZcVo6M5XitU
