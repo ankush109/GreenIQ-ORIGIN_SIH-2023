@@ -4,6 +4,32 @@ import { customResponse } from "../../../utils/Response";
 const prisma = new PrismaClient();
 
 const testController = {
+
+  async giveScoreTest(req,res){
+  try{
+    const { attemptId ,score }= req.body;
+
+     await prisma.testAttempt.update({
+      where:{
+          id :attemptId
+      },
+      data:{
+          score:score
+      }
+      
+    })
+    res.status(200).json({
+      success:true,
+      message:"score successfully"
+    })
+  }catch(err){
+    console.log(err,"erre")
+  res.status(200).json({
+      success:false,
+      message:"scoring failed"
+    }) 
+  }
+},
 async getMySubmissions(req,res){
   try{
     const userId= req.user.id;
@@ -56,8 +82,15 @@ try{
     attemptId:id
   },
   include:{
-    question:true
-  }
+    question:true,
+    attempt:{
+      include:{
+        test:true
+      }
+    }
+  
+  },
+
  })
  res.status(200).json({
   success:true,

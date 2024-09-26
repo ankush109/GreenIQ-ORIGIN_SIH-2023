@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
-import Leftbar from "../Leftbar";
-import { AiFillEye } from "react-icons/ai";
-
 import { mentorTestQuery } from "../../api/test";
 import Loading from "../Loading";
 import Error from "../Error";
-import Searchbox from "../SearchBox";
 import { Link } from "react-router-dom";
-import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from "@mui/material";
+import { EyeOpenIcon } from "@radix-ui/react-icons";
 
 function Mentortest() {
   const { data, isLoading, isError } = mentorTestQuery();
-
   const [test, setTest] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -20,6 +24,7 @@ function Mentortest() {
       setTest(data);
     }
   }, [data]);
+
   const filteredTests = test?.filter((item) =>
     item.subject.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -31,88 +36,63 @@ function Mentortest() {
   };
 
   if (isError) {
-    return (
-      <div>
-        <Error />
-      </div>
-    );
+    return <Error />;
   }
 
   return (
-    <div>
-      {/* <div className="hidden lg:block w-1/4 h-screen">
-        <Leftbar />
-      </div> */}
+    <div className="base-container py-[5vh]">
+      <h1 className="text-3xl font-merri mb-5">Your Created Tests</h1>
+
       {isLoading ? (
-        <div>
-          <Loading />
-        </div>
+        <Loading />
       ) : (
-        <div className="base-container py-[5vh]">
-          <h1 className="text-3xl font-merri">Your Created Tests</h1>
-          <Searchbox
-            text="Search for the test..."
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-          />
-          <hr className="my-5" />
-          <div className="overflow-auto rounded-lg bg-green-100 text-center text-sm p-5">
-            <table className="font-comf">
-              <tr className="font-mono">
-                <th>Subject</th>
-                <th>Description</th>
-                <th>Date</th>
-                <th>Class</th>
-                <th>Options</th>
-              </tr>
-              {filteredTests?.map((item) => (
-                <tr>
-                  <td>
-                    {item?.subject?.name ? item?.subject?.name : "Physics"}
-                  </td>
-                  <td>
-                    {item?.title ? item?.title : "test on heat"}
-                  </td>
-                  <td>
-                    {new Date(item?.createdAt).toLocaleDateString(
-                      "en-US",
-                      options
-                    )}
-                  </td>
-                  <td>{item.class.name}</td>
-                  <td className="flex-row-center mx-auto text-lg">
-                  <Link to={`/mentor/submission/${item.id}`}>
-                  <EyeOpenIcon/></Link>
-                  </td>
-                </tr>
-              ))}
-            </table>
-            {/* <div className="grid grid-cols-1 lg:grid-cols-5  gap-2 px-4 py-2 font-semibold bg-gray-300">
-              <div>Title</div>
-              <div>Subject</div>
-              <div>Description</div>
-              <div>Date</div>
-              <div>class</div>
-            </div>
-            {filteredTests?.map((item) => (
-              <div
-                key={item.id}
-                className="grid grid-cols-1 lg:grid-cols-5 gap-2 px-4 py-2 border-t border-gray-300"
-              >
-                <div>{item?.title || "dummy t1"}</div>
-                <div>{item?.description || "dummy t1"}</div>
-                <div>{item?.subject?.name || "dummy t1"}</div>
-                <div>
-                  {new Date(item?.createdAt).toLocaleDateString(
-                    "en-US",
-                    options
-                  )}
-                </div>
-                <div>{item.class.name || "dummy t1"}</div>
-              </div>
-            ))} */}
-          </div>
-        </div>
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Subject</TableCell>
+                <TableCell>Description</TableCell>
+                <TableCell>Date</TableCell>
+                <TableCell>Class</TableCell>
+                <TableCell>Options</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {filteredTests.length > 0 ? (
+                filteredTests.map((item) => (
+                  <TableRow key={item.id}>
+                    <TableCell>
+                      {item?.subject?.name ? item?.subject?.name : "Physics"}
+                    </TableCell>
+                    <TableCell>
+                      {item?.title ? item?.title : "test on heat"}
+                    </TableCell>
+                    <TableCell>
+                      {new Date(item?.createdAt).toLocaleDateString(
+                        "en-US",
+                        options
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {item.class.name ? item.class.name : "11"}
+                    </TableCell>
+                    <TableCell>
+                      <Link to={`/mentor/submission/${item.id}`}>
+                        <EyeOpenIcon />
+                      </Link>
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={5} align="center">
+                    No tests found
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
       )}
     </div>
   );

@@ -19,15 +19,15 @@ model Conversation {
 
 model Chat {
   id             String       @id @default(auto()) @map("_id") @db.ObjectId
-  senderId       String // ID of the user sending the message
-  receiverId     String // ID of the user receiving the message
-  message        String // The chat message content
-  timestamp      DateTime     @default(now()) // When the message was sent
-  conversationId String       @db.ObjectId // Corrected to use ObjectId for MongoDB
+  senderId       String
+  receiverId     String
+  message        String
+  timestamp      DateTime     @default(now())
+  conversationId String       @db.ObjectId
   conversation   Conversation @relation("ConversationToChat", fields: [conversationId], references: [id])
 
   @@index([senderId, receiverId])
-  @@index([conversationId]) // Index for faster lookups based on the conversation
+  @@index([conversationId])
 }
 
 model Class {
@@ -66,8 +66,8 @@ model User {
   password        String
   phonenumber     String        @unique
   role            String        @default("student")
-  courses         Course[] // Many-to-many relationship via junction collection
-  tests           Test[] // Many-to-many relationship via junction collection
+  courses         Course[]
+  tests           Test[]
   meetingsAsHost  Meeting[]     @relation("host")
   meetingsAsGuest Meeting[]     @relation("guest")
   Material        Material[]
@@ -148,10 +148,10 @@ model Test {
 }
 
 model TestQuestion {
-  id          String           @id @default(auto()) @map("_id") @db.ObjectId
-  testId      String           @db.ObjectId
-  question    String
-  // options     String[]
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  testId   String @db.ObjectId
+  question String
+
   test        Test             @relation(fields: [testId], references: [id])
   submissions TestSubmission[]
 }

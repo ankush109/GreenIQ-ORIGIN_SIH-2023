@@ -26,43 +26,46 @@ const createTest = async (testInfo) => {
   return data;
 };
 
-const submitIndividual = async (testId,questionId,answer)=>{
-  const {data} =await AuthAPI().post("/user/submit-answer", {
+const submitIndividual = async (testId, questionId, answer) => {
+  const { data } = await AuthAPI().post("/user/submit-answer", {
     testId,
     questionId,
-    answer
+    answer,
   });
   return data;
-}
+};
 
-
-const startTest = async (testId)=>{
-  const {data} =await AuthAPI().post("/user/start-test", {
+const startTest = async (testId) => {
+  const { data } = await AuthAPI().post("/user/start-test", {
     testId,
-    
   });
   return data;
-}
-const finishTest = async (testId)=>{
-  const {data} =await AuthAPI().post("/user/finish-test", {
+};
+const finishTest = async (testId) => {
+  const { data } = await AuthAPI().post("/user/finish-test", {
     testId,
-    
   });
   return data;
-}
-const getSubmissionsByTestId = async (testId) =>{
-   const { data } = await AuthAPI().get(`/user/get-sub/${testId}`);
+};
+const getSubmissionsByTestId = async (testId) => {
+  const { data } = await AuthAPI().get(`/user/get-sub/${testId}`);
   return data;
-}
-const getSubmissionDetails = async (attemptId) =>{
-   const { data } = await AuthAPI().get(`/user/get-sub-details/${attemptId}`);
+};
+const getSubmissionDetails = async (attemptId) => {
+  const { data } = await AuthAPI().get(`/user/get-sub-details/${attemptId}`);
   return data;
-}
-
-const getQuestionByTestId =async(testId)=>{
+};
+const scoreTestAttempt = async (attempt, score) => {
+  const { data } = await AuthAPI().post(`/user/score`, {
+    attemptId: attempt,
+    score: parseInt(score),
+  });
+  return data;
+};
+const getQuestionByTestId = async (testId) => {
   const { data } = await AuthAPI().get(`/user/get-questions/${testId}`);
   return data;
-}
+};
 const getMyTest = async () => {
   const { data } = await AuthAPI().get("/user/get-my-test", "11");
   return data;
@@ -95,4 +98,16 @@ const mentorTestQuery = () =>
     },
   });
 
-export {getSubmissionDetails,getSubmissionsByTestId, createTest, mentorTestQuery, deleteTest,finishTest, getTestsQuery ,getQuestionByTestId ,submitIndividual,startTest};
+export {
+  getSubmissionDetails,
+  getSubmissionsByTestId,
+  createTest,
+  mentorTestQuery,
+  deleteTest,
+  finishTest,
+  getTestsQuery,
+  getQuestionByTestId,
+  submitIndividual,
+  startTest,
+  scoreTestAttempt,
+};

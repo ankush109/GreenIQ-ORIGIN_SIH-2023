@@ -32,6 +32,7 @@ router.post("/finish-test", authMiddleware, testController.finishTestAttempt);
 router.post("/create-course", authMiddleware, courseController.creatCourse);
 router.get("/get-questions/:id",authMiddleware,testController.getQuestions)
 router.get("/get-user-sub",authMiddleware,testController.getMySubmissions)
+router.post("/score",authMiddleware,testController.giveScoreTest)
 router.get(
   "/get-test",
   authMiddleware,

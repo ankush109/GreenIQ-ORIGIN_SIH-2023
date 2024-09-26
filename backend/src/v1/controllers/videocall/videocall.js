@@ -13,7 +13,7 @@ const payload = {
   version: 2, // OPTIONAL
   roomId: "11", // OPTIONAL
   participantId: "lxvdplwt", // OPTIONAL
-  roles: ["crawler", "rtc"], // OPTIONAL
+  roles: ["crawler", "crawler"], // OPTIONAL
 };
 
 const videoCallController = {

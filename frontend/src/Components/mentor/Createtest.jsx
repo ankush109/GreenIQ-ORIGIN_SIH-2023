@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { createTest } from "../../api/test";
 import { Button, TextField, IconButton } from "@mui/material";
 import toast from "react-hot-toast";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 
 function CreateTest() {
   const [testInfo, setTestInfo] = useState({
@@ -11,10 +11,8 @@ function CreateTest() {
     subjectname: "",
     classname: "",
   });
-  
-  const [questions, setQuestions] = useState([
-    
-  ]);
+
+  const [questions, setQuestions] = useState([]);
 
   const [newQuestion, setNewQuestion] = useState("");
 
@@ -108,18 +106,15 @@ function CreateTest() {
             margin="normal"
           />
 
-          {/* Questions Section */}
           <div className="questions-section my-4">
             <h3 className="text-xl mb-2">Questions</h3>
             {questions.map((q, index) => (
               <div key={index} className="flex items-center mb-2">
-                <TextField
-                  value={q.question}
-                  disabled
-                  fullWidth
-                  margin="normal"
-                />
-                <IconButton onClick={() => deleteQuestion(index)} color="secondary">
+                <div className="w-full bg-gray-100 p-2">{q.question} </div>
+                <IconButton
+                  onClick={() => deleteQuestion(index)}
+                  color="secondary"
+                >
                   <DeleteIcon />
                 </IconButton>
               </div>
@@ -134,18 +129,20 @@ function CreateTest() {
                 fullWidth
                 margin="normal"
               />
-              <Button
+              <div
                 onClick={addQuestion}
-                variant="contained"
-                color="primary"
-                className="ml-2"
+                className="bg-blue-600 w-[200px] ml-10 cursor-pointer p-2 text-white mt-2 rounded-lg"
               >
                 Add Question
-              </Button>
+              </div>
             </div>
           </div>
 
-          <Button onClick={createTestHandler} variant="contained" color="primary">
+          <Button
+            onClick={createTestHandler}
+            variant="contained"
+            color="primary"
+          >
             Create Test
           </Button>
         </form>

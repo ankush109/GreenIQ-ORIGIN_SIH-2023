@@ -14,18 +14,18 @@ import { MeetingView } from "./MeetingView";
 export function Meet() {
   const [meetingId, setMeetingId] = useState(null);
 
-  //Getting the meeting id by calling the api we just wrote
+ 
   const getMeetingAndToken = async (id) => {
     const meetingId =
       id == null ? await createMeeting({ token: authToken }) : id;
     setMeetingId(meetingId);
   };
 
-  //This will set Meeting Id to null when meeting is left or ended
+ 
   const onMeetingLeave = () => {
     setMeetingId(null);
   };
-const TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiJmNTdjNjAzMy1mMTZkLTQ2NzYtODdiZS01NmJhNWEzYjYxMTQiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTcyNzI5NTIyNywiZXhwIjoxNzI3MzgxNjI3fQ.580q7VZQGeObm6x2eEWEDV6ijE0erNDEUwws2sUiMi8"
+const TOKEN= token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiJmNTdjNjAzMy1mMTZkLTQ2NzYtODdiZS01NmJhNWEzYjYxMTQiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTcyNzM3NzMyMiwiZXhwIjoxNzI3NDYzNzIyfQ.QNCN9F4x0FZ5h89Ml0MCrf_b3J1WsjVmaEn423Goa3s"
   return authToken && meetingId ? (
     <MeetingProvider
       config={{

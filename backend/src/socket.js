@@ -5,7 +5,7 @@ import express from "express";
 const app = express();
 const server  = http.createServer(app)
 const io = new Server(server,{
-    cors:["http://localhost:3000"]
+    cors:["http://localhost:3000","https://green-iq-deployed.vercel.app"]
 })
 
 export const getReciverSocketId=(reciverId)=>{

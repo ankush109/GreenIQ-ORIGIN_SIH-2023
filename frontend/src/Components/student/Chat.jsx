@@ -42,11 +42,11 @@ const Chat = () => {
   const [selected, setSelected] = useState(null);
   const [message, setMessage] = useState("");
   const messagesEndRef = useRef(null);
-
+ const BACKEND_URL =` ${import.meta.env.VITE_BASE_URL}/`
   useEffect(() => {
     if (!mydetails?.id) return;
 
-    const socket = io("http://localhost:5000", {
+    const socket = io(BACKEND_URL, {
       query: {
         userId: mydetails?.id,
       },
