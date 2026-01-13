@@ -24,10 +24,6 @@
 
 ![](https://raw.githubusercontent.com/ankush109/GreenIQ-ORIGIN_SIH-2023/main/frontend/assets/l.png)
 
-### About - People behind this project :3
-
-![](https://github.com/ankush109/GreenIQ-ORIGIN_SIH-2023/blob/main/frontend/assets/about.png?raw=true)
-
 ## STUDENT VIEW -
 
 ### Dashboard
